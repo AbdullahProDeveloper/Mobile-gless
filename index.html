@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0e1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>GlassStock Pro — মোবাইল গ্লাস স্টক</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg-2: #111827;
+  --card: #161f30;
+  --card-2: #1c2739;
+  --hover: #243044;
+  --border: #2a3854;
+  --border-2: #3b4a66;
+  --text: #f1f5f9;
+  --text-2: #94a3b8;
+  --text-3: #64748b;
+  --accent: #3b82f6;
+  --accent-2: #60a5fa;
+  --accent-glow: rgba(59,130,246,0.4);
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --purple: #8b5cf6;
+  --grad: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --grad-green: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+  --r-sm: 10px;
+  --r: 14px;
+  --r-lg: 20px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: 'Hind Siliguri', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(59,130,246,0.12), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(139,92,246,0.10), transparent 40%);
+  background-attachment: fixed;
+  padding-bottom: var(--safe-bottom);
+}
+
+input, button, select, textarea {
+  font-family: inherit;
+  font-size: 16px; /* iOS zoom prevent */
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,14,26,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding-top: var(--safe-top);
+}
+.header-inner {
+  max-width: 1400px; margin: 0 auto;
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+.brand-logo {
+  width: 38px; height: 38px; border-radius: 11px;
+  background: var(--grad);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; flex-shrink: 0;
+  box-shadow: 0 6px 16px var(--accent-glow);
+}
+.brand-text { min-width: 0; }
+.brand-text h1 {
+  font-size: 15px; font-weight: 700;
+  letter-spacing: -0.01em; line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.brand-text p {
+  font-size: 10px; color: var(--text-3);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  font-weight: 500;
+}
+.sync-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 20px;
+  background: var(--card); border: 1px solid var(--border);
+  font-size: 11px; font-weight: 500;
+  color: var(--text-2); flex-shrink: 0;
+}
+.sync-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--warning);
+  box-shadow: 0 0 8px currentColor;
+  animation: pulse 2s infinite;
+}
+.sync-status.online .sync-dot { background: var(--success); }
+.sync-status.error .sync-dot { background: var(--danger); animation: none; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.sync-text-full { display: none; }
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1400px; margin: 0 auto;
+  padding: 14px 12px 100px;
+}
+
+/* ===== SEARCH ===== */
+.search-hero {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 12px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+.search-row {
+  display: flex; gap: 8px; align-items: center;
+}
+.search-wrap { flex: 1; position: relative; min-width: 0; }
+.search-wrap input {
+  width: 100%;
+  padding: 14px 40px 14px 42px;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s;
+}
+.search-wrap input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+.search-wrap input::placeholder { color: var(--text-3); }
+.search-ico {
+  position: absolute; left: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-3); font-size: 17px; pointer-events: none;
+}
+.search-clear {
+  position: absolute; right: 10px; top: 50%;
+  transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--hover); border: none;
+  color: var(--text-2); cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.search-clear.show { display: flex; }
+
+.tool-btn {
+  width: 48px; height: 48px; flex-shrink: 0;
+  border-radius: var(--r);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border);
+  color: var(--accent-2);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  transition: all 0.2s;
+  position: relative;
+}
+.tool-btn:active { transform: scale(0.94); }
+.tool-btn.listening {
+  background: var(--danger); border-color: var(--danger);
+  color: white; animation: rec 1.2s infinite;
+}
+@keyframes rec {
+  0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
+  50% { box-shadow: 0 0 0 14px rgba(239,68,68,0); }
+}
+
+/* ===== LIVE RESULTS ===== */
+.live-results {
+  position: absolute; left: 12px; right: 12px; top: calc(100% + 6px);
+  background: var(--card-2);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--r);
+  max-height: 60vh; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 200;
+  display: none;
+  box-shadow: var(--shadow-lg);
+}
+.live-results.show { display: block; animation: slideDown 0.2s ease; }
+@keyframes slideDown {
+  from { opacity:0; transform: translateY(-6px); }
+  to { opacity:1; transform: translateY(0); }
+}
+.live-item {
+  padding: 12px 14px; cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  transition: 0.12s;
+}
+.live-item:active { background: var(--hover); }
+.live-item:last-child { border-bottom: none; }
+.live-item .info { flex: 1; min-width: 0; }
+.live-item .name {
+  font-weight: 600; font-size: 14px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.live-item .sub {
+  font-size: 11px; color: var(--text-3); margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pill {
+  padding: 4px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.pill.g { background: rgba(16,185,129,0.15); color: var(--success); }
+.pill.o { background: rgba(245,158,11,0.15); color: var(--warning); }
+.pill.r { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+/* ===== STATS - Mobile First 2 column ===== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+  position: relative; overflow: hidden;
+}
+.stat::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--accent);
+}
+.stat.g::before { background: var(--success); }
+.stat.o::before { background: var(--warning); }
+.stat.r::before { background: var(--danger); }
+.stat.p::before { background: var(--purple); }
+.stat-label {
+  font-size: 10px; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 600; margin-bottom: 6px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 4px;
+}
+.stat-label span:last-child { font-size: 14px; opacity: 0.7; }
+.stat-value {
+  font-size: 22px; font-weight: 800;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.stat.g .stat-value { color: var(--success); }
+.stat.o .stat-value { color: var(--warning); }
+.stat.r .stat-value { color: var(--danger); }
+.stat.p .stat-value { color: var(--purple); }
+
+/* ===== CARD ===== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.card-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+}
+.card-title {
+  font-size: 14px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-title .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.card-hint { font-size: 11px; color: var(--text-3); }
+.card-body { padding: 16px; }
+
+/* ===== FORM ===== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label {
+  font-size: 11px; color: var(--text-2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-left: 2px;
+}
+.field input, .field select, .field textarea {
+  padding: 13px 14px;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: 0.18s;
+  width: 100%;
+  min-height: 48px;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 20px;
+  border: none; border-radius: var(--r-sm);
+  font-size: 15px; font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  min-height: 48px;
+  text-decoration: none;
+  user-select: none;
+}
+.btn:active:not(:disabled) { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary {
+  background: var(--grad); color: white;
+  box-shadow: 0 6px 16px var(--accent-glow);
+  width: 100%;
+}
+.btn-secondary {
+  background: var(--bg-2); color: var(--text);
+  border: 1.5px solid var(--border);
+}
+.btn-sm {
+  padding: 8px 12px; font-size: 13px;
+  min-height: 38px; border-radius: 8px;
+}
+.btn-danger { background: var(--danger); color: white; }
+.btn-success { background: var(--success); color: white; }
+
+/* ===== FILTERS ===== */
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,14,26,0.3);
+}
+.filters select, .filters input {
+  padding: 11px 12px;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  min-height: 44px;
+  width: 100%;
+}
+.filters select:focus, .filters input:focus { border-color: var(--accent); }
+.filters .full { grid-column: 1 / -1; }
+.filters-actions {
+  display: flex; gap: 8px; grid-column: 1 / -1;
+}
+.filters-actions .btn { flex: 1; }
+
+/* ===== STOCK LIST - Mobile Cards ===== */
+.stock-list { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+.stock-card {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+  position: relative;
+  transition: 0.15s;
+}
+.stock-card:active { background: var(--hover); }
+.stock-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; border-radius: 3px 0 0 3px;
+  background: var(--success);
+}
+.stock-card.low::before { background: var(--warning); }
+.stock-card.out::before { background: var(--danger); }
+
+.sc-top {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 10px;
+  margin-bottom: 10px;
+}
+.sc-title { flex: 1; min-width: 0; }
+.sc-model {
+  font-size: 16px; font-weight: 700;
+  line-height: 1.25;
+  word-break: break-word;
+}
+.sc-brand {
+  font-size: 12px; color: var(--text-3);
+  margin-top: 3px; display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap;
+}
+.sc-brand .tag {
+  background: var(--hover); color: var(--text-2);
+  padding: 2px 8px; border-radius: 6px;
+  font-size: 11px; font-weight: 500;
+}
+.sc-qty {
+  text-align: center;
+  background: var(--bg);
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  min-width: 60px;
+}
+.sc-qty-num {
+  font-size: 20px; font-weight: 800;
+  font-family: 'Inter', sans-serif;
+  line-height: 1;
+}
+.sc-qty.g .sc-qty-num { color: var(--success); }
+.sc-qty.o .sc-qty-num { color: var(--warning); }
+.sc-qty.r .sc-qty-num { color: var(--danger); }
+.sc-qty-label {
+  font-size: 9px; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 600; margin-top: 2px;
+}
+
+.sc-info {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+.sc-info-item {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--text-2);
+}
+.sc-info-item strong { color: var(--text); font-weight: 600; }
+
+.sc-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 6px;
+}
+.sc-btn {
+  padding: 9px 6px;
+  border-radius: 8px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  transition: 0.15s;
+  min-height: 42px;
+}
+.sc-btn:active { transform: scale(0.95); }
+.sc-btn.add { color: var(--success); }
+.sc-btn.add:active { background: rgba(16,185,129,0.15); border-color: var(--success); }
+.sc-btn.sub { color: var(--warning); }
+.sc-btn.sub:active { background: rgba(245,158,11,0.15); border-color: var(--warning); }
+.sc-btn.edit { color: var(--accent-2); }
+.sc-btn.edit:active { background: rgba(59,130,246,0.15); border-color: var(--accent); }
+.sc-btn.del { color: var(--danger); }
+.sc-btn.del:active { background: rgba(239,68,68,0.15); border-color: var(--danger); }
+.sc-btn .lbl { display: none; }
+
+.badge-status {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 10px;
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.badge-status::before {
+  content: ''; width: 5px; height: 5px;
+  border-radius: 50%; background: currentColor;
+}
+.badge-status.g { background: rgba(16,185,129,0.15); color: var(--success); }
+.badge-status.o { background: rgba(245,158,11,0.15); color: var(--warning); }
+.badge-status.r { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+/* ===== EMPTY / LOADING ===== */
+.empty {
+  text-align: center; padding: 50px 20px;
+  color: var(--text-3);
+}
+.empty-icon { font-size: 3rem; margin-bottom: 10px; opacity: 0.4; }
+.empty-title { font-size: 15px; font-weight: 600; color: var(--text-2); margin-bottom: 4px; }
+.empty-sub { font-size: 13px; }
+
+.spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--border); border-top-color: var(--accent);
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== MODAL ===== */
+.modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s;
+}
+.modal.show { display: flex; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.modal-content {
+  background: var(--card);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  padding: 18px 16px calc(20px + var(--safe-bottom));
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: slideUp 0.28s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.modal-handle {
+  width: 44px; height: 4px; border-radius: 2px;
+  background: var(--border-2);
+  margin: 0 auto 14px;
+}
+.modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-header h3 { font-size: 16px; font-weight: 700; }
+.modal-close {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--bg-2); border: 1px solid var(--border);
+  color: var(--text-2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.modal-close:active { background: var(--hover); }
+.modal-actions {
+  display: flex; gap: 8px;
+  margin-top: 18px;
+}
+.modal-actions .btn { flex: 1; }
+
+/* ===== IMAGE UPLOAD ===== */
+.upload-area {
+  border: 2px dashed var(--border-2);
+  border-radius: var(--r);
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  background: var(--bg-2);
+  display: block;
+}
+.upload-area:active { border-color: var(--accent); background: var(--hover); }
+.upload-area input { display: none; }
+.upload-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.upload-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.upload-sub { font-size: 12px; color: var(--text-3); }
+.image-preview {
+  width: 100%; max-height: 260px;
+  object-fit: contain;
+  border-radius: var(--r-sm);
+  margin-bottom: 12px;
+  background: var(--bg);
+}
+.ocr-status {
+  padding: 12px; border-radius: var(--r-sm);
+  background: var(--bg-2); border: 1px solid var(--border);
+  color: var(--text-2); font-size: 13px;
+  margin-bottom: 12px;
+  word-break: break-word;
+}
+
+/* ===== VOICE OVERLAY ===== */
+.voice-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,14,26,0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 1500;
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.voice-overlay.show { display: flex; animation: fadeIn 0.2s; }
+.voice-box { text-align: center; max-width: 320px; }
+.voice-mic {
+  width: 110px; height: 110px; border-radius: 50%;
+  background: var(--grad);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 46px; margin: 0 auto 22px;
+  animation: micPulse 1.5s infinite;
+}
+@keyframes micPulse {
+  0%,100% { transform: scale(1); box-shadow: 0 0 50px var(--accent-glow); }
+  50% { transform: scale(1.06); box-shadow: 0 0 80px var(--accent-glow); }
+}
+.voice-text {
+  font-size: 17px; color: var(--text);
+  margin-bottom: 8px; font-weight: 500;
+  min-height: 26px;
+  word-break: break-word;
+}
+.voice-hint { font-size: 13px; color: var(--text-3); }
+
+/* ===== TOAST ===== */
+.toast-wrap {
+  position: fixed;
+  left: 12px; right: 12px;
+  bottom: calc(12px + var(--safe-bottom));
+  display: flex; flex-direction: column; gap: 8px;
+  z-index: 2000;
+  pointer-events: none;
+}
+.toast {
+  background: var(--card-2);
+  border: 1px solid var(--border-2);
+  border-left: 4px solid var(--success);
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 500;
+  transform: translateY(120%);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: auto;
+  word-break: break-word;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.error { border-left-color: var(--danger); }
+.toast.warning { border-left-color: var(--warning); }
+.toast.info { border-left-color: var(--accent); }
+.toast-icon { font-size: 18px; flex-shrink: 0; }
+
+/* ===== FAB (Floating Action Button) - Mobile ===== */
+.fab {
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + var(--safe-bottom));
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--grad);
+  border: none;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px var(--accent-glow);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 500;
+  transition: 0.2s;
+}
+.fab:active { transform: scale(0.9); }
+.fab.hide { transform: scale(0); opacity: 0; pointer-events: none; }
+
+/* ===== DESKTOP / TABLET (min 640px) ===== */
+@media (min-width: 640px) {
+  body { font-size: 15px; }
+  .container { padding: 20px 20px 60px; }
+  .stats { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .stat { padding: 18px; }
+  .stat-value { font-size: 26px; }
+  .form-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .btn-primary { width: auto; min-width: 180px; }
+  .filters { grid-template-columns: 1fr 1fr 1fr 1fr auto auto; padding: 16px; gap: 10px; }
+  .filters .full { grid-column: auto; }
+  .filters-actions { grid-column: auto; }
+  .filters-actions .btn { flex: initial; }
+  .stock-list { padding: 16px; }
+  .sc-btn .lbl { display: inline; }
+  .sc-btn { padding: 9px 12px; }
+  .toast-wrap { left: auto; right: 20px; bottom: 20px; max-width: 380px; }
+  .fab { display: none; }
+  .modal { align-items: center; padding: 20px; }
+  .modal-content {
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+  .modal-handle { display: none; }
+  .sync-text-full { display: inline; }
+  .sync-text-short { display: none; }
+}
+
+/* ===== LARGE DESKTOP (min 1024px) ===== */
+@media (min-width: 1024px) {
+  .stats { grid-template-columns: repeat(5, 1fr); }
+  .stock-list { gap: 12px; }
+  .stock-card { padding: 18px; }
+  .sc-actions { grid-template-columns: repeat(4, auto); justify-content: flex-end; }
+}
+
+/* ===== SMALL MOBILE tweaks ===== */
+@media (max-width: 380px) {
+  .brand-text p { display: none; }
+  .stat-value { font-size: 20px; }
+  .sc-model { font-size: 15px; }
+  .tool-btn { width: 44px; height: 44px; }
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ===== Selection ===== */
+::selection { background: var(--accent); color: white; }
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ===== iOS Input Fix ===== */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea { font-size: 16px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-logo">📱</div>
+      <div class="brand-text">
+        <h1>GlassStock Pro</h1>
+        <p>Inventory Manager</p>
+      </div>
+    </div>
+    <div class="sync-status" id="syncStatus">
+      <span class="sync-dot"></span>
+      <span id="syncText">
+        <span class="sync-text-full">কানেক্ট হচ্ছে...</span>
+        <span class="sync-text-short">...</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main class="container">
+
+  <!-- Search -->
+  <div class="search-hero" id="searchHero">
+    <div class="search-row">
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input type="text" id="liveSearch" placeholder="মডেল বা ব্র্যান্ড খুঁজুন..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="search-clear" id="searchClear" type="button">✕</button>
+      </div>
+      <button class="tool-btn" id="voiceBtn" type="button" title="ভয়েস সার্চ">🎤</button>
+      <button class="tool-btn" id="imageBtn" type="button" title="ছবি সার্চ">📷</button>
+    </div>
+    <div class="live-results" id="liveResults"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">মোট মডেল <span>📦</span></div>
+      <div class="stat-value" id="statModels">—</div>
+    </div>
+    <div class="stat g">
+      <div class="stat-label">মোট স্টক <span>✅</span></div>
+      <div class="stat-value" id="statStock">—</div>
+    </div>
+    <div class="stat o">
+      <div class="stat-label">কম স্টক <span>⚠️</span></div>
+      <div class="stat-value" id="statLow">—</div>
+    </div>
+    <div class="stat r">
+      <div class="stat-label">স্টক শেষ <span>🚫</span></div>
+      <div class="stat-value" id="statOut">—</div>
+    </div>
+    <div class="stat p">
+      <div class="stat-label">মোট মূল্য <span>💰</span></div>
+      <div class="stat-value" id="statValue">—</div>
+    </div>
+  </div>
+
+  <!-- Add Form -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><span class="dot"></span> নতুন স্টক এন্ট্রি</div>
+      <span class="card-hint">একই মডেল+টাইপ = অটো যোগ</span>
+    </div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div class="field">
+          <label>মডেল নাম *</label>
+          <input type="text" id="fModel" placeholder="iPhone 13 / Galaxy S23" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>ব্র্যান্ড</label>
+          <input type="text" id="fBrand" placeholder="Apple / Samsung" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>পরিমাণ</label>
+          <input type="number" id="fQty" min="1" placeholder="1" value="1" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>দাম (৳)</label>
+          <input type="number" id="fPrice" min="0" step="0.01" placeholder="0" inputmode="decimal">
+        </div>
+        <div class="field">
+          <label>গ্লাস টাইপ</label>
+          <select id="fType">
+            <option value="Normal">Normal Glass</option>
+            <option value="Tempered">Tempered Glass</option>
+            <option value="Full Glue">Full Glue</option>
+            <option value="Matte">Matte</option>
+            <option value="Privacy">Privacy</option>
+            <option value="UV">UV Glass</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>নোট (অপশনাল)</label>
+          <input type="text" id="fNotes" placeholder="নোট লিখুন..." autocomplete="off">
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <button class="btn btn-primary" id="addBtn" type="button">💾 সেভ করুন</button>
+        <button class="btn btn-secondary" id="clearBtn" type="button">🔄 ক্লিয়ার</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stock List -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title"><span class="dot"></span> স্টক তালিকা</div>
+      <span class="card-hint" id="resultCount">—</span>
+    </div>
+
+    <div class="filters">
+      <select id="filterBrand"><option value="">সব ব্র্যান্ড</option></select>
+      <select id="filterType"><option value="">সব টাইপ</option></select>
+      <select id="filterStatus" class="full">
+        <option value="">সব স্ট্যাটাস</option>
+        <option value="instock">স্টক আছে</option>
+        <option value="low">কম স্টক</option>
+        <option value="out">স্টক শেষ</option>
+      </select>
+      <input type="text" id="filterSearch" class="full" placeholder="দ্রুত ফিল্টার..." autocomplete="off">
+      <div class="filters-actions">
+        <button class="btn btn-secondary btn-sm" id="refreshBtn" type="button">🔄 রিফ্রেশ</button>
+        <button class="btn btn-secondary btn-sm" id="exportBtn" type="button">📥 CSV</button>
+      </div>
+    </div>
+
+    <div class="stock-list" id="stockList"></div>
+  </div>
+
+</main>
+
+<!-- ============ FAB ============ -->
+<button class="fab" id="fabBtn" type="button" aria-label="নতুন এন্ট্রি">＋</button>
+
+<!-- ============ EDIT MODAL ============ -->
+<div class="modal" id="editModal">
+  <div class="modal-content">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>✏️ এডিট করুন</h3>
+      <button class="modal-close" onclick="closeEdit()" type="button">×</button>
+    </div>
+    <input type="hidden" id="eId">
+    <div class="form-grid" style="grid-template-columns:1fr">
+      <div class="field"><label>মডেল</label><input type="text" id="eModel"></div>
+      <div class="field"><label>ব্র্যান্ড</label><input type="text" id="eBrand"></div>
+      <div class="field"><label>পরিমাণ</label><input type="number" id="eQty" min="0" inputmode="numeric"></div>
+      <div class="field"><label>দাম (৳)</label><input type="number" id="ePrice" step="0.01" inputmode="decimal"></div>
+      <div class="field">
+        <label>গ্লাস টাইপ</label>
+        <select id="eType">
+          <option value="Normal">Normal Glass</option>
+          <option value="Tempered">Tempered Glass</option>
+          <option value="Full Glue">Full Glue</option>
+          <option value="Matte">Matte</option>
+          <option value="Privacy">Privacy</option>
+          <option value="UV">UV Glass</option>
+        </select>
+      </div>
+      <div class="field"><label>নোট</label><input type="text" id="eNotes"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeEdit()" type="button">বাতিল</button>
+      <button class="btn btn-primary" id="saveEditBtn" type="button">আপডেট</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ IMAGE MODAL ============ -->
+<div class="modal" id="imageModal">
+  <div class="modal-content">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>📷 ছবি থেকে খুঁজুন</h3>
+      <button class="modal-close" onclick="closeImage()" type="button">×</button>
+    </div>
+    <label class="upload-area" for="imageInput">
+      <div class="upload-icon">📸</div>
+      <div class="upload-title">ছবি আপলোড করুন</div>
+      <div class="upload-sub">ছবি থেকে মডেলের নাম পড়ে খুঁজে বের করবে</div>
+      <input type="file" id="imageInput" accept="image/*" capture="environment">
+    </label>
+    <img id="imagePreview" class="image-preview" style="display:none" alt="preview">
+    <div class="ocr-status" id="ocrStatus" style="display:none"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeImage()" type="button">বন্ধ করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VOICE OVERLAY ============ -->
+<div class="voice-overlay" id="voiceOverlay">
+  <div class="voice-box">
+    <div class="voice-mic">🎤</div>
+    <div class="voice-text" id="voiceText">শুনছি...</div>
+    <div class="voice-hint">মডেলের নাম স্পষ্ট করে বলুন</div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+'use strict';
+
+/* ==========================================================
+   ⚠️ API URL এখানে বসান ⚠️
+   ========================================================== */
+const API_URL = 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxx/exec';
+
+/* ============ State ============ */
+let stockData = [];
+let filteredData = [];
+let isSyncing = false;
+let syncTimer = null;
+let currentSearch = '';
+
+/* ============ Utils ============ */
+const $ = id => document.getElementById(id);
+const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+const fmtNum = n => Number(n || 0).toLocaleString('en-IN');
+
+/* ============ Toast ============ */
+function showToast(msg, type = 'success') {
+  const icons = { success:'✅', error:'❌', warning:'⚠️', info:'ℹ️' };
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type === 'success' ? '' : type);
+  el.innerHTML = `<span class="toast-icon">${icons[type] || '✅'}</span><span>${escapeHtml(msg)}</span>`;
+  $('toastWrap').appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => {
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 400);
+  }, 3000);
+}
+
+/* ============ Sync Status ============ */
+function setSync(status, text) {
+  const el = $('syncStatus');
+  el.className = 'sync-status ' + status;
+  const full = el.querySelector('.sync-text-full');
+  const short = el.querySelector('.sync-text-short');
+  if (full) full.textContent = text;
+  if (short) short.textContent = text.length > 12 ? '•••' : text;
+}
+
+/* ============ API ============ */
+async function apiGet() {
+  const r = await fetch(API_URL + '?action=getAll', { cache: 'no-store' });
+  const j = await r.json();
+  if (!j.success) throw new Error(j.error || 'Fetch failed');
+  return j.data;
+}
+async function apiPost(payload) {
+  const r = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload),
+    redirect: 'follow'
+  });
+  const j = await r.json();
+  if (!j.success) throw new Error(j.error || 'Request failed');
+  return j.data;
+}
+
+/* ============ Sync ============ */
+async function syncData(showLoad = false) {
+  if (isSyncing) return;
+  isSyncing = true;
+  if (showLoad) setSync('', 'লোড হচ্ছে...');
+  try {
+    const data = await apiGet();
+    stockData = data.sort((a,b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+    setSync('online', 'লাইভ ✅');
+    render();
+  } catch (err) {
+    console.error(err);
+    setSync('error', 'সমস্যা');
+    if (showLoad) showToast('লোড ব্যর্থ: ' + err.message, 'error');
+  } finally {
+    isSyncing = false;
+  }
+}
+
+function startAutoSync() {
+  if (syncTimer) clearInterval(syncTimer);
+  syncTimer = setInterval(() => {
+    if (!document.hidden) syncData(false);
+  }, 8000);
+}
+
+/* ============ Render ============ */
+function render() {
+  const q = currentSearch;
+  const f = $('filterSearch').value.toLowerCase().trim();
+  const brand = $('filterBrand').value;
+  const type = $('filterType').value;
+  const status = $('filterStatus').value;
+
+  filteredData = stockData.filter(d => {
+    const hay = (d.model + ' ' + d.brand + ' ' + d.glassType).toLowerCase();
+    if (q && !hay.includes(q)) return false;
+    if (f && !hay.includes(f)) return false;
+    if (brand && d.brand !== brand) return false;
+    if (type && d.glassType !== type) return false;
+    if (status === 'instock' && d.quantity <= 5) return false;
+    if (status === 'low' && (d.quantity === 0 || d.quantity > 5)) return false;
+    if (status === 'out' && d.quantity !== 0) return false;
+    return true;
+  });
+
+  // Stats
+  const total = stockData.length;
+  const stock = stockData.reduce((s,d) => s + (d.quantity || 0), 0);
+  const low = stockData.filter(d => d.quantity > 0 && d.quantity <= 5).length;
+  const out = stockData.filter(d => d.quantity === 0).length;
+  const val = stockData.reduce((s,d) => s + (d.quantity || 0) * (d.price || 0), 0);
+
+  $('statModels').textContent = fmtNum(total);
+  $('statStock').textContent = fmtNum(stock);
+  $('statLow').textContent = fmtNum(low);
+  $('statOut').textContent = fmtNum(out);
+  $('statValue').textContent = '৳' + fmtNum(Math.round(val));
+
+  updateFilters();
+  $('resultCount').textContent = `${filteredData.length}/${stockData.length}`;
+
+  // List
+  const list = $('stockList');
+  if (filteredData.length === 0) {
+    list.innerHTML = `<div class="empty">
+      <div class="empty-icon">📭</div>
+      <div class="empty-title">কোনো আইটেম নেই</div>
+      <div class="empty-sub">উপরের ফর্ম থেকে নতুন স্টক যোগ করুন</div>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = filteredData.map(d => {
+    let cls = 'g', cardCls = '';
+    if (d.quantity === 0) { cls = 'r'; cardCls = 'out'; }
+    else if (d.quantity <= 5) { cls = 'o'; cardCls = 'low'; }
+
+    return `<div class="stock-card ${cardCls}">
+      <div class="sc-top">
+        <div class="sc-title">
+          <div class="sc-model">${escapeHtml(d.model)}</div>
+          <div class="sc-brand">
+            <span>${escapeHtml(d.brand)}</span>
+            <span class="tag">${escapeHtml(d.glassType)}</span>
+          </div>
+        </div>
+        <div class="sc-qty ${cls}">
+          <div class="sc-qty-num">${fmtNum(d.quantity)}</div>
+          <div class="sc-qty-label">স্টক</div>
+        </div>
+      </div>
+      <div class="sc-info">
+        ${d.price ? `<span class="sc-info-item">💰 <strong>৳${fmtNum(d.price)}</strong></span>` : ''}
+        ${d.notes ? `<span class="sc-info-item">📝 ${escapeHtml(d.notes)}</span>` : ''}
+      </div>
+      <div class="sc-actions">
+        <button class="sc-btn add" onclick="adjustQty('${d.id}',1)" type="button" title="+1">＋<span class="lbl">যোগ</span></button>
+        <button class="sc-btn sub" onclick="adjustQty('${d.id}',-1)" type="button" title="-1">−<span class="lbl">বিয়োগ</span></button>
+        <button class="sc-btn edit" onclick="openEdit('${d.id}')" type="button" title="এডিট">✏️<span class="lbl">এডিট</span></button>
+        <button class="sc-btn del" onclick="deleteItem('${d.id}')" type="button" title="ডিলিট">🗑️<span class="lbl">ডিলিট</span></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateFilters() {
+  const brands = [...new Set(stockData.map(d => d.brand).filter(Boolean))].sort();
+  const types = [...new Set(stockData.map(d => d.glassType).filter(Boolean))].sort();
+  const bSel = $('filterBrand'), curB = bSel.value;
+  bSel.innerHTML = '<option value="">সব ব্র্যান্ড</option>' +
+    brands.map(b => `<option value="${escapeHtml(b)}"${b===curB?' selected':''}>${escapeHtml(b)}</option>`).join('');
+  const tSel = $('filterType'), curT = tSel.value;
+  tSel.innerHTML = '<option value="">সব টাইপ</option>' +
+    types.map(t => `<option value="${escapeHtml(t)}"${t===curT?' selected':''}>${escapeHtml(t)}</option>`).join('');
+}
+
+/* ============ Add ============ */
+async function addStock() {
+  const model = $('fModel').value.trim();
+  const brand = $('fBrand').value.trim();
+  const qty = Number($('fQty').value) || 0;
+  const price = Number($('fPrice').value) || 0;
+  const glassType = $('fType').value;
+  const notes = $('fNotes').value.trim();
+
+  if (!model) { showToast('মডেল নাম লিখুন', 'error'); $('fModel').focus(); return; }
+  if (qty <= 0) { showToast('পরিমাণ ০ এর বেশি হতে হবে', 'error'); $('fQty').focus(); return; }
+
+  const btn = $('addBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> সেভ হচ্ছে...';
+  try {
+    await apiPost({ action:'add', data:{ model, brand, quantity:qty, price, glassType, notes } });
+    showToast('সেভ হয়েছে ✅');
+    clearForm();
+    await syncData(false);
+  } catch (err) {
+    showToast('সেভ ব্যর্থ: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '💾 সেভ করুন';
+  }
+}
+
+function clearForm() {
+  ['fModel','fBrand','fPrice','fNotes'].forEach(id => $(id).value = '');
+  $('fQty').value = 1;
+  $('fModel').focus();
+}
+
+/* ============ Adjust ============ */
+async function adjustQty(id, delta) {
+  const item = stockData.find(d => d.id === id);
+  if (!item) return;
+  if (delta < 0 && item.quantity === 0) { showToast('স্টক ইতিমধ্যে ০', 'warning'); return; }
+  item.quantity = Math.max(0, item.quantity + delta);
+  render();
+  try {
+    await apiPost({ action:'adjust', id, delta });
+  } catch (err) {
+    showToast('আপডেট ব্যর্থ: ' + err.message, 'error');
+    await syncData(false);
+  }
+}
+
+/* ============ Delete ============ */
+async function deleteItem(id) {
+  const item = stockData.find(d => d.id === id);
+  if (!item) return;
+  if (!confirm(`"${item.model}" ডিলিট করবেন?`)) return;
+  stockData = stockData.filter(d => d.id !== id);
+  render();
+  try {
+    await apiPost({ action:'delete', id });
+    showToast('ডিলিট সম্পন্ন');
+  } catch (err) {
+    showToast('ডিলিট ব্যর্থ: ' + err.message, 'error');
+    await syncData(false);
+  }
+}
+
+/* ============ Edit ============ */
+function openEdit(id) {
+  const item = stockData.find(d => d.id === id);
+  if (!item) return;
+  $('eId').value = id;
+  $('eModel').value = item.model;
+  $('eBrand').value = item.brand;
+  $('eQty').value = item.quantity;
+  $('ePrice').value = item.price;
+  $('eType').value = item.glassType;
+  $('eNotes').value = item.notes || '';
+  $('editModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeEdit() {
+  $('editModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+async function saveEdit() {
+  const id = $('eId').value;
+  const data = {
+    id,
+    model: $('eModel').value.trim(),
+    brand: $('eBrand').value.trim(),
+    quantity: Number($('eQty').value) || 0,
+    price: Number($('ePrice').value) || 0,
+    glassType: $('eType').value,
+    notes: $('eNotes').value.trim()
+  };
+  if (!data.model) { showToast('মডেল নাম দিন', 'error'); return; }
+  const btn = $('saveEditBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> আপডেট...';
+  try {
+    await apiPost({ action:'update', data });
+    closeEdit();
+    showToast('আপডেট সম্পন্ন');
+    await syncData(false);
+  } catch (err) {
+    showToast('আপডেট ব্যর্থ: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'আপডেট';
+  }
+}
+
+/* ============ Live Search ============ */
+const searchInput = $('liveSearch');
+const liveResults = $('liveResults');
+const searchClear = $('searchClear');
+let searchTimer = null;
+
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  const q = searchInput.value.toLowerCase().trim();
+  currentSearch = q;
+  searchClear.classList.toggle('show', !!q);
+  searchTimer = setTimeout(() => {
+    render();
+    if (!q) { liveResults.classList.remove('show'); return; }
+    const matches = stockData.filter(d =>
+      (d.model + ' ' + d.brand).toLowerCase().includes(q)
+    ).slice(0, 8);
+    if (matches.length === 0) {
+      liveResults.innerHTML = `<div class="live-item" style="cursor:default">
+        <div class="info"><div class="name" style="color:var(--text-3)">কোনো মডেল পাওয়া যায়নি</div></div>
+      </div>`;
+    } else {
+      liveResults.innerHTML = matches.map(d => {
+        let cls = 'g';
+        if (d.quantity === 0) cls = 'r';
+        else if (d.quantity <= 5) cls = 'o';
+        return `<div class="live-item" onclick="pickLive('${d.id}')">
+          <div class="info">
+            <div class="name">${escapeHtml(d.model)}</div>
+            <div class="sub">${escapeHtml(d.brand)} · ${escapeHtml(d.glassType)}</div>
+          </div>
+          <span class="pill ${cls}">${fmtNum(d.quantity)}</span>
+        </div>`;
+      }).join('');
+    }
+    liveResults.classList.add('show');
+  }, 120);
+});
+
+searchClear.onclick = () => {
+  searchInput.value = '';
+  currentSearch = '';
+  searchClear.classList.remove('show');
+  liveResults.classList.remove('show');
+  render();
+  searchInput.focus();
+};
+
+function pickLive(id) {
+  const item = stockData.find(d => d.id === id);
+  if (!item) return;
+  searchInput.value = item.model;
+  currentSearch = item.model.toLowerCase();
+  searchClear.classList.add('show');
+  liveResults.classList.remove('show');
+  render();
+  searchInput.blur();
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-hero')) liveResults.classList.remove('show');
+});
+
+/* ============ Voice Search ============ */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const voiceBtn = $('voiceBtn');
+const voiceOverlay = $('voiceOverlay');
+const voiceText = $('voiceText');
+
+if (!SR) {
+  voiceBtn.onclick = () => showToast('এই ব্রাউজারে ভয়েস সাপোর্ট নেই। Chrome ব্যবহার করুন', 'error');
+} else {
+  const rec = new SR();
+  rec.lang = 'bn-BD';
+  rec.continuous = false;
+  rec.interimResults = true;
+  rec.maxAlternatives = 3;
+  let finalText = '';
+
+  voiceBtn.onclick = () => {
+    try { finalText = ''; rec.start(); } catch(e){}
+  };
+  rec.onstart = () => {
+    voiceBtn.classList.add('listening');
+    voiceOverlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    voiceText.textContent = 'শুনছি...';
+  };
+  rec.onresult = e => {
+    let txt = '';
+    for (let i = 0; i < e.results.length; i++) txt += e.results[i][0].transcript;
+    voiceText.textContent = txt;
+    if (e.results[0].isFinal) finalText = txt.trim();
+  };
+  rec.onerror = e => {
+    if (e.error !== 'no-speech' && e.error !== 'aborted') showToast('ভয়েস সমস্যা: ' + e.error, 'error');
+  };
+  rec.onend = () => {
+    voiceBtn.classList.remove('listening');
+    voiceOverlay.classList.remove('show');
+    document.body.style.overflow = '';
+    if (finalText) {
+      searchInput.value = finalText;
+      currentSearch = finalText.toLowerCase();
+      searchClear.classList.add('show');
+      const lower = finalText.toLowerCase();
+      const match = stockData.find(d => lower.includes(d.model.toLowerCase()));
+      if (match) {
+        searchInput.value = match.model;
+        currentSearch = match.model.toLowerCase();
+      }
+      render();
+      showToast(`খুঁজছি: "${searchInput.value}"`, 'info');
+    }
+  };
+}
+
+/* ============ Image Search ============ */
+function closeImage() {
+  $('imageModal').classList.remove('show');
+  $('imagePreview').style.display = 'none';
+  $('ocrStatus').style.display = 'none';
+  $('imageInput').value = '';
+  document.body.style.overflow = '';
+}
+$('imageBtn').onclick = () => {
+  $('imageModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+};
+
+$('imageInput').onchange = async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    $('imagePreview').src = ev.target.result;
+    $('imagePreview').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+
+  $('ocrStatus').style.display = 'block';
+  $('ocrStatus').textContent = '⏳ ছবি স্ক্যান হচ্ছে...';
+
+  try {
+    if (!window.Tesseract) {
+      await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js');
+    }
+    const { data:{ text } } = await Tesseract.recognize(file, 'eng', {
+      logger: m => {
+        if (m.status === 'recognizing text') {
+          $('ocrStatus').textContent = `⏳ স্ক্যান হচ্ছে... ${Math.round(m.progress*100)}%`;
+        }
+      }
+    });
+    $('ocrStatus').textContent = '📝 পাওয়া গেছে: ' + text.slice(0,100).replace(/\n/g,' ');
+
+    const clean = text.toLowerCase().replace(/\s+/g,' ');
+    let found = null, bestScore = 0;
+    stockData.forEach(d => {
+      const m = d.model.toLowerCase();
+      if (clean.includes(m)) { found = d; bestScore = 999; return; }
+      const words = m.split(' ').filter(w => w.length > 1);
+      const sc = words.filter(w => clean.includes(w)).length;
+      if (sc > bestScore) { bestScore = sc; found = d; }
+    });
+
+    if (found && bestScore > 0) {
+      searchInput.value = found.model;
+      currentSearch = found.model.toLowerCase();
+      searchClear.classList.add('show');
+      render();
+      showToast(`পাওয়া গেছে: ${found.model}`);
+      setTimeout(closeImage, 900);
+    } else {
+      const firstLine = text.trim().split('\n')[0].slice(0,30);
+      searchInput.value = firstLine;
+      currentSearch = firstLine.toLowerCase();
+      searchClear.classList.add('show');
+      render();
+      showToast('মডেল মেলেনি — টেক্সট দিয়ে সার্চ', 'warning');
+    }
+  } catch (err) {
+    $('ocrStatus').textContent = '❌ ব্যর্থ: ' + err.message;
+  }
+};
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = resolve; s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+/* ============ CSV Export ============ */
+$('exportBtn').onclick = () => {
+  if (filteredData.length === 0) { showToast('এক্সপোর্টের ডাটা নেই', 'warning'); return; }
+  const headers = ['Model','Brand','GlassType','Quantity','Price','Status','Notes','Updated'];
+  const rows = filteredData.map(d => {
+    let st = 'In Stock';
+    if (d.quantity === 0) st = 'Out';
+    else if (d.quantity <= 5) st = 'Low';
+    return [d.model, d.brand, d.glassType, d.quantity, d.price, st, d.notes || '', d.updatedAt || ''];
+  });
+  const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `glassstock-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('CSV ডাউনলোড হয়েছে');
+};
+
+/* ============ FAB ============ */
+$('fabBtn').onclick = () => {
+  $('fModel').focus();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// Hide FAB on scroll down, show on scroll up
+let lastY = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const fab = $('fabBtn');
+  if (y > lastY && y > 200) fab.classList.add('hide');
+  else fab.classList.remove('hide');
+  lastY = y;
+}, { passive: true });
+
+/* ============ Keyboard ============ */
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+  if (e.key === 'Escape') {
+    liveResults.classList.remove('show');
+    closeEdit();
+    closeImage();
+  }
+});
+
+/* ============ Bindings ============ */
+$('addBtn').onclick = addStock;
+$('clearBtn').onclick = clearForm;
+$('refreshBtn').onclick = () => syncData(true);
+$('saveEditBtn').onclick = saveEdit;
+$('filterBrand').onchange = render;
+$('filterType').onchange = render;
+$('filterStatus').onchange = render;
+$('filterSearch').oninput = render;
+
+['fModel','fBrand','fQty','fPrice','fNotes'].forEach(id => {
+  $(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); addStock(); }
+  });
+});
+
+// Modal backdrop close
+['editModal','imageModal'].forEach(id => {
+  $(id).addEventListener('click', e => {
+    if (e.target.id === id) {
+      if (id === 'editModal') closeEdit(); else closeImage();
+    }
+  });
+});
+
+// Expose functions
+window.adjustQty = adjustQty;
+window.deleteItem = deleteItem;
+window.openEdit = openEdit;
+window.closeEdit = closeEdit;
+window.closeImage = closeImage;
+window.pickLive = pickLive;
+
+/* ============ Init ============ */
+(async function init() {
+  setSync('', 'কানেক্ট...');
+  await syncData(true);
+  startAutoSync();
+  setTimeout(() => $('fModel').focus(), 400);
+})();
+</script>
+
+</body>
+</html>
