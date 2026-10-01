@@ -2,24 +2,24 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-<meta name="theme-color" content="#0a0e1a">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#070b14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<title>GlassStock Pro — মোবাইল গ্লাস স্টক</title>
+<title>GlassStock Pro Ultimate — Inventory Management</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0e1a;
-  --bg-2: #111827;
-  --card: #161f30;
-  --card-2: #1c2739;
-  --hover: #243044;
-  --border: #2a3854;
-  --border-2: #3b4a66;
+  --bg: #070b14;
+  --bg-2: #0f1522;
+  --card: #131b2c;
+  --card-2: #1a2436;
+  --hover: #212e44;
+  --border: #263349;
+  --border-2: #3a4d6b;
   --text: #f1f5f9;
   --text-2: #94a3b8;
   --text-3: #64748b;
@@ -27,13 +27,20 @@
   --accent-2: #60a5fa;
   --accent-glow: rgba(59,130,246,0.4);
   --success: #10b981;
+  --success-2: #34d399;
   --warning: #f59e0b;
   --danger: #ef4444;
   --purple: #8b5cf6;
+  --pink: #ec4899;
+  --cyan: #06b6d4;
   --grad: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   --grad-green: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
-  --shadow: 0 8px 32px rgba(0,0,0,0.4);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+  --grad-pink: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+  --grad-gold: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  --grad-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --shadow: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 40px var(--accent-glow);
   --r-sm: 10px;
   --r: 14px;
   --r-lg: 20px;
@@ -42,37 +49,117 @@
 }
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-
 html { -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: 'Hind Siliguri', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
-  min-height: 100vh;
-  min-height: 100dvh;
-  font-size: 15px;
-  line-height: 1.5;
+  min-height: 100vh; min-height: 100dvh;
+  font-size: 15px; line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   background-image:
-    radial-gradient(circle at 0% 0%, rgba(59,130,246,0.12), transparent 40%),
-    radial-gradient(circle at 100% 100%, rgba(139,92,246,0.10), transparent 40%);
+    radial-gradient(circle at 0% 0%, rgba(59,130,246,0.14), transparent 45%),
+    radial-gradient(circle at 100% 100%, rgba(139,92,246,0.12), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(16,185,129,0.05), transparent 60%);
   background-attachment: fixed;
   padding-bottom: var(--safe-bottom);
 }
 
-input, button, select, textarea {
-  font-family: inherit;
-  font-size: 16px; /* iOS zoom prevent */
+input, button, select, textarea { font-family: inherit; font-size: 16px; }
+button { cursor: pointer; border: none; background: none; color: inherit; }
+
+/* ===== SVG ICONS ===== */
+.icon {
+  width: 20px; height: 20px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.icon-sm { width: 16px; height: 16px; }
+.icon-lg { width: 24px; height: 24px; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes slideDown {
+  from { opacity:0; transform: translateY(-6px); }
+  to { opacity:1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes toastIn {
+  from { transform: translateY(-120%) scale(0.9); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes toastOut {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(-120%) scale(0.9); opacity: 0; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes rec {
+  0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
+  50% { box-shadow: 0 0 0 16px rgba(239,68,68,0); }
+}
+@keyframes micPulse {
+  0%,100% { transform: scale(1); box-shadow: 0 0 50px var(--accent-glow); }
+  50% { transform: scale(1.06); box-shadow: 0 0 80px var(--accent-glow); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes successPop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(4); opacity: 0; }
+}
+@keyframes scanLine {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+@keyframes barGrow {
+  from { width: 0; }
+}
+
+/* ===== RIPPLE EFFECT ===== */
+.ripple-btn { position: relative; overflow: hidden; }
+.ripple-effect {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  transform: scale(0); pointer-events: none;
+  animation: ripple 0.6s ease-out;
 }
 
 /* ===== HEADER ===== */
 .header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(10,14,26,0.85);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(7,11,20,0.88);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
   border-bottom: 1px solid var(--border);
   padding-top: var(--safe-top);
 }
@@ -83,30 +170,45 @@ input, button, select, textarea {
 }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
 .brand-logo {
-  width: 38px; height: 38px; border-radius: 11px;
+  width: 40px; height: 40px; border-radius: 12px;
   background: var(--grad);
   display: flex; align-items: center; justify-content: center;
-  font-size: 19px; flex-shrink: 0;
-  box-shadow: 0 6px 16px var(--accent-glow);
+  flex-shrink: 0;
+  box-shadow: 0 6px 20px var(--accent-glow);
+  position: relative; overflow: hidden;
 }
+.brand-logo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+  animation: shimmer 3s infinite;
+  background-size: 200% 100%;
+}
+.brand-logo .icon { position: relative; z-index: 1; color: white; }
 .brand-text { min-width: 0; }
 .brand-text h1 {
-  font-size: 15px; font-weight: 700;
-  letter-spacing: -0.01em; line-height: 1.2;
+  font-size: 15px; font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.15;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .brand-text p {
-  font-size: 10px; color: var(--text-3);
-  letter-spacing: 0.05em; text-transform: uppercase;
-  font-weight: 500;
+  font-size: 9px; color: var(--text-3);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  font-weight: 600;
 }
 .sync-status {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 6px 10px; border-radius: 20px;
   background: var(--card); border: 1px solid var(--border);
-  font-size: 11px; font-weight: 500;
+  font-size: 11px; font-weight: 600;
   color: var(--text-2); flex-shrink: 0;
+  transition: all 0.3s;
+  cursor: pointer;
 }
+.sync-status:active { transform: scale(0.95); }
 .sync-dot {
   width: 7px; height: 7px; border-radius: 50%;
   background: var(--warning);
@@ -115,16 +217,49 @@ input, button, select, textarea {
 }
 .sync-status.online .sync-dot { background: var(--success); }
 .sync-status.error .sync-dot { background: var(--danger); animation: none; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.sync-status.syncing .sync-dot { background: var(--accent); }
 .sync-text-full { display: none; }
 
 /* ===== CONTAINER ===== */
 .container {
   max-width: 1400px; margin: 0 auto;
-  padding: 14px 12px 100px;
+  padding: 14px 12px 110px;
 }
 
-/* ===== SEARCH ===== */
+/* ===== TABS ===== */
+.tabs {
+  display: flex; gap: 4px; margin-bottom: 14px;
+  background: var(--card); padding: 5px;
+  border-radius: var(--r); border: 1px solid var(--border);
+  position: relative;
+}
+.tab {
+  flex: 1; padding: 10px 6px;
+  border-radius: 9px;
+  font-size: 13px; font-weight: 600;
+  color: var(--text-3);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  min-height: 42px;
+}
+.tab.active {
+  background: var(--grad);
+  color: white;
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+.tab .icon { width: 16px; height: 16px; }
+.tab-badge {
+  position: absolute; top: -4px; right: -4px;
+  min-width: 18px; height: 18px; padding: 0 5px;
+  background: var(--danger); color: white;
+  border-radius: 9px; font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  border: 2px solid var(--bg);
+}
+
+/* ===== SEARCH (PRO ULTIMATE) ===== */
 .search-hero {
   position: relative;
   background: var(--card);
@@ -133,42 +268,52 @@ input, button, select, textarea {
   padding: 12px;
   margin-bottom: 14px;
   box-shadow: var(--shadow);
+  transition: all 0.3s;
 }
-.search-row {
-  display: flex; gap: 8px; align-items: center;
+.search-hero:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px var(--accent-glow);
 }
+.search-row { display: flex; gap: 8px; align-items: center; }
 .search-wrap { flex: 1; position: relative; min-width: 0; }
 .search-wrap input {
   width: 100%;
-  padding: 14px 40px 14px 42px;
+  padding: 13px 78px 13px 42px;
   background: var(--bg-2);
   border: 1.5px solid var(--border);
   border-radius: var(--r);
   color: var(--text);
   font-size: 15px;
   outline: none;
-  transition: all 0.2s;
+  transition: all 0.25s;
 }
 .search-wrap input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 4px var(--accent-glow);
+  transform: translateY(-1px);
 }
 .search-wrap input::placeholder { color: var(--text-3); }
 .search-ico {
   position: absolute; left: 14px; top: 50%;
   transform: translateY(-50%);
-  color: var(--text-3); font-size: 17px; pointer-events: none;
+  color: var(--text-3); pointer-events: none;
+  transition: color 0.2s;
 }
-.search-clear {
-  position: absolute; right: 10px; top: 50%;
+.search-wrap input:focus ~ .search-ico { color: var(--accent-2); }
+.search-actions {
+  position: absolute; right: 6px; top: 50%;
   transform: translateY(-50%);
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--hover); border: none;
-  color: var(--text-2); cursor: pointer;
-  display: none; align-items: center; justify-content: center;
-  font-size: 14px;
+  display: flex; gap: 2px;
 }
-.search-clear.show { display: flex; }
+.search-clear, .search-voice-inline {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: transparent;
+  color: var(--text-3);
+  display: none; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.search-clear.show, .search-voice-inline.show { display: flex; }
+.search-clear:active, .search-voice-inline:active { transform: scale(0.9); background: var(--hover); }
 
 .tool-btn {
   width: 48px; height: 48px; flex-shrink: 0;
@@ -176,21 +321,61 @@ input, button, select, textarea {
   background: var(--bg-2);
   border: 1.5px solid var(--border);
   color: var(--accent-2);
-  cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  transition: all 0.2s;
+  transition: all 0.25s;
   position: relative;
+  overflow: hidden;
 }
+.tool-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--grad);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.tool-btn > * { position: relative; z-index: 1; }
 .tool-btn:active { transform: scale(0.94); }
+.tool-btn:hover::before { opacity: 0.15; }
 .tool-btn.listening {
   background: var(--danger); border-color: var(--danger);
   color: white; animation: rec 1.2s infinite;
 }
-@keyframes rec {
-  0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
-  50% { box-shadow: 0 0 0 14px rgba(239,68,68,0); }
+
+/* Search filter chips */
+.search-filters {
+  display: flex; gap: 6px; margin-top: 10px;
+  overflow-x: auto; padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.search-filters::-webkit-scrollbar { display: none; }
+.chip {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  font-size: 12px; font-weight: 600;
+  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 5px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  min-height: 32px;
+}
+.chip:active { transform: scale(0.95); }
+.chip.active {
+  background: rgba(59,130,246,0.15);
+  border-color: var(--accent);
+  color: var(--accent-2);
+}
+.chip .icon { width: 13px; height: 13px; }
+.chip-count {
+  background: var(--hover);
+  padding: 1px 6px; border-radius: 8px;
+  font-size: 10px; font-weight: 700;
+  color: var(--text-3);
+}
+.chip.active .chip-count { background: var(--accent); color: white; }
 
 /* ===== LIVE RESULTS ===== */
 .live-results {
@@ -198,34 +383,66 @@ input, button, select, textarea {
   background: var(--card-2);
   border: 1.5px solid var(--accent);
   border-radius: var(--r);
-  max-height: 60vh; overflow-y: auto;
+  max-height: 65vh; overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   z-index: 200;
   display: none;
   box-shadow: var(--shadow-lg);
 }
-.live-results.show { display: block; animation: slideDown 0.2s ease; }
-@keyframes slideDown {
-  from { opacity:0; transform: translateY(-6px); }
-  to { opacity:1; transform: translateY(0); }
+.live-results.show { display: block; animation: slideDown 0.22s cubic-bezier(0.4,0,0.2,1); }
+.live-header {
+  padding: 10px 14px;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px; font-weight: 700;
+  color: var(--text-3); text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: flex; justify-content: space-between; align-items: center;
+  position: sticky; top: 0;
+  backdrop-filter: blur(10px);
+  z-index: 1;
 }
 .live-item {
-  padding: 12px 14px; cursor: pointer;
+  padding: 12px 14px;
   border-bottom: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center; gap: 10px;
-  transition: 0.12s;
+  transition: all 0.15s;
+  cursor: pointer;
+  position: relative;
 }
-.live-item:active { background: var(--hover); }
+.live-item:hover, .live-item:active { background: var(--hover); }
 .live-item:last-child { border-bottom: none; }
 .live-item .info { flex: 1; min-width: 0; }
 .live-item .name {
-  font-weight: 600; font-size: 14px;
+  font-weight: 700; font-size: 14px;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: center; gap: 6px;
+}
+.live-item .name mark {
+  background: rgba(245,158,11,0.3);
+  color: var(--warning);
+  padding: 0 3px; border-radius: 3px;
 }
 .live-item .sub {
   font-size: 11px; color: var(--text-3); margin-top: 2px;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: center; gap: 6px;
 }
+.live-item .sub .dot-sep { opacity: 0.5; }
+.live-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.live-action {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.live-action:active { transform: scale(0.9); }
+.live-action.sell { color: var(--success); }
+.live-action.sell:hover { background: rgba(16,185,129,0.15); border-color: var(--success); }
+.live-action.edit { color: var(--accent-2); }
+.live-action.edit:hover { background: rgba(59,130,246,0.15); border-color: var(--accent); }
 .pill {
   padding: 4px 10px; border-radius: 12px;
   font-size: 11px; font-weight: 700; flex-shrink: 0;
@@ -234,7 +451,7 @@ input, button, select, textarea {
 .pill.o { background: rgba(245,158,11,0.15); color: var(--warning); }
 .pill.r { background: rgba(239,68,68,0.15); color: var(--danger); }
 
-/* ===== STATS - Mobile First 2 column ===== */
+/* ===== STATS ===== */
 .stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -247,6 +464,8 @@ input, button, select, textarea {
   border-radius: var(--r);
   padding: 14px;
   position: relative; overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 .stat::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0;
@@ -256,25 +475,33 @@ input, button, select, textarea {
 .stat.o::before { background: var(--warning); }
 .stat.r::before { background: var(--danger); }
 .stat.p::before { background: var(--purple); }
+.stat.gold::before { background: var(--warning); }
+.stat:active { transform: scale(0.98); }
+.stat.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
 .stat-label {
   font-size: 10px; color: var(--text-3);
   text-transform: uppercase; letter-spacing: 0.06em;
-  font-weight: 600; margin-bottom: 6px;
+  font-weight: 700; margin-bottom: 6px;
   display: flex; align-items: center; justify-content: space-between;
   gap: 4px;
 }
-.stat-label span:last-child { font-size: 14px; opacity: 0.7; }
+.stat-label .icon { width: 14px; height: 14px; opacity: 0.6; }
 .stat-value {
-  font-size: 22px; font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: 22px; font-weight: 900;
+  letter-spacing: -0.03em;
   font-family: 'Inter', sans-serif;
   color: var(--accent);
   line-height: 1.1;
+  animation: countUp 0.4s cubic-bezier(0.4,0,0.2,1);
 }
 .stat.g .stat-value { color: var(--success); }
 .stat.o .stat-value { color: var(--warning); }
 .stat.r .stat-value { color: var(--danger); }
 .stat.p .stat-value { color: var(--purple); }
+.stat.gold .stat-value { color: var(--warning); }
 
 /* ===== CARD ===== */
 .card {
@@ -283,14 +510,30 @@ input, button, select, textarea {
   border-radius: var(--r-lg);
   overflow: hidden;
   margin-bottom: 14px;
+  animation: slideInRight 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 .card-header {
   padding: 14px 16px;
   border-bottom: 1px solid var(--border);
   display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  cursor: pointer;
+  user-select: none;
 }
+.card-header.collapsible .card-title::after {
+  content: '';
+  width: 8px; height: 8px;
+  border-right: 2px solid var(--text-3);
+  border-bottom: 2px solid var(--text-3);
+  transform: rotate(45deg);
+  transition: transform 0.3s;
+  margin-left: 4px;
+}
+.card.collapsed .card-header.collapsible .card-title::after {
+  transform: rotate(-135deg);
+}
+.card.collapsed .card-body { display: none; }
 .card-title {
-  font-size: 14px; font-weight: 600;
+  font-size: 14px; font-weight: 700;
   display: flex; align-items: center; gap: 8px;
 }
 .card-title .dot {
@@ -298,7 +541,12 @@ input, button, select, textarea {
   background: var(--accent);
   box-shadow: 0 0 10px var(--accent-glow);
 }
-.card-hint { font-size: 11px; color: var(--text-3); }
+.card-hint {
+  font-size: 11px; color: var(--text-3);
+  background: var(--bg-2);
+  padding: 3px 8px; border-radius: 8px;
+  border: 1px solid var(--border);
+}
 .card-body { padding: 16px; }
 
 /* ===== FORM ===== */
@@ -310,11 +558,13 @@ input, button, select, textarea {
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label {
   font-size: 11px; color: var(--text-2);
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   padding-left: 2px;
+  display: flex; align-items: center; gap: 4px;
 }
+.field label .req { color: var(--danger); }
 .field input, .field select, .field textarea {
   padding: 13px 14px;
   background: var(--bg-2);
@@ -323,43 +573,56 @@ input, button, select, textarea {
   color: var(--text);
   font-size: 15px;
   outline: none;
-  transition: 0.18s;
+  transition: all 0.2s;
   width: 100%;
   min-height: 48px;
 }
 .field input:focus, .field select:focus, .field textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-glow);
+  background: var(--bg);
 }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   padding: 13px 20px;
-  border: none; border-radius: var(--r-sm);
-  font-size: 15px; font-weight: 600;
-  cursor: pointer;
-  transition: all 0.18s;
+  border-radius: var(--r-sm);
+  font-size: 15px; font-weight: 700;
+  transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
   min-height: 48px;
-  text-decoration: none;
-  user-select: none;
+  position: relative;
+  overflow: hidden;
 }
 .btn:active:not(:disabled) { transform: scale(0.97); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-primary {
   background: var(--grad); color: white;
-  box-shadow: 0 6px 16px var(--accent-glow);
+  box-shadow: 0 6px 20px var(--accent-glow);
   width: 100%;
+}
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 10px 30px var(--accent-glow);
+  transform: translateY(-2px);
+}
+.btn-success {
+  background: var(--grad-green); color: white;
+  box-shadow: 0 6px 20px rgba(16,185,129,0.35);
+  width: 100%;
+}
+.btn-success:hover:not(:disabled) {
+  box-shadow: 0 10px 30px rgba(16,185,129,0.5);
+  transform: translateY(-2px);
 }
 .btn-secondary {
   background: var(--bg-2); color: var(--text);
   border: 1.5px solid var(--border);
 }
+.btn-secondary:hover:not(:disabled) { background: var(--hover); border-color: var(--border-2); }
 .btn-sm {
   padding: 8px 12px; font-size: 13px;
   min-height: 38px; border-radius: 8px;
 }
-.btn-danger { background: var(--danger); color: white; }
-.btn-success { background: var(--success); color: white; }
+.btn .icon { width: 18px; height: 18px; }
 
 /* ===== FILTERS ===== */
 .filters {
@@ -368,7 +631,7 @@ input, button, select, textarea {
   gap: 8px;
   padding: 12px;
   border-bottom: 1px solid var(--border);
-  background: rgba(10,14,26,0.3);
+  background: rgba(7,11,20,0.4);
 }
 .filters select, .filters input {
   padding: 11px 12px;
@@ -388,7 +651,37 @@ input, button, select, textarea {
 }
 .filters-actions .btn { flex: 1; }
 
-/* ===== STOCK LIST - Mobile Cards ===== */
+/* ===== SORT ===== */
+.sort-row {
+  display: flex; gap: 6px; padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  background: rgba(7,11,20,0.2);
+}
+.sort-row::-webkit-scrollbar { display: none; }
+.sort-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text-3);
+  font-size: 12px; font-weight: 600;
+  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  min-height: 32px;
+}
+.sort-btn.active {
+  background: rgba(59,130,246,0.15);
+  border-color: var(--accent);
+  color: var(--accent-2);
+}
+.sort-btn .icon { width: 12px; height: 12px; }
+
+/* ===== STOCK LIST ===== */
 .stock-list { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
 
 .stock-card {
@@ -397,16 +690,18 @@ input, button, select, textarea {
   border-radius: var(--r);
   padding: 14px;
   position: relative;
-  transition: 0.15s;
+  transition: all 0.25s;
+  animation: scaleIn 0.3s cubic-bezier(0.4,0,0.2,1);
 }
-.stock-card:active { background: var(--hover); }
 .stock-card::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0;
   width: 3px; border-radius: 3px 0 0 3px;
   background: var(--success);
+  transition: all 0.3s;
 }
 .stock-card.low::before { background: var(--warning); }
 .stock-card.out::before { background: var(--danger); }
+.stock-card:hover { border-color: var(--border-2); background: var(--hover); }
 
 .sc-top {
   display: flex; justify-content: space-between;
@@ -415,31 +710,32 @@ input, button, select, textarea {
 }
 .sc-title { flex: 1; min-width: 0; }
 .sc-model {
-  font-size: 16px; font-weight: 700;
+  font-size: 16px; font-weight: 800;
   line-height: 1.25;
   word-break: break-word;
+  letter-spacing: -0.01em;
 }
 .sc-brand {
   font-size: 12px; color: var(--text-3);
-  margin-top: 3px; display: flex; align-items: center; gap: 6px;
+  margin-top: 4px; display: flex; align-items: center; gap: 6px;
   flex-wrap: wrap;
 }
 .sc-brand .tag {
   background: var(--hover); color: var(--text-2);
   padding: 2px 8px; border-radius: 6px;
-  font-size: 11px; font-weight: 500;
+  font-size: 11px; font-weight: 600;
 }
 .sc-qty {
   text-align: center;
   background: var(--bg);
   padding: 6px 12px;
   border-radius: 10px;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   flex-shrink: 0;
-  min-width: 60px;
+  min-width: 64px;
 }
 .sc-qty-num {
-  font-size: 20px; font-weight: 800;
+  font-size: 20px; font-weight: 900;
   font-family: 'Inter', sans-serif;
   line-height: 1;
 }
@@ -448,9 +744,28 @@ input, button, select, textarea {
 .sc-qty.r .sc-qty-num { color: var(--danger); }
 .sc-qty-label {
   font-size: 9px; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: 0.06em;
-  font-weight: 600; margin-top: 2px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  font-weight: 700; margin-top: 3px;
 }
+
+/* Stock bar */
+.sc-bar {
+  height: 4px;
+  background: var(--bg);
+  border-radius: 2px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.sc-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--grad-green);
+  animation: barGrow 0.6s cubic-bezier(0.4,0,0.2,1);
+  transition: width 0.3s;
+}
+.sc-bar-fill.o { background: var(--grad-gold); }
+.sc-bar-fill.r { background: var(--danger); }
 
 .sc-info {
   display: flex; gap: 8px; flex-wrap: wrap;
@@ -461,7 +776,8 @@ input, button, select, textarea {
   display: inline-flex; align-items: center; gap: 4px;
   color: var(--text-2);
 }
-.sc-info-item strong { color: var(--text); font-weight: 600; }
+.sc-info-item strong { color: var(--text); font-weight: 700; }
+.sc-info-item .icon { width: 14px; height: 14px; }
 
 .sc-actions {
   display: grid;
@@ -470,90 +786,220 @@ input, button, select, textarea {
 }
 .sc-btn {
   padding: 9px 6px;
-  border-radius: 8px;
+  border-radius: 9px;
   background: var(--bg-2);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   color: var(--text-2);
   font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
+  font-weight: 700;
   display: flex; align-items: center; justify-content: center; gap: 4px;
-  transition: 0.15s;
+  transition: all 0.2s;
   min-height: 42px;
 }
-.sc-btn:active { transform: scale(0.95); }
-.sc-btn.add { color: var(--success); }
-.sc-btn.add:active { background: rgba(16,185,129,0.15); border-color: var(--success); }
-.sc-btn.sub { color: var(--warning); }
-.sc-btn.sub:active { background: rgba(245,158,11,0.15); border-color: var(--warning); }
+.sc-btn:active { transform: scale(0.94); }
+.sc-btn.sell { color: var(--success); }
+.sc-btn.sell:active { background: rgba(16,185,129,0.15); border-color: var(--success); }
 .sc-btn.edit { color: var(--accent-2); }
 .sc-btn.edit:active { background: rgba(59,130,246,0.15); border-color: var(--accent); }
 .sc-btn.del { color: var(--danger); }
 .sc-btn.del:active { background: rgba(239,68,68,0.15); border-color: var(--danger); }
 .sc-btn .lbl { display: none; }
 
-.badge-status {
+/* ===== SALES LIST ===== */
+.sales-list { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+.sale-card {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+  position: relative;
+  animation: slideInRight 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.sale-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; border-radius: 3px 0 0 3px;
+  background: var(--grad-green);
+}
+.sale-top {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+  margin-bottom: 8px;
+}
+.sale-id {
+  font-family: 'Inter', monospace;
+  font-size: 10px; color: var(--text-3);
+  background: var(--bg); padding: 2px 7px;
+  border-radius: 5px; font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.sale-amount { text-align: right; }
+.sale-amount-num {
+  font-size: 18px; font-weight: 900;
+  color: var(--success);
+  font-family: 'Inter', sans-serif;
+  line-height: 1;
+}
+.sale-amount-label {
+  font-size: 9px; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 700; margin-top: 2px;
+}
+.sale-model {
+  font-size: 15px; font-weight: 800;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+.sale-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text-3);
+  margin-bottom: 10px;
+}
+.sale-meta-item {
   display: inline-flex; align-items: center; gap: 4px;
-  padding: 3px 9px; border-radius: 10px;
-  font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.04em;
 }
-.badge-status::before {
-  content: ''; width: 5px; height: 5px;
-  border-radius: 50%; background: currentColor;
+.sale-meta-item .icon { width: 13px; height: 13px; }
+.sale-customer {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 10px;
+  background: var(--bg); border-radius: 8px;
+  font-size: 12px; color: var(--text-2);
+  margin-bottom: 8px;
 }
-.badge-status.g { background: rgba(16,185,129,0.15); color: var(--success); }
-.badge-status.o { background: rgba(245,158,11,0.15); color: var(--warning); }
-.badge-status.r { background: rgba(239,68,68,0.15); color: var(--danger); }
+.sale-customer .icon { width: 14px; height: 14px; color: var(--accent-2); }
+.sale-customer strong { color: var(--text); font-weight: 700; }
+.sale-actions {
+  display: flex; justify-content: flex-end; gap: 6px;
+}
+
+/* ===== ANALYTICS ===== */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 12px;
+}
+.analytics-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+}
+.analytics-title {
+  font-size: 12px; font-weight: 700;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.analytics-title .icon { width: 14px; height: 14px; color: var(--accent-2); }
+
+.bar-chart { display: flex; flex-direction: column; gap: 10px; }
+.bar-item { display: flex; flex-direction: column; gap: 4px; }
+.bar-label {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--text-2);
+  font-weight: 600;
+}
+.bar-label strong { color: var(--text); }
+.bar-track {
+  height: 8px; background: var(--bg);
+  border-radius: 4px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 4px;
+  background: var(--grad);
+  animation: barGrow 0.8s cubic-bezier(0.4,0,0.2,1);
+  transition: width 0.4s;
+}
+.bar-fill.g { background: var(--grad-green); }
+.bar-fill.o { background: var(--grad-gold); }
+.bar-fill.p { background: var(--grad-pink); }
+
+.top-list { display: flex; flex-direction: column; gap: 8px; }
+.top-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px;
+  background: var(--card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.top-rank {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: var(--grad);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
+  flex-shrink: 0;
+  font-family: 'Inter', sans-serif;
+}
+.top-rank.gold { background: var(--grad-gold); }
+.top-rank.silver { background: linear-gradient(135deg, #94a3b8, #64748b); }
+.top-rank.bronze { background: linear-gradient(135deg, #b45309, #92400e); }
+.top-info { flex: 1; min-width: 0; }
+.top-name {
+  font-size: 13px; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.top-sub {
+  font-size: 11px; color: var(--text-3);
+}
+.top-value {
+  font-size: 13px; font-weight: 800;
+  color: var(--success);
+  font-family: 'Inter', sans-serif;
+  flex-shrink: 0;
+}
 
 /* ===== EMPTY / LOADING ===== */
 .empty {
   text-align: center; padding: 50px 20px;
   color: var(--text-3);
 }
-.empty-icon { font-size: 3rem; margin-bottom: 10px; opacity: 0.4; }
-.empty-title { font-size: 15px; font-weight: 600; color: var(--text-2); margin-bottom: 4px; }
+.empty-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 14px;
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
+}
+.empty-icon .icon { width: 100%; height: 100%; }
+.empty-title { font-size: 15px; font-weight: 700; color: var(--text-2); margin-bottom: 4px; }
 .empty-sub { font-size: 13px; }
 
 .spinner {
   width: 18px; height: 18px; border-radius: 50%;
-  border: 2px solid var(--border); border-top-color: var(--accent);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: currentColor;
   animation: spin 0.7s linear infinite;
   display: inline-block;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ===== MODAL ===== */
 .modal {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
   display: none;
   align-items: flex-end;
   justify-content: center;
-  animation: fadeIn 0.2s;
+  animation: fadeIn 0.22s;
 }
 .modal.show { display: flex; }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 .modal-content {
   background: var(--card);
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-  border: 1px solid var(--border);
+  border-top-left-radius: 26px;
+  border-top-right-radius: 26px;
+  border: 1px solid var(--border-2);
   border-bottom: none;
   padding: 18px 16px calc(20px + var(--safe-bottom));
   width: 100%;
   max-width: 560px;
-  max-height: 92vh;
+  max-height: 94vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  animation: slideUp 0.28s cubic-bezier(0.22,1,0.36,1);
-}
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  animation: slideUp 0.35s cubic-bezier(0.22,1,0.36,1);
 }
 .modal-handle {
   width: 44px; height: 4px; border-radius: 2px;
@@ -566,89 +1012,343 @@ input, button, select, textarea {
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
 }
-.modal-header h3 { font-size: 16px; font-weight: 700; }
+.modal-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 16px; font-weight: 800;
+}
+.modal-title-icon {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: var(--grad);
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+.modal-title-icon.green { background: var(--grad-green); box-shadow: 0 4px 12px rgba(16,185,129,0.4); }
+.modal-title-icon.gold { background: var(--grad-gold); box-shadow: 0 4px 12px rgba(245,158,11,0.4); }
 .modal-close {
   width: 34px; height: 34px; border-radius: 50%;
   background: var(--bg-2); border: 1px solid var(--border);
-  color: var(--text-2); cursor: pointer;
+  color: var(--text-2); 
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  transition: all 0.2s;
 }
-.modal-close:active { background: var(--hover); }
+.modal-close:active { transform: scale(0.9); background: var(--hover); }
 .modal-actions {
   display: flex; gap: 8px;
   margin-top: 18px;
 }
 .modal-actions .btn { flex: 1; }
 
-/* ===== IMAGE UPLOAD ===== */
+/* ===== SELL PREVIEW ===== */
+.sell-preview {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.sell-preview::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad-green);
+}
+.sell-preview-model {
+  font-size: 17px; font-weight: 800;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+.sell-preview-meta {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text-3);
+  margin-bottom: 10px;
+}
+.sell-preview-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.sell-stat {
+  text-align: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px;
+}
+.sell-stat-num {
+  font-size: 17px; font-weight: 900;
+  font-family: 'Inter', sans-serif;
+  color: var(--accent-2);
+}
+.sell-stat-num.green { color: var(--success); }
+.sell-stat-num.gold { color: var(--warning); }
+.sell-stat-label {
+  font-size: 9px; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 700; margin-top: 2px;
+}
+
+.qty-control {
+  display: flex; align-items: center; gap: 8px;
+}
+.qty-control input {
+  flex: 1;
+  text-align: center;
+  font-size: 20px; font-weight: 800;
+  font-family: 'Inter', sans-serif;
+  min-height: 52px;
+  padding: 8px;
+}
+.qty-btn {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; font-weight: 700;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.qty-btn:active { transform: scale(0.9); background: var(--hover); }
+
+.payment-opts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.pay-opt {
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border);
+  color: var(--text-2);
+  font-size: 10px; font-weight: 700;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 3px;
+  transition: all 0.2s;
+  min-height: 56px;
+}
+.pay-opt .icon { width: 16px; height: 16px; }
+.pay-opt.active {
+  background: rgba(59,130,246,0.15);
+  border-color: var(--accent);
+  color: var(--accent-2);
+}
+.pay-opt:active { transform: scale(0.95); }
+
+.sell-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px;
+  background: var(--grad-green);
+  border-radius: var(--r);
+  margin-top: 14px;
+  box-shadow: 0 6px 24px rgba(16,185,129,0.35);
+}
+.sell-total-label {
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.9);
+}
+.sell-total-value {
+  font-size: 22px; font-weight: 900;
+  font-family: 'Inter', sans-serif;
+  color: white;
+}
+
+/* ===== IMAGE SCANNER ===== */
 .upload-area {
   border: 2px dashed var(--border-2);
   border-radius: var(--r);
   padding: 32px 20px;
   text-align: center;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.25s;
   background: var(--bg-2);
   display: block;
+  position: relative;
+  overflow: hidden;
 }
-.upload-area:active { border-color: var(--accent); background: var(--hover); }
+.upload-area:active { border-color: var(--accent); background: var(--hover); transform: scale(0.98); }
 .upload-area input { display: none; }
-.upload-icon { font-size: 2.5rem; margin-bottom: 8px; }
-.upload-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.upload-icon {
+  width: 56px; height: 56px; margin: 0 auto 10px;
+  color: var(--accent-2);
+  opacity: 0.8;
+}
+.upload-icon .icon { width: 100%; height: 100%; }
+.upload-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
 .upload-sub { font-size: 12px; color: var(--text-3); }
+
+.image-preview-wrap {
+  position: relative;
+  margin-bottom: 12px;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--bg);
+}
 .image-preview {
   width: 100%; max-height: 260px;
   object-fit: contain;
-  border-radius: var(--r-sm);
-  margin-bottom: 12px;
-  background: var(--bg);
+  display: block;
 }
+.scan-line {
+  position: absolute; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 20px var(--accent);
+  animation: scanLine 2s linear infinite;
+  display: none;
+}
+.image-preview-wrap.scanning .scan-line { display: block; }
+
 .ocr-status {
   padding: 12px; border-radius: var(--r-sm);
   background: var(--bg-2); border: 1px solid var(--border);
   color: var(--text-2); font-size: 13px;
   margin-bottom: 12px;
   word-break: break-word;
+  display: flex; align-items: center; gap: 8px;
+}
+.ocr-status .spinner { flex-shrink: 0; }
+
+.ocr-progress {
+  height: 4px; background: var(--bg);
+  border-radius: 2px; overflow: hidden;
+  margin-top: 8px;
+}
+.ocr-progress-fill {
+  height: 100%; background: var(--grad);
+  border-radius: 2px;
+  transition: width 0.3s;
 }
 
 /* ===== VOICE OVERLAY ===== */
 .voice-overlay {
   position: fixed; inset: 0;
-  background: rgba(10,14,26,0.9);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(7,11,20,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   z-index: 1500;
   display: none;
   align-items: center; justify-content: center;
   padding: 20px;
 }
-.voice-overlay.show { display: flex; animation: fadeIn 0.2s; }
-.voice-box { text-align: center; max-width: 320px; }
+.voice-overlay.show { display: flex; animation: fadeIn 0.22s; }
+.voice-box { text-align: center; max-width: 320px; width: 100%; }
 .voice-mic {
   width: 110px; height: 110px; border-radius: 50%;
   background: var(--grad);
   display: flex; align-items: center; justify-content: center;
-  font-size: 46px; margin: 0 auto 22px;
+  margin: 0 auto 22px;
   animation: micPulse 1.5s infinite;
+  color: white;
 }
-@keyframes micPulse {
-  0%,100% { transform: scale(1); box-shadow: 0 0 50px var(--accent-glow); }
-  50% { transform: scale(1.06); box-shadow: 0 0 80px var(--accent-glow); }
+.voice-mic .icon { width: 48px; height: 48px; }
+
+.voice-waves {
+  display: flex; justify-content: center; gap: 4px;
+  height: 40px; align-items: center;
+  margin-bottom: 20px;
 }
+.voice-wave {
+  width: 4px; border-radius: 2px;
+  background: var(--accent-2);
+  animation: waveAnim 1s ease-in-out infinite;
+}
+.voice-wave:nth-child(1) { animation-delay: 0s; height: 20%; }
+.voice-wave:nth-child(2) { animation-delay: 0.1s; height: 40%; }
+.voice-wave:nth-child(3) { animation-delay: 0.2s; height: 60%; }
+.voice-wave:nth-child(4) { animation-delay: 0.3s; height: 80%; }
+.voice-wave:nth-child(5) { animation-delay: 0.4s; height: 100%; }
+.voice-wave:nth-child(6) { animation-delay: 0.3s; height: 80%; }
+.voice-wave:nth-child(7) { animation-delay: 0.2s; height: 60%; }
+.voice-wave:nth-child(8) { animation-delay: 0.1s; height: 40%; }
+.voice-wave:nth-child(9) { animation-delay: 0s; height: 20%; }
+@keyframes waveAnim {
+  0%,100% { transform: scaleY(0.3); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
 .voice-text {
   font-size: 17px; color: var(--text);
-  margin-bottom: 8px; font-weight: 500;
+  margin-bottom: 8px; font-weight: 600;
   min-height: 26px;
   word-break: break-word;
 }
 .voice-hint { font-size: 13px; color: var(--text-3); }
 
+.voice-suggestions {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 16px;
+}
+.voice-suggestion {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+/* ===== SUCCESS ANIM ===== */
+.success-anim {
+  position: fixed; inset: 0;
+  background: rgba(7,11,20,0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1800;
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.success-anim.show { display: flex; animation: fadeIn 0.22s; }
+.success-box {
+  text-align: center;
+  max-width: 340px;
+  animation: scaleIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.success-circle {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: var(--grad-green);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 12px 40px rgba(16,185,129,0.5);
+  animation: successPop 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+.success-check {
+  width: 48px; height: 48px;
+  color: white;
+}
+.success-title {
+  font-size: 22px; font-weight: 900;
+  margin-bottom: 6px;
+  background: var(--grad-green);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.success-sub { font-size: 14px; color: var(--text-2); margin-bottom: 6px; }
+.success-amount {
+  font-size: 30px; font-weight: 900;
+  color: var(--success);
+  font-family: 'Inter', sans-serif;
+  margin: 14px 0 20px;
+}
+.success-close {
+  padding: 12px 32px;
+  border-radius: 12px;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 14px;
+}
+
 /* ===== TOAST ===== */
 .toast-wrap {
   position: fixed;
   left: 12px; right: 12px;
-  bottom: calc(12px + var(--safe-bottom));
+  top: calc(12px + var(--safe-top));
   display: flex; flex-direction: column; gap: 8px;
   z-index: 2000;
   pointer-events: none;
@@ -656,104 +1356,130 @@ input, button, select, textarea {
 .toast {
   background: var(--card-2);
   border: 1px solid var(--border-2);
-  border-left: 4px solid var(--success);
+  border-left: 4px solid var(--accent);
   padding: 12px 14px;
   border-radius: var(--r-sm);
   box-shadow: var(--shadow-lg);
   display: flex; align-items: center; gap: 10px;
-  font-size: 14px; font-weight: 500;
-  transform: translateY(120%);
-  opacity: 0;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-size: 14px; font-weight: 600;
+  animation: toastIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
   pointer-events: auto;
   word-break: break-word;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
-.toast.show { transform: translateY(0); opacity: 1; }
+.toast.out { animation: toastOut 0.3s cubic-bezier(0.36,0,0.66,-0.56) forwards; }
+.toast.success { border-left-color: var(--success); }
 .toast.error { border-left-color: var(--danger); }
 .toast.warning { border-left-color: var(--warning); }
 .toast.info { border-left-color: var(--accent); }
-.toast-icon { font-size: 18px; flex-shrink: 0; }
+.toast-icon {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.toast.success .toast-icon { color: var(--success); }
+.toast.error .toast-icon { color: var(--danger); }
+.toast.warning .toast-icon { color: var(--warning); }
+.toast.info .toast-icon { color: var(--accent-2); }
 
-/* ===== FAB (Floating Action Button) - Mobile ===== */
+/* ===== FAB ===== */
 .fab {
   position: fixed;
   right: 16px;
   bottom: calc(16px + var(--safe-bottom));
-  width: 56px; height: 56px;
+  width: 58px; height: 58px;
   border-radius: 50%;
   background: var(--grad);
-  border: none;
   color: white;
-  font-size: 26px;
-  cursor: pointer;
-  box-shadow: 0 10px 30px var(--accent-glow);
   display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 30px var(--accent-glow);
   z-index: 500;
-  transition: 0.2s;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
 }
-.fab:active { transform: scale(0.9); }
-.fab.hide { transform: scale(0); opacity: 0; pointer-events: none; }
+.fab .icon { width: 26px; height: 26px; }
+.fab:active { transform: scale(0.9) rotate(90deg); }
+.fab.hide { transform: scale(0) rotate(90deg); opacity: 0; pointer-events: none; }
 
-/* ===== DESKTOP / TABLET (min 640px) ===== */
+/* ===== LOADING ===== */
+.loading-overlay {
+  position: fixed; inset: 0;
+  background: rgba(7,11,20,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1900;
+  display: none;
+  align-items: center; justify-content: center;
+  flex-direction: column; gap: 16px;
+}
+.loading-overlay.show { display: flex; }
+.loading-spinner {
+  width: 48px; height: 48px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.loading-text { font-size: 14px; color: var(--text-2); font-weight: 600; }
+
+/* ===== DESKTOP ===== */
 @media (min-width: 640px) {
-  body { font-size: 15px; }
   .container { padding: 20px 20px 60px; }
   .stats { grid-template-columns: repeat(4, 1fr); gap: 14px; }
   .stat { padding: 18px; }
   .stat-value { font-size: 26px; }
   .form-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .btn-primary { width: auto; min-width: 180px; }
+  .btn-primary, .btn-success { width: auto; min-width: 200px; }
   .filters { grid-template-columns: 1fr 1fr 1fr 1fr auto auto; padding: 16px; gap: 10px; }
   .filters .full { grid-column: auto; }
   .filters-actions { grid-column: auto; }
   .filters-actions .btn { flex: initial; }
-  .stock-list { padding: 16px; }
+  .stock-list, .sales-list { padding: 16px; }
   .sc-btn .lbl { display: inline; }
-  .sc-btn { padding: 9px 12px; }
-  .toast-wrap { left: auto; right: 20px; bottom: 20px; max-width: 380px; }
+  .sc-actions { grid-template-columns: 1fr 1fr 1fr; }
+  .toast-wrap { left: auto; right: 20px; top: 20px; max-width: 400px; }
   .fab { display: none; }
   .modal { align-items: center; padding: 20px; }
   .modal-content {
     border-radius: var(--r-lg);
     border: 1px solid var(--border);
     padding: 24px;
+    max-height: 88vh;
   }
   .modal-handle { display: none; }
   .sync-text-full { display: inline; }
   .sync-text-short { display: none; }
+  .analytics-grid { grid-template-columns: 1fr 1fr; padding: 16px; }
+  .payment-opts { grid-template-columns: repeat(4, 1fr); }
 }
 
-/* ===== LARGE DESKTOP (min 1024px) ===== */
 @media (min-width: 1024px) {
   .stats { grid-template-columns: repeat(5, 1fr); }
-  .stock-list { gap: 12px; }
-  .stock-card { padding: 18px; }
-  .sc-actions { grid-template-columns: repeat(4, auto); justify-content: flex-end; }
+  .stock-card, .sale-card { padding: 18px; }
+  .sc-actions { grid-template-columns: repeat(3, auto); justify-content: flex-end; }
+  .analytics-grid { grid-template-columns: 1fr 1fr 1fr; }
 }
 
-/* ===== SMALL MOBILE tweaks ===== */
 @media (max-width: 380px) {
   .brand-text p { display: none; }
   .stat-value { font-size: 20px; }
   .sc-model { font-size: 15px; }
   .tool-btn { width: 44px; height: 44px; }
+  .tab { font-size: 12px; padding: 8px 4px; }
+  .tab span.tab-text { display: none; }
+  .pay-opt { font-size: 9px; }
 }
 
-/* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* ===== Selection ===== */
 ::selection { background: var(--accent); color: white; }
-
-/* ===== Scrollbar ===== */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-/* ===== iOS Input Fix ===== */
 @supports (-webkit-touch-callout: none) {
   input, select, textarea { font-size: 16px !important; }
 }
@@ -761,17 +1487,22 @@ input, button, select, textarea {
 </head>
 <body>
 
-<!-- ============ HEADER ============ -->
+<!-- HEADER -->
 <header class="header">
   <div class="header-inner">
     <div class="brand">
-      <div class="brand-logo">📱</div>
+      <div class="brand-logo">
+        <svg class="icon icon-lg" viewBox="0 0 24 24">
+          <rect x="5" y="2" width="14" height="20" rx="2"/>
+          <line x1="12" y1="18" x2="12" y2="18"/>
+        </svg>
+      </div>
       <div class="brand-text">
         <h1>GlassStock Pro</h1>
-        <p>Inventory Manager</p>
+        <p>Ultimate Inventory</p>
       </div>
     </div>
-    <div class="sync-status" id="syncStatus">
+    <div class="sync-status" id="syncStatus" title="ডাটা সিঙ্ক করুন">
       <span class="sync-dot"></span>
       <span id="syncText">
         <span class="sync-text-full">কানেক্ট হচ্ছে...</span>
@@ -781,132 +1512,433 @@ input, button, select, textarea {
   </div>
 </header>
 
-<!-- ============ MAIN ============ -->
 <main class="container">
 
-  <!-- Search -->
-  <div class="search-hero" id="searchHero">
-    <div class="search-row">
-      <div class="search-wrap">
-        <span class="search-ico">🔍</span>
-        <input type="text" id="liveSearch" placeholder="মডেল বা ব্র্যান্ড খুঁজুন..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-        <button class="search-clear" id="searchClear" type="button">✕</button>
-      </div>
-      <button class="tool-btn" id="voiceBtn" type="button" title="ভয়েস সার্চ">🎤</button>
-      <button class="tool-btn" id="imageBtn" type="button" title="ছবি সার্চ">📷</button>
-    </div>
-    <div class="live-results" id="liveResults"></div>
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" data-tab="stock" type="button">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span class="tab-text">স্টক</span>
+    </button>
+    <button class="tab" data-tab="sales" type="button">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+      <span class="tab-text">বিক্রয়</span>
+      <span class="tab-badge" id="salesBadge" style="display:none">0</span>
+    </button>
+    <button class="tab" data-tab="analytics" type="button">
+      <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span class="tab-text">এনালিটিক্স</span>
+    </button>
   </div>
 
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-label">মোট মডেল <span>📦</span></div>
-      <div class="stat-value" id="statModels">—</div>
+  <!-- ========== STOCK TAB ========== -->
+  <div id="tabStock">
+
+    <!-- SEARCH -->
+    <div class="search-hero" id="searchHero">
+      <div class="search-row">
+        <div class="search-wrap">
+          <span class="search-ico">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input type="text" id="liveSearch" placeholder="মডেল, ব্র্যান্ড খুঁজুন..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <div class="search-actions">
+            <button class="search-voice-inline" id="voiceInlineBtn" type="button" title="ভয়েস">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </button>
+            <button class="search-clear" id="searchClear" type="button">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+        <button class="tool-btn" id="voiceBtn" type="button" title="ভয়েস সার্চ">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+        <button class="tool-btn" id="imageBtn" type="button" title="ছবি থেকে খুঁজুন">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </button>
+      </div>
+
+      <!-- Smart filter chips -->
+      <div class="search-filters">
+        <button class="chip active" data-filter="all" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          সব
+          <span class="chip-count" id="chipAll">0</span>
+        </button>
+        <button class="chip" data-filter="instock" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          স্টক আছে
+          <span class="chip-count" id="chipIn">0</span>
+        </button>
+        <button class="chip" data-filter="low" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+          কম স্টক
+          <span class="chip-count" id="chipLow">0</span>
+        </button>
+        <button class="chip" data-filter="out" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          স্টক শেষ
+          <span class="chip-count" id="chipOut">0</span>
+        </button>
+      </div>
+
+      <div class="live-results" id="liveResults"></div>
     </div>
-    <div class="stat g">
-      <div class="stat-label">মোট স্টক <span>✅</span></div>
-      <div class="stat-value" id="statStock">—</div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat" data-stat-filter="all">
+        <div class="stat-label">মোট মডেল 
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="stat-value" id="statModels">—</div>
+      </div>
+      <div class="stat g" data-stat-filter="instock">
+        <div class="stat-label">স্টকে আছে
+          <svg class="icon" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <div class="stat-value" id="statStock">—</div>
+      </div>
+      <div class="stat o" data-stat-filter="low">
+        <div class="stat-label">কম স্টক
+          <svg class="icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+        </div>
+        <div class="stat-value" id="statLow">—</div>
+      </div>
+      <div class="stat r" data-stat-filter="out">
+        <div class="stat-label">স্টক শেষ
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div class="stat-value" id="statOut">—</div>
+      </div>
+      <div class="stat gold">
+        <div class="stat-label">মোট মূল্য
+          <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="stat-value" id="statValue">—</div>
+      </div>
     </div>
-    <div class="stat o">
-      <div class="stat-label">কম স্টক <span>⚠️</span></div>
-      <div class="stat-value" id="statLow">—</div>
+
+    <!-- ADD FORM -->
+    <div class="card collapsible" id="addFormCard">
+      <div class="card-header collapsible" onclick="toggleCard('addFormCard')">
+        <div class="card-title">
+          <span class="dot"></span> নতুন স্টক এন্ট্রি
+        </div>
+        <span class="card-hint">একই মডেল = অটো যোগ</span>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="field">
+            <label>মডেল নাম <span class="req">*</span></label>
+            <input type="text" id="fModel" placeholder="iPhone 13 / Galaxy S23" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>ব্র্যান্ড</label>
+            <input type="text" id="fBrand" placeholder="Apple / Samsung" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>পরিমাণ</label>
+            <input type="number" id="fQty" min="1" placeholder="1" value="1" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label>দাম (৳)</label>
+            <input type="number" id="fPrice" min="0" step="0.01" placeholder="0" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label>গ্লাস টাইপ</label>
+            <select id="fType">
+              <option value="Normal">Normal Glass</option>
+              <option value="Tempered">Tempered Glass</option>
+              <option value="Full Glue">Full Glue</option>
+              <option value="Matte">Matte</option>
+              <option value="Privacy">Privacy</option>
+              <option value="UV">UV Glass</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>নোট</label>
+            <input type="text" id="fNotes" placeholder="নোট..." autocomplete="off">
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="addBtn" type="button">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            সেভ করুন
+          </button>
+          <button class="btn btn-secondary" id="clearBtn" type="button">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            ক্লিয়ার
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="stat r">
-      <div class="stat-label">স্টক শেষ <span>🚫</span></div>
-      <div class="stat-value" id="statOut">—</div>
+
+    <!-- STOCK LIST -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="dot"></span> স্টক তালিকা</div>
+        <span class="card-hint" id="resultCount">—</span>
+      </div>
+
+      <div class="sort-row">
+        <button class="sort-btn active" data-sort="recent" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          সাম্প্রতিক
+        </button>
+        <button class="sort-btn" data-sort="name" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
+          নাম
+        </button>
+        <button class="sort-btn" data-sort="qty-asc" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          স্টক ↑
+        </button>
+        <button class="sort-btn" data-sort="qty-desc" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><polyline points="17 14 12 9 7 14"/><line x1="12" y1="21" x2="12" y2="9"/></svg>
+          স্টক ↓
+        </button>
+        <button class="sort-btn" data-sort="price-desc" type="button">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          দাম ↓
+        </button>
+      </div>
+
+      <div class="filters">
+        <select id="filterBrand"><option value="">সব ব্র্যান্ড</option></select>
+        <select id="filterType"><option value="">সব টাইপ</option></select>
+        <input type="text" id="filterSearch" class="full" placeholder="দ্রুত ফিল্টার..." autocomplete="off">
+        <div class="filters-actions">
+          <button class="btn btn-secondary btn-sm" id="refreshBtn" type="button">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            রিফ্রেশ
+          </button>
+          <button class="btn btn-secondary btn-sm" id="exportBtn" type="button">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            CSV
+          </button>
+        </div>
+      </div>
+      <div class="stock-list" id="stockList"></div>
     </div>
-    <div class="stat p">
-      <div class="stat-label">মোট মূল্য <span>💰</span></div>
-      <div class="stat-value" id="statValue">—</div>
+
+  </div>
+
+  <!-- ========== SALES TAB ========== -->
+  <div id="tabSales" style="display:none">
+    <div class="stats">
+      <div class="stat g">
+        <div class="stat-label">আজকের বিক্রয়
+          <svg class="icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div class="stat-value" id="statToday">—</div>
+      </div>
+      <div class="stat gold">
+        <div class="stat-label">আজকের আয়
+          <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="stat-value" id="statTodayAmount">—</div>
+      </div>
+      <div class="stat p">
+        <div class="stat-label">মোট বিক্রয়
+          <svg class="icon" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"/></svg>
+        </div>
+        <div class="stat-value" id="statTotalSales">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">সর্বমোট আয়
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="12" y1="2" x2="12" y2="6"/></svg>
+        </div>
+        <div class="stat-value" id="statTotalRevenue">—</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="dot"></span> বিক্রয়ের ইতিহাস</div>
+        <span class="card-hint" id="salesCount">—</span>
+      </div>
+      <div class="filters">
+        <input type="date" id="salesFilterDate" class="full">
+        <input type="text" id="salesSearch" class="full" placeholder="মডেল/কাস্টমার খুঁজুন..." autocomplete="off">
+        <div class="filters-actions">
+          <button class="btn btn-secondary btn-sm" id="salesClearFilter" type="button">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            ফিল্টার ক্লিয়ার
+          </button>
+          <button class="btn btn-secondary btn-sm" id="salesExportBtn" type="button">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            CSV
+          </button>
+        </div>
+      </div>
+      <div class="sales-list" id="salesList"></div>
     </div>
   </div>
 
-  <!-- Add Form -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="dot"></span> নতুন স্টক এন্ট্রি</div>
-      <span class="card-hint">একই মডেল+টাইপ = অটো যোগ</span>
-    </div>
-    <div class="card-body">
-      <div class="form-grid">
-        <div class="field">
-          <label>মডেল নাম *</label>
-          <input type="text" id="fModel" placeholder="iPhone 13 / Galaxy S23" autocomplete="off">
+  <!-- ========== ANALYTICS TAB ========== -->
+  <div id="tabAnalytics" style="display:none">
+    <div class="stats">
+      <div class="stat g">
+        <div class="stat-label">সাপ্তাহিক আয়
+          <svg class="icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
         </div>
-        <div class="field">
-          <label>ব্র্যান্ড</label>
-          <input type="text" id="fBrand" placeholder="Apple / Samsung" autocomplete="off">
-        </div>
-        <div class="field">
-          <label>পরিমাণ</label>
-          <input type="number" id="fQty" min="1" placeholder="1" value="1" inputmode="numeric">
-        </div>
-        <div class="field">
-          <label>দাম (৳)</label>
-          <input type="number" id="fPrice" min="0" step="0.01" placeholder="0" inputmode="decimal">
-        </div>
-        <div class="field">
-          <label>গ্লাস টাইপ</label>
-          <select id="fType">
-            <option value="Normal">Normal Glass</option>
-            <option value="Tempered">Tempered Glass</option>
-            <option value="Full Glue">Full Glue</option>
-            <option value="Matte">Matte</option>
-            <option value="Privacy">Privacy</option>
-            <option value="UV">UV Glass</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>নোট (অপশনাল)</label>
-          <input type="text" id="fNotes" placeholder="নোট লিখুন..." autocomplete="off">
-        </div>
+        <div class="stat-value" id="statWeekRevenue">—</div>
       </div>
-      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-        <button class="btn btn-primary" id="addBtn" type="button">💾 সেভ করুন</button>
-        <button class="btn btn-secondary" id="clearBtn" type="button">🔄 ক্লিয়ার</button>
+      <div class="stat p">
+        <div class="stat-label">মাসিক আয়
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="stat-value" id="statMonthRevenue">—</div>
       </div>
-    </div>
-  </div>
-
-  <!-- Stock List -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="dot"></span> স্টক তালিকা</div>
-      <span class="card-hint" id="resultCount">—</span>
-    </div>
-
-    <div class="filters">
-      <select id="filterBrand"><option value="">সব ব্র্যান্ড</option></select>
-      <select id="filterType"><option value="">সব টাইপ</option></select>
-      <select id="filterStatus" class="full">
-        <option value="">সব স্ট্যাটাস</option>
-        <option value="instock">স্টক আছে</option>
-        <option value="low">কম স্টক</option>
-        <option value="out">স্টক শেষ</option>
-      </select>
-      <input type="text" id="filterSearch" class="full" placeholder="দ্রুত ফিল্টার..." autocomplete="off">
-      <div class="filters-actions">
-        <button class="btn btn-secondary btn-sm" id="refreshBtn" type="button">🔄 রিফ্রেশ</button>
-        <button class="btn btn-secondary btn-sm" id="exportBtn" type="button">📥 CSV</button>
+      <div class="stat gold">
+        <div class="stat-label">সর্বোচ্চ বিক্রয়
+          <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="stat-value" id="statBestDay">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">গড় বিক্রয়
+          <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="stat-value" id="statAvgSale">—</div>
       </div>
     </div>
 
-    <div class="stock-list" id="stockList"></div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="dot"></span> এনালিটিক্স ড্যাশবোর্ড</div>
+      </div>
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <div class="analytics-title">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            শেষ ৭ দিনের বিক্রয়
+          </div>
+          <div class="bar-chart" id="weeklyChart"></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-title">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            টপ সেলিং মডেল
+          </div>
+          <div class="top-list" id="topModels"></div>
+        </div>
+        <div class="analytics-card">
+          <div class="analytics-title">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            পেমেন্ট মেথড
+          </div>
+          <div class="bar-chart" id="paymentChart"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </main>
 
-<!-- ============ FAB ============ -->
-<button class="fab" id="fabBtn" type="button" aria-label="নতুন এন্ট্রি">＋</button>
+<!-- FAB -->
+<button class="fab" id="fabBtn" type="button" aria-label="নতুন এন্ট্রি">
+  <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
 
-<!-- ============ EDIT MODAL ============ -->
+<!-- SELL MODAL -->
+<div class="modal" id="sellModal">
+  <div class="modal-content">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">
+        <div class="modal-title-icon green">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+        </div>
+        বিক্রয় নিশ্চিত করুন
+      </div>
+      <button class="modal-close" onclick="closeSell()" type="button">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <input type="hidden" id="sellStockId">
+
+    <div class="sell-preview" id="sellPreview"></div>
+
+    <div class="form-grid" style="grid-template-columns:1fr">
+      <div class="field">
+        <label>বিক্রয় পরিমাণ <span class="req">*</span></label>
+        <div class="qty-control">
+          <button class="qty-btn" type="button" onclick="adjustSellQty(-1)">−</button>
+          <input type="number" id="sellQty" value="1" min="1" inputmode="numeric">
+          <button class="qty-btn" type="button" onclick="adjustSellQty(1)">+</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>একক দাম (৳)</label>
+        <input type="number" id="sellUnitPrice" min="0" step="0.01" placeholder="0" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label>পেমেন্ট মেথড</label>
+        <div class="payment-opts" id="paymentOpts">
+          <button class="pay-opt active" data-pay="Cash" type="button">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg>
+            Cash
+          </button>
+          <button class="pay-opt" data-pay="bKash" type="button">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+            bKash
+          </button>
+          <button class="pay-opt" data-pay="Nagad" type="button">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+            Nagad
+          </button>
+          <button class="pay-opt" data-pay="Rocket" type="button">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+            Rocket
+          </button>
+        </div>
+      </div>
+      <div class="field">
+        <label>কাস্টমারের নাম</label>
+        <input type="text" id="sellCustomer" placeholder="নাম (অপশনাল)" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>মোবাইল নম্বর</label>
+        <input type="tel" id="sellPhone" placeholder="01XXXXXXXXX" inputmode="tel" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>নোট</label>
+        <input type="text" id="sellNotes" placeholder="নোট..." autocomplete="off">
+      </div>
+    </div>
+
+    <div class="sell-total">
+      <div class="sell-total-label">সর্বমোট</div>
+      <div class="sell-total-value" id="sellTotal">৳0</div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeSell()" type="button">বাতিল</button>
+      <button class="btn btn-success" id="confirmSellBtn" type="button">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        বিক্রয় সম্পন্ন
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
 <div class="modal" id="editModal">
   <div class="modal-content">
     <div class="modal-handle"></div>
     <div class="modal-header">
-      <h3>✏️ এডিট করুন</h3>
-      <button class="modal-close" onclick="closeEdit()" type="button">×</button>
+      <div class="modal-title">
+        <div class="modal-title-icon">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        এডিট করুন
+      </div>
+      <button class="modal-close" onclick="closeEdit()" type="button">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
     <input type="hidden" id="eId">
     <div class="form-grid" style="grid-template-columns:1fr">
@@ -934,21 +1966,33 @@ input, button, select, textarea {
   </div>
 </div>
 
-<!-- ============ IMAGE MODAL ============ -->
+<!-- IMAGE MODAL -->
 <div class="modal" id="imageModal">
   <div class="modal-content">
     <div class="modal-handle"></div>
     <div class="modal-header">
-      <h3>📷 ছবি থেকে খুঁজুন</h3>
-      <button class="modal-close" onclick="closeImage()" type="button">×</button>
+      <div class="modal-title">
+        <div class="modal-title-icon">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        ছবি থেকে খুঁজুন
+      </div>
+      <button class="modal-close" onclick="closeImage()" type="button">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
-    <label class="upload-area" for="imageInput">
-      <div class="upload-icon">📸</div>
+    <label class="upload-area" for="imageInput" id="uploadArea">
+      <div class="upload-icon">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
       <div class="upload-title">ছবি আপলোড করুন</div>
-      <div class="upload-sub">ছবি থেকে মডেলের নাম পড়ে খুঁজে বের করবে</div>
+      <div class="upload-sub">AI দিয়ে মডেলের নাম পড়ে খুঁজে বের করবে</div>
       <input type="file" id="imageInput" accept="image/*" capture="environment">
     </label>
-    <img id="imagePreview" class="image-preview" style="display:none" alt="preview">
+    <div class="image-preview-wrap" id="imageWrap" style="display:none">
+      <img id="imagePreview" class="image-preview" alt="preview">
+      <div class="scan-line"></div>
+    </div>
     <div class="ocr-status" id="ocrStatus" style="display:none"></div>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeImage()" type="button">বন্ধ করুন</button>
@@ -956,32 +2000,71 @@ input, button, select, textarea {
   </div>
 </div>
 
-<!-- ============ VOICE OVERLAY ============ -->
+<!-- VOICE OVERLAY -->
 <div class="voice-overlay" id="voiceOverlay">
   <div class="voice-box">
-    <div class="voice-mic">🎤</div>
+    <div class="voice-mic">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+    </div>
+    <div class="voice-waves">
+      <div class="voice-wave"></div><div class="voice-wave"></div><div class="voice-wave"></div>
+      <div class="voice-wave"></div><div class="voice-wave"></div><div class="voice-wave"></div>
+      <div class="voice-wave"></div><div class="voice-wave"></div><div class="voice-wave"></div>
+    </div>
     <div class="voice-text" id="voiceText">শুনছি...</div>
-    <div class="voice-hint">মডেলের নাম স্পষ্ট করে বলুন</div>
+    <div class="voice-hint" id="voiceHint">মডেলের নাম স্পষ্ট করে বলুন</div>
+    <div class="voice-suggestions">
+      <span class="voice-suggestion">"আইফোন থার্টিন"</span>
+      <span class="voice-suggestion">"গ্যালাক্সি এস টোয়েন্টি থ্রি"</span>
+    </div>
   </div>
 </div>
 
-<!-- ============ TOAST ============ -->
+<!-- SUCCESS -->
+<div class="success-anim" id="successAnim">
+  <div class="success-box">
+    <div class="success-circle">
+      <svg class="success-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    </div>
+    <div class="success-title">বিক্রয় সম্পন্ন!</div>
+    <div class="success-sub" id="successModel">—</div>
+    <div class="success-amount" id="successAmount">৳0</div>
+    <div class="success-sub" style="margin-bottom:20px" id="successStock">নতুন স্টক: —</div>
+    <button class="success-close" onclick="closeSuccess()" type="button">বন্ধ করুন</button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">লোড হচ্ছে...</div>
+</div>
+
+<!-- TOAST -->
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
 'use strict';
 
 /* ==========================================================
-   ⚠️ API URL এখানে বসান ⚠️
+   ⚠️ API URL
    ========================================================== */
 const API_URL = 'https://script.google.com/macros/s/AKfycbw1VNW-e9YooImq3D-Mv4Qm41SzlY95xqWZyLGU0d8O0OUN-abJC-91wXB0vthwcZ0y/exec';
 
 /* ============ State ============ */
 let stockData = [];
+let salesData = [];
 let filteredData = [];
+let filteredSales = [];
 let isSyncing = false;
 let syncTimer = null;
 let currentSearch = '';
+let currentTab = 'stock';
+let currentPayment = 'Cash';
+let currentFilter = 'all';
+let currentSort = 'recent';
 
 /* ============ Utils ============ */
 const $ = id => document.getElementById(id);
@@ -989,19 +2072,48 @@ const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({
   '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
 }[c]));
 const fmtNum = n => Number(n || 0).toLocaleString('en-IN');
+const fmtCurrency = n => '৳' + fmtNum(Math.round(n || 0));
+
+/* Highlight search match */
+function highlight(text, query) {
+  if (!query) return escapeHtml(text);
+  const safe = escapeHtml(text);
+  const q = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return safe.replace(new RegExp('(' + q + ')', 'gi'), '<mark>$1</mark>');
+}
+
+/* Ripple effect */
+function addRipple(e) {
+  const btn = e.currentTarget;
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const x = e.clientX - rect.left - size / 2;
+  const y = e.clientY - rect.top - size / 2;
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple-effect';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = x + 'px';
+  ripple.style.top = y + 'px';
+  btn.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 600);
+}
 
 /* ============ Toast ============ */
 function showToast(msg, type = 'success') {
-  const icons = { success:'✅', error:'❌', warning:'⚠️', info:'ℹ️' };
+  const icons = {
+    success: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>',
+    error: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    warning: '<svg class="icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>',
+    info: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="8"/></svg>'
+  };
   const el = document.createElement('div');
-  el.className = 'toast ' + (type === 'success' ? '' : type);
-  el.innerHTML = `<span class="toast-icon">${icons[type] || '✅'}</span><span>${escapeHtml(msg)}</span>`;
+  el.className = 'toast ' + type;
+  el.innerHTML = `<span class="toast-icon">${icons[type] || icons.success}</span><span>${escapeHtml(msg)}</span>`;
   $('toastWrap').appendChild(el);
-  requestAnimationFrame(() => el.classList.add('show'));
   setTimeout(() => {
-    el.classList.remove('show');
+    el.classList.add('out');
     setTimeout(() => el.remove(), 400);
-  }, 3000);
+  }, 3200);
 }
 
 /* ============ Sync Status ============ */
@@ -1011,12 +2123,19 @@ function setSync(status, text) {
   const full = el.querySelector('.sync-text-full');
   const short = el.querySelector('.sync-text-short');
   if (full) full.textContent = text;
-  if (short) short.textContent = text.length > 12 ? '•••' : text;
+  if (short) short.textContent = text.length > 10 ? '•••' : text;
 }
 
+/* ============ Loading ============ */
+function showLoading(txt = 'লোড হচ্ছে...') {
+  $('loadingOverlay').querySelector('.loading-text').textContent = txt;
+  $('loadingOverlay').classList.add('show');
+}
+function hideLoading() { $('loadingOverlay').classList.remove('show'); }
+
 /* ============ API ============ */
-async function apiGet() {
-  const r = await fetch(API_URL + '?action=getAll', { cache: 'no-store' });
+async function apiGet(action = 'getAll') {
+  const r = await fetch(API_URL + '?action=' + action, { cache: 'no-store' });
   const j = await r.json();
   if (!j.success) throw new Error(j.error || 'Fetch failed');
   return j.data;
@@ -1037,12 +2156,18 @@ async function apiPost(payload) {
 async function syncData(showLoad = false) {
   if (isSyncing) return;
   isSyncing = true;
-  if (showLoad) setSync('', 'লোড হচ্ছে...');
+  if (showLoad) setSync('syncing', 'লোড...');
   try {
-    const data = await apiGet();
-    stockData = data.sort((a,b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+    const [stock, sales] = await Promise.all([
+      apiGet('getAll'),
+      apiGet('getSales')
+    ]);
+    stockData = stock.sort((a,b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+    salesData = sales;
     setSync('online', 'লাইভ ✅');
     render();
+    renderSales();
+    renderAnalytics();
   } catch (err) {
     console.error(err);
     setSync('error', 'সমস্যা');
@@ -1056,28 +2181,42 @@ function startAutoSync() {
   if (syncTimer) clearInterval(syncTimer);
   syncTimer = setInterval(() => {
     if (!document.hidden) syncData(false);
-  }, 8000);
+  }, 10000);
 }
 
-/* ============ Render ============ */
+/* ============ Sort Logic ============ */
+function sortData(arr) {
+  const s = [...arr];
+  switch (currentSort) {
+    case 'name': return s.sort((a,b) => a.model.localeCompare(b.model));
+    case 'qty-asc': return s.sort((a,b) => a.quantity - b.quantity);
+    case 'qty-desc': return s.sort((a,b) => b.quantity - a.quantity);
+    case 'price-desc': return s.sort((a,b) => (b.price || 0) - (a.price || 0));
+    case 'recent':
+    default: return s.sort((a,b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+  }
+}
+
+/* ============ Render Stock ============ */
 function render() {
   const q = currentSearch;
   const f = $('filterSearch').value.toLowerCase().trim();
   const brand = $('filterBrand').value;
   const type = $('filterType').value;
-  const status = $('filterStatus').value;
 
-  filteredData = stockData.filter(d => {
+  let data = stockData.filter(d => {
     const hay = (d.model + ' ' + d.brand + ' ' + d.glassType).toLowerCase();
     if (q && !hay.includes(q)) return false;
     if (f && !hay.includes(f)) return false;
     if (brand && d.brand !== brand) return false;
     if (type && d.glassType !== type) return false;
-    if (status === 'instock' && d.quantity <= 5) return false;
-    if (status === 'low' && (d.quantity === 0 || d.quantity > 5)) return false;
-    if (status === 'out' && d.quantity !== 0) return false;
+    if (currentFilter === 'instock' && d.quantity <= 5) return false;
+    if (currentFilter === 'low' && (d.quantity === 0 || d.quantity > 5)) return false;
+    if (currentFilter === 'out' && d.quantity !== 0) return false;
     return true;
   });
+
+  filteredData = sortData(data);
 
   // Stats
   const total = stockData.length;
@@ -1085,38 +2224,51 @@ function render() {
   const low = stockData.filter(d => d.quantity > 0 && d.quantity <= 5).length;
   const out = stockData.filter(d => d.quantity === 0).length;
   const val = stockData.reduce((s,d) => s + (d.quantity || 0) * (d.price || 0), 0);
+  const instock = stockData.filter(d => d.quantity > 5).length;
 
-  $('statModels').textContent = fmtNum(total);
-  $('statStock').textContent = fmtNum(stock);
-  $('statLow').textContent = fmtNum(low);
-  $('statOut').textContent = fmtNum(out);
-  $('statValue').textContent = '৳' + fmtNum(Math.round(val));
+  animateValue('statModels', total);
+  animateValue('statStock', stock);
+  animateValue('statLow', low);
+  animateValue('statOut', out);
+  $('statValue').textContent = fmtCurrency(val);
+
+  // Chips
+  $('chipAll').textContent = total;
+  $('chipIn').textContent = instock;
+  $('chipLow').textContent = low;
+  $('chipOut').textContent = out;
 
   updateFilters();
   $('resultCount').textContent = `${filteredData.length}/${stockData.length}`;
 
-  // List
   const list = $('stockList');
   if (filteredData.length === 0) {
     list.innerHTML = `<div class="empty">
-      <div class="empty-icon">📭</div>
+      <div class="empty-icon">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      </div>
       <div class="empty-title">কোনো আইটেম নেই</div>
       <div class="empty-sub">উপরের ফর্ম থেকে নতুন স্টক যোগ করুন</div>
     </div>`;
     return;
   }
 
+  const maxQty = Math.max(...stockData.map(d => d.quantity || 1), 1);
+
   list.innerHTML = filteredData.map(d => {
     let cls = 'g', cardCls = '';
     if (d.quantity === 0) { cls = 'r'; cardCls = 'out'; }
     else if (d.quantity <= 5) { cls = 'o'; cardCls = 'low'; }
 
+    const barPercent = Math.min(100, (d.quantity / maxQty) * 100);
+    const barCls = d.quantity === 0 ? 'r' : (d.quantity <= 5 ? 'o' : '');
+
     return `<div class="stock-card ${cardCls}">
       <div class="sc-top">
         <div class="sc-title">
-          <div class="sc-model">${escapeHtml(d.model)}</div>
+          <div class="sc-model">${highlight(d.model, currentSearch)}</div>
           <div class="sc-brand">
-            <span>${escapeHtml(d.brand)}</span>
+            <span>${highlight(d.brand, currentSearch)}</span>
             <span class="tag">${escapeHtml(d.glassType)}</span>
           </div>
         </div>
@@ -1125,18 +2277,46 @@ function render() {
           <div class="sc-qty-label">স্টক</div>
         </div>
       </div>
+      <div class="sc-bar"><div class="sc-bar-fill ${barCls}" style="width:${barPercent}%"></div></div>
       <div class="sc-info">
-        ${d.price ? `<span class="sc-info-item">💰 <strong>৳${fmtNum(d.price)}</strong></span>` : ''}
-        ${d.notes ? `<span class="sc-info-item">📝 ${escapeHtml(d.notes)}</span>` : ''}
+        ${d.price ? `<span class="sc-info-item">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <strong>৳${fmtNum(d.price)}</strong>
+        </span>` : ''}
+        ${d.notes ? `<span class="sc-info-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          ${escapeHtml(d.notes)}
+        </span>` : ''}
       </div>
       <div class="sc-actions">
-        <button class="sc-btn add" onclick="adjustQty('${d.id}',1)" type="button" title="+1">＋<span class="lbl">যোগ</span></button>
-        <button class="sc-btn sub" onclick="adjustQty('${d.id}',-1)" type="button" title="-1">−<span class="lbl">বিয়োগ</span></button>
-        <button class="sc-btn edit" onclick="openEdit('${d.id}')" type="button" title="এডিট">✏️<span class="lbl">এডিট</span></button>
-        <button class="sc-btn del" onclick="deleteItem('${d.id}')" type="button" title="ডিলিট">🗑️<span class="lbl">ডিলিট</span></button>
+        <button class="sc-btn sell" onclick="openSell('${d.id}')" type="button">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+          <span class="lbl">বিক্রি</span>
+        </button>
+        <button class="sc-btn edit" onclick="openEdit('${d.id}')" type="button">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span class="lbl">এডিট</span>
+        </button>
+        <button class="sc-btn edit" onclick="adjustQty('${d.id}',1)" type="button">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="sc-btn del" onclick="deleteItem('${d.id}')" type="button">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span class="lbl">ডিলিট</span>
+        </button>
       </div>
     </div>`;
   }).join('');
+}
+
+function animateValue(id, newVal) {
+  const el = $(id);
+  const cur = Number(el.textContent.replace(/,/g, '')) || 0;
+  if (cur === newVal) return;
+  el.textContent = fmtNum(newVal);
+  el.style.animation = 'none';
+  void el.offsetWidth;
+  el.style.animation = 'countUp 0.4s cubic-bezier(0.4,0,0.2,1)';
 }
 
 function updateFilters() {
@@ -1150,7 +2330,215 @@ function updateFilters() {
     types.map(t => `<option value="${escapeHtml(t)}"${t===curT?' selected':''}>${escapeHtml(t)}</option>`).join('');
 }
 
-/* ============ Add ============ */
+/* ============ Render Sales ============ */
+function renderSales() {
+  const dateFilter = $('salesFilterDate').value;
+  const searchFilter = $('salesSearch').value.toLowerCase().trim();
+
+  filteredSales = salesData.filter(s => {
+    if (dateFilter) {
+      const d = new Date(s.soldAt);
+      const filterDate = new Date(dateFilter);
+      if (d.toDateString() !== filterDate.toDateString()) return false;
+    }
+    if (searchFilter) {
+      const hay = (s.model + ' ' + s.brand + ' ' + (s.customer || '') + ' ' + (s.phone || '')).toLowerCase();
+      if (!hay.includes(searchFilter)) return false;
+    }
+    return true;
+  });
+
+  const today = new Date().toDateString();
+  const todaySales = salesData.filter(s => new Date(s.soldAt).toDateString() === today);
+  const todayCount = todaySales.length;
+  const todayAmount = todaySales.reduce((sum, s) => sum + (s.totalPrice || 0), 0);
+  const totalCount = salesData.length;
+  const totalRevenue = salesData.reduce((sum, s) => sum + (s.totalPrice || 0), 0);
+
+  $('statToday').textContent = fmtNum(todayCount);
+  $('statTodayAmount').textContent = fmtCurrency(todayAmount);
+  $('statTotalSales').textContent = fmtNum(totalCount);
+  $('statTotalRevenue').textContent = fmtCurrency(totalRevenue);
+
+  if (todayCount > 0) {
+    $('salesBadge').textContent = todayCount;
+    $('salesBadge').style.display = 'flex';
+  } else {
+    $('salesBadge').style.display = 'none';
+  }
+
+  $('salesCount').textContent = `${filteredSales.length}/${salesData.length}`;
+
+  const list = $('salesList');
+  if (filteredSales.length === 0) {
+    list.innerHTML = `<div class="empty">
+      <div class="empty-icon">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+      </div>
+      <div class="empty-title">এখনো কোনো বিক্রয় হয়নি</div>
+      <div class="empty-sub">স্টক থেকে আইটেম বিক্রি করুন</div>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = filteredSales.map(s => {
+    const d = new Date(s.soldAt);
+    const dateStr = d.toLocaleString('bn-BD', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+    const payIcon = s.paymentMethod === 'bKash' || s.paymentMethod === 'Nagad' || s.paymentMethod === 'Rocket'
+      ? '<svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>'
+      : '<svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg>';
+
+    return `<div class="sale-card">
+      <div class="sale-top">
+        <span class="sale-id">${escapeHtml(s.id)}</span>
+        <div class="sale-amount">
+          <div class="sale-amount-num">${fmtCurrency(s.totalPrice)}</div>
+          <div class="sale-amount-label">মোট</div>
+        </div>
+      </div>
+      <div class="sale-model">${escapeHtml(s.model)}</div>
+      <div class="sale-meta">
+        <span class="sale-meta-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          ${fmtNum(s.quantity)} × ${fmtCurrency(s.unitPrice)}
+        </span>
+        <span class="sale-meta-item">
+          ${payIcon}
+          ${escapeHtml(s.paymentMethod)}
+        </span>
+        <span class="sale-meta-item">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          ${dateStr}
+        </span>
+      </div>
+      ${s.customer ? `<div class="sale-customer">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <strong>${escapeHtml(s.customer)}</strong>
+        ${s.phone ? ' · ' + escapeHtml(s.phone) : ''}
+      </div>` : ''}
+      <div class="sale-actions">
+        <button class="btn btn-secondary btn-sm" onclick="deleteSale('${s.id}')" type="button">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+          বাতিল
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ============ Render Analytics ============ */
+function renderAnalytics() {
+  const now = new Date();
+  const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+  const weekSales = salesData.filter(s => new Date(s.soldAt) >= weekAgo);
+  const monthSales = salesData.filter(s => new Date(s.soldAt) >= monthAgo);
+
+  const weekRevenue = weekSales.reduce((sum, s) => sum + (s.totalPrice || 0), 0);
+  const monthRevenue = monthSales.reduce((sum, s) => sum + (s.totalPrice || 0), 0);
+
+  $('statWeekRevenue').textContent = fmtCurrency(weekRevenue);
+  $('statMonthRevenue').textContent = fmtCurrency(monthRevenue);
+
+  // Avg sale
+  const avgSale = salesData.length > 0 
+    ? salesData.reduce((sum, s) => sum + (s.totalPrice || 0), 0) / salesData.length 
+    : 0;
+  $('statAvgSale').textContent = fmtCurrency(avgSale);
+
+  // Best day
+  const dayMap = {};
+  salesData.forEach(s => {
+    const d = new Date(s.soldAt).toDateString();
+    dayMap[d] = (dayMap[d] || 0) + (s.totalPrice || 0);
+  });
+  const bestDay = Object.entries(dayMap).sort((a,b) => b[1] - a[1])[0];
+  $('statBestDay').textContent = bestDay ? fmtCurrency(bestDay[1]) : '—';
+
+  // Weekly chart - last 7 days
+  const dailyMap = {};
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+    dailyMap[d.toDateString()] = 0;
+  }
+  salesData.forEach(s => {
+    const k = new Date(s.soldAt).toDateString();
+    if (dailyMap.hasOwnProperty(k)) dailyMap[k] += (s.totalPrice || 0);
+  });
+
+  const maxDaily = Math.max(...Object.values(dailyMap), 1);
+  $('weeklyChart').innerHTML = Object.entries(dailyMap).map(([day, amount]) => {
+    const d = new Date(day);
+    const dayName = d.toLocaleDateString('bn-BD', { weekday: 'short' });
+    const percent = (amount / maxDaily) * 100;
+    return `<div class="bar-item">
+      <div class="bar-label">
+        <span>${dayName}</span>
+        <strong>${fmtCurrency(amount)}</strong>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill g" style="width:${percent}%"></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Top selling models
+  const modelMap = {};
+  salesData.forEach(s => {
+    if (!modelMap[s.model]) modelMap[s.model] = { qty: 0, revenue: 0 };
+    modelMap[s.model].qty += s.quantity || 0;
+    modelMap[s.model].revenue += s.totalPrice || 0;
+  });
+  const topModels = Object.entries(modelMap)
+    .sort((a,b) => b[1].revenue - a[1].revenue)
+    .slice(0, 5);
+
+  if (topModels.length === 0) {
+    $('topModels').innerHTML = `<div style="color:var(--text-3);font-size:13px;padding:10px">এখনো কোনো ডাটা নেই</div>`;
+  } else {
+    $('topModels').innerHTML = topModels.map(([name, data], i) => {
+      const rankCls = i === 0 ? 'gold' : (i === 1 ? 'silver' : (i === 2 ? 'bronze' : ''));
+      return `<div class="top-item">
+        <div class="top-rank ${rankCls}">${i + 1}</div>
+        <div class="top-info">
+          <div class="top-name">${escapeHtml(name)}</div>
+          <div class="top-sub">${fmtNum(data.qty)} পিস বিক্রয়</div>
+        </div>
+        <div class="top-value">${fmtCurrency(data.revenue)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Payment chart
+  const payMap = {};
+  salesData.forEach(s => {
+    const k = s.paymentMethod || 'Cash';
+    payMap[k] = (payMap[k] || 0) + (s.totalPrice || 0);
+  });
+  const maxPay = Math.max(...Object.values(payMap), 1);
+  const payColors = { 'Cash': 'g', 'bKash': 'p', 'Nagad': 'o', 'Rocket': '' };
+
+  if (Object.keys(payMap).length === 0) {
+    $('paymentChart').innerHTML = `<div style="color:var(--text-3);font-size:13px;padding:10px">এখনো কোনো ডাটা নেই</div>`;
+  } else {
+    $('paymentChart').innerHTML = Object.entries(payMap).map(([method, amount]) => {
+      const percent = (amount / maxPay) * 100;
+      const cls = payColors[method] || '';
+      return `<div class="bar-item">
+        <div class="bar-label">
+          <span>${escapeHtml(method)}</span>
+          <strong>${fmtCurrency(amount)}</strong>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ${cls}" style="width:${percent}%"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ============ Add Stock ============ */
 async function addStock() {
   const model = $('fModel').value.trim();
   const brand = $('fBrand').value.trim();
@@ -1164,17 +2552,18 @@ async function addStock() {
 
   const btn = $('addBtn');
   btn.disabled = true;
+  const orig = btn.innerHTML;
   btn.innerHTML = '<span class="spinner"></span> সেভ হচ্ছে...';
   try {
     await apiPost({ action:'add', data:{ model, brand, quantity:qty, price, glassType, notes } });
-    showToast('সেভ হয়েছে ✅');
+    showToast('সেভ হয়েছে ✅', 'success');
     clearForm();
     await syncData(false);
   } catch (err) {
     showToast('সেভ ব্যর্থ: ' + err.message, 'error');
   } finally {
     btn.disabled = false;
-    btn.innerHTML = '💾 সেভ করুন';
+    btn.innerHTML = orig;
   }
 }
 
@@ -1193,13 +2582,14 @@ async function adjustQty(id, delta) {
   render();
   try {
     await apiPost({ action:'adjust', id, delta });
+    showToast(delta > 0 ? '+১ যোগ হয়েছে' : '−১ বিয়োগ হয়েছে', 'success');
   } catch (err) {
     showToast('আপডেট ব্যর্থ: ' + err.message, 'error');
     await syncData(false);
   }
 }
 
-/* ============ Delete ============ */
+/* ============ Delete Stock ============ */
 async function deleteItem(id) {
   const item = stockData.find(d => d.id === id);
   if (!item) return;
@@ -1208,7 +2598,7 @@ async function deleteItem(id) {
   render();
   try {
     await apiPost({ action:'delete', id });
-    showToast('ডিলিট সম্পন্ন');
+    showToast('ডিলিট সম্পন্ন', 'success');
   } catch (err) {
     showToast('ডিলিট ব্যর্থ: ' + err.message, 'error');
     await syncData(false);
@@ -1251,7 +2641,7 @@ async function saveEdit() {
   try {
     await apiPost({ action:'update', data });
     closeEdit();
-    showToast('আপডেট সম্পন্ন');
+    showToast('আপডেট সম্পন্ন', 'success');
     await syncData(false);
   } catch (err) {
     showToast('আপডেট ব্যর্থ: ' + err.message, 'error');
@@ -1261,127 +2651,399 @@ async function saveEdit() {
   }
 }
 
-/* ============ Live Search ============ */
+/* ============ SELL ============ */
+function openSell(id) {
+  const item = stockData.find(d => d.id === id);
+  if (!item) return;
+  if (item.quantity === 0) { showToast('স্টক নেই! আগে স্টক যোগ করুন', 'warning'); return; }
+
+  $('sellStockId').value = id;
+  $('sellQty').value = 1;
+  $('sellQty').max = item.quantity;
+  $('sellUnitPrice').value = item.price || 0;
+  $('sellCustomer').value = '';
+  $('sellPhone').value = '';
+  $('sellNotes').value = '';
+  currentPayment = 'Cash';
+  document.querySelectorAll('.pay-opt').forEach(p => {
+    p.classList.toggle('active', p.dataset.pay === 'Cash');
+  });
+
+  $('sellPreview').innerHTML = `
+    <div class="sell-preview-model">${escapeHtml(item.model)}</div>
+    <div class="sell-preview-meta">
+      <span>${escapeHtml(item.brand)}</span>
+      <span>· ${escapeHtml(item.glassType)}</span>
+    </div>
+    <div class="sell-preview-stats">
+      <div class="sell-stat">
+        <div class="sell-stat-num green">${fmtNum(item.quantity)}</div>
+        <div class="sell-stat-label">স্টকে আছে</div>
+      </div>
+      <div class="sell-stat">
+        <div class="sell-stat-num">${fmtCurrency(item.price)}</div>
+        <div class="sell-stat-label">একক দাম</div>
+      </div>
+      <div class="sell-stat">
+        <div class="sell-stat-num gold" id="previewTotal">${fmtCurrency(item.price)}</div>
+        <div class="sell-stat-label">মোট</div>
+      </div>
+    </div>
+  `;
+
+  updateSellTotal();
+  $('sellModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSell() {
+  $('sellModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function adjustSellQty(delta) {
+  const input = $('sellQty');
+  const max = Number(input.max) || 999;
+  let v = Number(input.value) || 0;
+  v = Math.max(1, Math.min(max, v + delta));
+  input.value = v;
+  updateSellTotal();
+}
+
+function updateSellTotal() {
+  const qty = Number($('sellQty').value) || 0;
+  const price = Number($('sellUnitPrice').value) || 0;
+  const total = qty * price;
+  $('sellTotal').textContent = fmtCurrency(total);
+  const preview = $('previewTotal');
+  if (preview) preview.textContent = fmtCurrency(total);
+}
+
+async function confirmSell() {
+  const stockId = $('sellStockId').value;
+  const quantity = Number($('sellQty').value) || 0;
+  const unitPrice = Number($('sellUnitPrice').value) || 0;
+  const customer = $('sellCustomer').value.trim();
+  const phone = $('sellPhone').value.trim();
+  const notes = $('sellNotes').value.trim();
+
+  const item = stockData.find(d => d.id === stockId);
+  if (!item) { showToast('স্টক আইটেম পাওয়া যায়নি', 'error'); return; }
+  if (quantity <= 0) { showToast('পরিমাণ ০ এর বেশি হতে হবে', 'error'); return; }
+  if (quantity > item.quantity) { showToast(`স্টকে মাত্র ${item.quantity} পিস আছে`, 'error'); return; }
+
+  const btn = $('confirmSellBtn');
+  btn.disabled = true;
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<span class="spinner"></span> প্রসেসিং...';
+
+  try {
+    const result = await apiPost({
+      action: 'sell',
+      data: { stockId, quantity, unitPrice, customer, phone, notes, paymentMethod: currentPayment }
+    });
+
+    closeSell();
+    $('successModel').textContent = result.model || item.model;
+    $('successAmount').textContent = fmtCurrency(result.totalPrice);
+    $('successStock').textContent = `নতুন স্টক: ${result.newStock} পিস`;
+    $('successAnim').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    await syncData(false);
+  } catch (err) {
+    showToast('বিক্রয় ব্যর্থ: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+  }
+}
+
+function closeSuccess() {
+  $('successAnim').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function deleteSale(id) {
+  if (!confirm('এই বিক্রয় বাতিল করবেন? স্টক ফিরে যাবে।')) return;
+  try {
+    await apiPost({ action:'deleteSale', id });
+    showToast('বিক্রয় বাতিল, স্টক ফিরে এসেছে', 'success');
+    await syncData(false);
+  } catch (err) {
+    showToast('বাতিল ব্যর্থ: ' + err.message, 'error');
+  }
+}
+
+/* ============ ULTIMATE LIVE SEARCH ============ */
 const searchInput = $('liveSearch');
 const liveResults = $('liveResults');
 const searchClear = $('searchClear');
+const voiceInlineBtn = $('voiceInlineBtn');
 let searchTimer = null;
+
+/* Fuzzy match score */
+function fuzzyScore(text, query) {
+  text = text.toLowerCase();
+  query = query.toLowerCase();
+  if (text === query) return 1000;
+  if (text.startsWith(query)) return 900 + (query.length / text.length) * 100;
+  if (text.includes(query)) return 800 + (query.length / text.length) * 100;
+  
+  // Word matches
+  const words = text.split(/\s+/);
+  let bestWordScore = 0;
+  words.forEach(w => {
+    if (w.startsWith(query)) bestWordScore = Math.max(bestWordScore, 700);
+    else if (w.includes(query)) bestWordScore = Math.max(bestWordScore, 600);
+  });
+  if (bestWordScore) return bestWordScore;
+  
+  // Character sequence match
+  let i = 0;
+  for (const ch of text) {
+    if (ch === query[i]) i++;
+    if (i === query.length) break;
+  }
+  if (i === query.length) return 400 + (i / text.length) * 100;
+  
+  return 0;
+}
 
 searchInput.addEventListener('input', () => {
   clearTimeout(searchTimer);
   const q = searchInput.value.toLowerCase().trim();
   currentSearch = q;
   searchClear.classList.toggle('show', !!q);
+  voiceInlineBtn.classList.toggle('show', !q);
+  
   searchTimer = setTimeout(() => {
     render();
     if (!q) { liveResults.classList.remove('show'); return; }
-    const matches = stockData.filter(d =>
-      (d.model + ' ' + d.brand).toLowerCase().includes(q)
-    ).slice(0, 8);
-    if (matches.length === 0) {
-      liveResults.innerHTML = `<div class="live-item" style="cursor:default">
-        <div class="info"><div class="name" style="color:var(--text-3)">কোনো মডেল পাওয়া যায়নি</div></div>
+    
+    // Fuzzy search
+    const scored = stockData.map(d => {
+      const modelScore = fuzzyScore(d.model, q);
+      const brandScore = fuzzyScore(d.brand, q) * 0.6;
+      const typeScore = fuzzyScore(d.glassType, q) * 0.4;
+      return {
+        item: d,
+        score: Math.max(modelScore, brandScore, typeScore)
+      };
+    }).filter(s => s.score > 0)
+      .sort((a,b) => b.score - a.score)
+      .slice(0, 10);
+    
+    if (scored.length === 0) {
+      liveResults.innerHTML = `<div class="live-header">
+        <span>কোনো ফলাফল নেই</span>
+      </div>
+      <div class="live-item" style="cursor:default">
+        <div class="info">
+          <div class="name" style="color:var(--text-3)">"${escapeHtml(q)}" এর জন্য কিছু পাওয়া যায়নি</div>
+          <div class="sub">অন্য কিছু লিখে চেষ্টা করুন</div>
+        </div>
       </div>`;
     } else {
-      liveResults.innerHTML = matches.map(d => {
+      liveResults.innerHTML = `<div class="live-header">
+        <span>${scored.length}টি ফলাফল</span>
+        <span>এন্টার = প্রথমটি</span>
+      </div>` + scored.map(({item: d}) => {
         let cls = 'g';
         if (d.quantity === 0) cls = 'r';
         else if (d.quantity <= 5) cls = 'o';
         return `<div class="live-item" onclick="pickLive('${d.id}')">
           <div class="info">
-            <div class="name">${escapeHtml(d.model)}</div>
-            <div class="sub">${escapeHtml(d.brand)} · ${escapeHtml(d.glassType)}</div>
+            <div class="name">${highlight(d.model, currentSearch)}</div>
+            <div class="sub">
+              ${highlight(d.brand, currentSearch)} <span class="dot-sep">·</span> ${escapeHtml(d.glassType)}
+            </div>
           </div>
           <span class="pill ${cls}">${fmtNum(d.quantity)}</span>
+          <div class="live-actions">
+            <button class="live-action sell" onclick="event.stopPropagation();openSell('${d.id}')" type="button" title="বিক্রি">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+            </button>
+            <button class="live-action edit" onclick="event.stopPropagation();openEdit('${d.id}')" type="button" title="এডিট">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+          </div>
         </div>`;
       }).join('');
     }
     liveResults.classList.add('show');
-  }, 120);
+  }, 100);
+});
+
+/* Enter key → first result */
+searchInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const first = liveResults.querySelector('.live-item:not([style*="cursor:default"])');
+    if (first) first.click();
+  }
 });
 
 searchClear.onclick = () => {
   searchInput.value = '';
   currentSearch = '';
   searchClear.classList.remove('show');
+  voiceInlineBtn.classList.add('show');
   liveResults.classList.remove('show');
   render();
   searchInput.focus();
 };
 
+voiceInlineBtn.onclick = () => {
+  searchInput.blur();
+  if (window.triggerVoice) window.triggerVoice();
+};
+
 function pickLive(id) {
   const item = stockData.find(d => d.id === id);
   if (!item) return;
-  searchInput.value = item.model;
-  currentSearch = item.model.toLowerCase();
-  searchClear.classList.add('show');
   liveResults.classList.remove('show');
-  render();
   searchInput.blur();
+  openSell(id);
 }
 
 document.addEventListener('click', e => {
   if (!e.target.closest('.search-hero')) liveResults.classList.remove('show');
 });
 
-/* ============ Voice Search ============ */
+/* ============ VOICE SEARCH (Upgraded) ============ */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 const voiceBtn = $('voiceBtn');
 const voiceOverlay = $('voiceOverlay');
 const voiceText = $('voiceText');
+const voiceHint = $('voiceHint');
 
-if (!SR) {
-  voiceBtn.onclick = () => showToast('এই ব্রাউজারে ভয়েস সাপোর্ট নেই। Chrome ব্যবহার করুন', 'error');
-} else {
+/* Bengali number/word normalization */
+function normalizeVoice(text) {
+  const map = {
+    'থার্টিন': '13', 'থারটিন': '13', 'থার্টিন': '13',
+    'টুয়েলভ': '12', 'বারো': '12', 'বার': '12',
+    'ইলেভেন': '11', 'এগারো': '11',
+    'টেন': '10', 'দশ': '10',
+    'নাইন': '9', 'নয়': '9',
+    'এইট': '8', 'আট': '8',
+    'সেভেন': '7', 'সাত': '7',
+    'সিক্স': '6', 'ছয়': '6',
+    'ফাইভ': '5', 'পাঁচ': '5',
+    'ফোর': '4', 'চার': '4',
+    'থ্রি': '3', 'তিন': '3',
+    'টু': '2', 'দুই': '2',
+    'ওয়ান': '1', 'এক': '1',
+    'প্রো': 'Pro', 'প্রোম্যাক্স': 'Pro Max', 'প্রো ম্যাক্স': 'Pro Max',
+    'ম্যাক্স': 'Max', 'প্লাস': 'Plus', 'মিনি': 'Mini',
+    'আল্ট্রা': 'Ultra', 'লাইট': 'Lite',
+    'আইফোন': 'iPhone', 'আই ফোন': 'iPhone', 'আপেল': 'Apple',
+    'স্যামসাং': 'Samsung', 'গ্যালাক্সি': 'Galaxy', 'গ্যালাক্সী': 'Galaxy',
+    'শাওমি': 'Xiaomi', 'রেডমি': 'Redmi', 'রিয়েলমি': 'Realme',
+    'অপো': 'Oppo', 'ভিভো': 'Vivo', 'নোকিয়া': 'Nokia',
+    'ওয়ান প্লাস': 'OnePlus', 'ওয়ানপ্লাস': 'OnePlus',
+    'গুগল': 'Google', 'পিক্সেল': 'Pixel',
+    'হুয়াওয়ে': 'Huawei', 'অনার': 'Honor',
+    'ইনফিনিক্স': 'Infinix', 'টেকনো': 'Tecno',
+    'নোট': 'Note', 'এস': 'S', 'এ': 'A', 'এম': 'M',
+    'টোয়েন্টি থ্রি': '23', 'টোয়েন্টি টু': '22', 'টোয়েন্টি ওয়ান': '21',
+    'টোয়েন্টি': '20', 'নাইনটিন': '19', 'এইটিন': '18', 'সেভেনটিন': '17',
+    'সিক্সটিন': '16', 'ফিফটিন': '15', 'ফোরটিন': '14'
+  };
+  let result = text;
+  Object.keys(map).sort((a,b) => b.length - a.length).forEach(k => {
+    result = result.replace(new RegExp(k, 'gi'), map[k]);
+  });
+  return result;
+}
+
+let voiceRunning = false;
+
+function startVoice() {
+  if (!SR || voiceRunning) return;
+  voiceRunning = true;
+  let finalText = '';
+  
   const rec = new SR();
   rec.lang = 'bn-BD';
   rec.continuous = false;
   rec.interimResults = true;
   rec.maxAlternatives = 3;
-  let finalText = '';
 
-  voiceBtn.onclick = () => {
-    try { finalText = ''; rec.start(); } catch(e){}
-  };
   rec.onstart = () => {
     voiceBtn.classList.add('listening');
     voiceOverlay.classList.add('show');
     document.body.style.overflow = 'hidden';
     voiceText.textContent = 'শুনছি...';
+    voiceHint.textContent = 'মডেলের নাম স্পষ্ট করে বলুন';
   };
   rec.onresult = e => {
     let txt = '';
     for (let i = 0; i < e.results.length; i++) txt += e.results[i][0].transcript;
     voiceText.textContent = txt;
-    if (e.results[0].isFinal) finalText = txt.trim();
+    if (e.results[0].isFinal) {
+      finalText = txt.trim();
+      voiceHint.textContent = 'প্রসেস হচ্ছে...';
+    }
   };
   rec.onerror = e => {
-    if (e.error !== 'no-speech' && e.error !== 'aborted') showToast('ভয়েস সমস্যা: ' + e.error, 'error');
+    if (e.error !== 'no-speech' && e.error !== 'aborted') {
+      showToast('ভয়েস সমস্যা: ' + e.error, 'error');
+    }
   };
   rec.onend = () => {
     voiceBtn.classList.remove('listening');
     voiceOverlay.classList.remove('show');
     document.body.style.overflow = '';
+    voiceRunning = false;
+    
     if (finalText) {
-      searchInput.value = finalText;
-      currentSearch = finalText.toLowerCase();
-      searchClear.classList.add('show');
-      const lower = finalText.toLowerCase();
-      const match = stockData.find(d => lower.includes(d.model.toLowerCase()));
-      if (match) {
-        searchInput.value = match.model;
-        currentSearch = match.model.toLowerCase();
+      const normalized = normalizeVoice(finalText);
+      
+      // Find best match
+      let best = null, bestScore = 0;
+      stockData.forEach(d => {
+        const score = Math.max(
+          fuzzyScore(d.model, normalized),
+          fuzzyScore(d.model, finalText),
+          fuzzyScore(d.brand, normalized) * 0.6
+        );
+        if (score > bestScore) { bestScore = score; best = d; }
+      });
+      
+      if (best && bestScore > 100) {
+        searchInput.value = best.model;
+        currentSearch = best.model.toLowerCase();
+        searchClear.classList.add('show');
+        voiceInlineBtn.classList.remove('show');
+        render();
+        showToast(`পাওয়া গেছে: ${best.model}`, 'success');
+        setTimeout(() => openSell(best.id), 400);
+      } else {
+        searchInput.value = normalized;
+        currentSearch = normalized.toLowerCase();
+        searchClear.classList.add('show');
+        render();
+        showToast(`খুঁজছি: "${normalized}"`, 'info');
       }
-      render();
-      showToast(`খুঁজছি: "${searchInput.value}"`, 'info');
     }
   };
+
+  try { rec.start(); } catch(e) { voiceRunning = false; }
 }
 
-/* ============ Image Search ============ */
+window.triggerVoice = startVoice;
+voiceBtn.onclick = startVoice;
+
+if (!SR) {
+  voiceBtn.onclick = () => showToast('এই ব্রাউজারে ভয়েস সাপোর্ট নেই। Chrome ব্যবহার করুন', 'error');
+  voiceInlineBtn.onclick = () => showToast('এই ব্রাউজারে ভয়েস সাপোর্ট নেই', 'error');
+}
+
+/* ============ IMAGE SEARCH (Ultimate OCR) ============ */
 function closeImage() {
   $('imageModal').classList.remove('show');
-  $('imagePreview').style.display = 'none';
+  $('imageWrap').style.display = 'none';
+  $('imageWrap').classList.remove('scanning');
   $('ocrStatus').style.display = 'none';
   $('imageInput').value = '';
   document.body.style.overflow = '';
@@ -1394,56 +3056,110 @@ $('imageBtn').onclick = () => {
 $('imageInput').onchange = async e => {
   const file = e.target.files[0];
   if (!file) return;
+  
+  // Validate size (max 5MB)
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('ছবি ৫MB এর কম হতে হবে', 'error');
+    return;
+  }
+  
   const reader = new FileReader();
   reader.onload = ev => {
     $('imagePreview').src = ev.target.result;
-    $('imagePreview').style.display = 'block';
+    $('imageWrap').style.display = 'block';
+    $('imageWrap').classList.add('scanning');
+    $('uploadArea').style.display = 'none';
   };
   reader.readAsDataURL(file);
 
-  $('ocrStatus').style.display = 'block';
-  $('ocrStatus').textContent = '⏳ ছবি স্ক্যান হচ্ছে...';
+  $('ocrStatus').style.display = 'flex';
+  $('ocrStatus').innerHTML = '<div class="spinner"></div><div>OCR ইঞ্জিন লোড হচ্ছে...</div>';
 
   try {
     if (!window.Tesseract) {
       await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js');
     }
-    const { data:{ text } } = await Tesseract.recognize(file, 'eng', {
+    
+    $('ocrStatus').innerHTML = '<div class="spinner"></div><div>ছবি স্ক্যান হচ্ছে...<div class="ocr-progress"><div class="ocr-progress-fill" id="ocrProgress" style="width:0%"></div></div></div></div>';
+
+    const { data: { text, confidence } } = await Tesseract.recognize(file, 'eng', {
       logger: m => {
         if (m.status === 'recognizing text') {
-          $('ocrStatus').textContent = `⏳ স্ক্যান হচ্ছে... ${Math.round(m.progress*100)}%`;
+          const pct = Math.round(m.progress * 100);
+          const el = $('ocrProgress');
+          if (el) el.style.width = pct + '%';
         }
       }
     });
-    $('ocrStatus').textContent = '📝 পাওয়া গেছে: ' + text.slice(0,100).replace(/\n/g,' ');
 
-    const clean = text.toLowerCase().replace(/\s+/g,' ');
-    let found = null, bestScore = 0;
+    $('imageWrap').classList.remove('scanning');
+
+    // Extract model from OCR
+    const clean = text.toUpperCase().replace(/[^A-Z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    const lines = clean.split(/\s+/).filter(w => w.length > 1);
+
+    // Find best match
+    let best = null, bestScore = 0;
     stockData.forEach(d => {
-      const m = d.model.toLowerCase();
-      if (clean.includes(m)) { found = d; bestScore = 999; return; }
-      const words = m.split(' ').filter(w => w.length > 1);
-      const sc = words.filter(w => clean.includes(w)).length;
-      if (sc > bestScore) { bestScore = sc; found = d; }
+      const modelUpper = d.model.toUpperCase();
+      const brandUpper = d.brand.toUpperCase();
+      
+      // Direct full text match
+      if (clean.includes(modelUpper)) {
+        best = d; bestScore = 1000; return;
+      }
+      
+      // Word-by-word match
+      const modelWords = modelUpper.split(/\s+/).filter(w => w.length > 1);
+      const matchedWords = modelWords.filter(w => clean.includes(w));
+      const score = matchedWords.length * 100;
+      
+      if (score > bestScore) {
+        bestScore = score;
+        best = d;
+      }
+      
+      // Brand match
+      if (brandUpper.length > 2 && clean.includes(brandUpper)) {
+        const brandScore = 250;
+        if (brandScore > bestScore) {
+          bestScore = brandScore;
+          best = d;
+        }
+      }
     });
 
-    if (found && bestScore > 0) {
-      searchInput.value = found.model;
-      currentSearch = found.model.toLowerCase();
+    const confidencePct = confidence ? Math.round(confidence * 100) : 0;
+    
+    if (best && bestScore > 50) {
+      $('ocrStatus').innerHTML = `<div style="color:var(--success);font-weight:700">✅ পাওয়া গেছে (${confidencePct}% নির্ভুলতা)</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:6px">"${escapeHtml(best.model)}" — ২ সেকেন্ডে বিক্রয় window খুলবে</div>`;
+      
+      searchInput.value = best.model;
+      currentSearch = best.model.toLowerCase();
       searchClear.classList.add('show');
+      voiceInlineBtn.classList.remove('show');
       render();
-      showToast(`পাওয়া গেছে: ${found.model}`);
-      setTimeout(closeImage, 900);
+      showToast(`পাওয়া গেছে: ${best.model}`, 'success');
+      
+      setTimeout(() => {
+        closeImage();
+        openSell(best.id);
+      }, 1400);
     } else {
-      const firstLine = text.trim().split('\n')[0].slice(0,30);
-      searchInput.value = firstLine;
-      currentSearch = firstLine.toLowerCase();
+      const preview = text.trim().split('\n')[0].slice(0, 40);
+      $('ocrStatus').innerHTML = `<div style="color:var(--warning);font-weight:700">⚠️ মডেল সঠিকভাবে পড়া যায়নি</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:6px">পাওয়া টেক্সট: "${escapeHtml(preview)}"</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:4px">টেক্সট দিয়ে সার্চ করা হচ্ছে...</div>`;
+      
+      searchInput.value = preview;
+      currentSearch = preview.toLowerCase();
       searchClear.classList.add('show');
       render();
-      showToast('মডেল মেলেনি — টেক্সট দিয়ে সার্চ', 'warning');
     }
   } catch (err) {
-    $('ocrStatus').textContent = '❌ ব্যর্থ: ' + err.message;
+    $('imageWrap').classList.remove('scanning');
+    $('ocrStatus').innerHTML = `<div style="color:var(--danger);font-weight:700">❌ ব্যর্থ: ${escapeHtml(err.message)}</div>`;
   }
 };
 
@@ -1455,7 +3171,7 @@ function loadScript(src) {
   });
 }
 
-/* ============ CSV Export ============ */
+/* ============ CSV Exports ============ */
 $('exportBtn').onclick = () => {
   if (filteredData.length === 0) { showToast('এক্সপোর্টের ডাটা নেই', 'warning'); return; }
   const headers = ['Model','Brand','GlassType','Quantity','Price','Status','Notes','Updated'];
@@ -1465,24 +3181,112 @@ $('exportBtn').onclick = () => {
     else if (d.quantity <= 5) st = 'Low';
     return [d.model, d.brand, d.glassType, d.quantity, d.price, st, d.notes || '', d.updatedAt || ''];
   });
-  const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  downloadCSV([headers, ...rows], `glass-stock-${new Date().toISOString().slice(0,10)}.csv`);
+  showToast('CSV ডাউনলোড হয়েছে', 'success');
+};
+
+$('salesExportBtn').onclick = () => {
+  if (filteredSales.length === 0) { showToast('এক্সপোর্টের ডাটা নেই', 'warning'); return; }
+  const headers = ['SaleID','Model','Brand','GlassType','Quantity','UnitPrice','TotalPrice','Customer','Phone','Payment','SoldAt','Notes'];
+  const rows = filteredSales.map(s => [
+    s.id, s.model, s.brand, s.glassType, s.quantity, s.unitPrice, s.totalPrice,
+    s.customer || '', s.phone || '', s.paymentMethod || '', s.soldAt || '', s.notes || ''
+  ]);
+  downloadCSV([headers, ...rows], `sales-${new Date().toISOString().slice(0,10)}.csv`);
+  showToast('CSV ডাউনলোড হয়েছে', 'success');
+};
+
+function downloadCSV(rows, filename) {
+  const csv = '\uFEFF' + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `glassstock-${new Date().toISOString().slice(0,10)}.csv`;
+  a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('CSV ডাউনলোড হয়েছে');
-};
+}
+
+/* ============ Tabs ============ */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const name = tab.dataset.tab;
+    currentTab = name;
+    $('tabStock').style.display = name === 'stock' ? 'block' : 'none';
+    $('tabSales').style.display = name === 'sales' ? 'block' : 'none';
+    $('tabAnalytics').style.display = name === 'analytics' ? 'block' : 'none';
+    if (name === 'sales') renderSales();
+    if (name === 'analytics') renderAnalytics();
+  };
+});
+
+/* ============ Filter Chips ============ */
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.onclick = () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentFilter = chip.dataset.filter;
+    render();
+  };
+});
+
+/* ============ Sort Buttons ============ */
+document.querySelectorAll('.sort-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSort = btn.dataset.sort;
+    render();
+  };
+});
+
+/* ============ Stat Cards Filter ============ */
+document.querySelectorAll('[data-stat-filter]').forEach(stat => {
+  stat.onclick = () => {
+    const f = stat.dataset.statFilter;
+    currentFilter = f;
+    document.querySelectorAll('.chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.filter === f);
+    });
+    render();
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  };
+});
+
+/* ============ Payment Options ============ */
+document.querySelectorAll('.pay-opt').forEach(opt => {
+  opt.onclick = () => {
+    document.querySelectorAll('.pay-opt').forEach(p => p.classList.remove('active'));
+    opt.classList.add('active');
+    currentPayment = opt.dataset.pay;
+  };
+});
+
+/* ============ Card Collapse ============ */
+function toggleCard(id) {
+  const card = $(id);
+  card.classList.toggle('collapsed');
+}
+window.toggleCard = toggleCard;
 
 /* ============ FAB ============ */
 $('fabBtn').onclick = () => {
-  $('fModel').focus();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (currentTab !== 'stock') {
+    document.querySelector('[data-tab="stock"]').click();
+    setTimeout(() => {
+      $('fModel').focus();
+      $('addFormCard').classList.remove('collapsed');
+      window.scrollTo({ top: 200, behavior: 'smooth' });
+    }, 200);
+  } else {
+    $('fModel').focus();
+    $('addFormCard').classList.remove('collapsed');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 };
 
-// Hide FAB on scroll down, show on scroll up
 let lastY = 0;
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
@@ -1502,18 +3306,38 @@ document.addEventListener('keydown', e => {
     liveResults.classList.remove('show');
     closeEdit();
     closeImage();
+    closeSell();
+    closeSuccess();
+  }
+  // Ctrl+K → search
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    searchInput.focus();
   }
 });
+
+/* ============ Sync on click ============ */
+$('syncStatus').onclick = () => syncData(true);
 
 /* ============ Bindings ============ */
 $('addBtn').onclick = addStock;
 $('clearBtn').onclick = clearForm;
 $('refreshBtn').onclick = () => syncData(true);
 $('saveEditBtn').onclick = saveEdit;
+$('confirmSellBtn').onclick = confirmSell;
 $('filterBrand').onchange = render;
 $('filterType').onchange = render;
-$('filterStatus').onchange = render;
 $('filterSearch').oninput = render;
+$('salesFilterDate').onchange = renderSales;
+$('salesSearch').oninput = renderSales;
+$('salesClearFilter').onclick = () => {
+  $('salesFilterDate').value = '';
+  $('salesSearch').value = '';
+  renderSales();
+};
+
+$('sellQty').oninput = updateSellTotal;
+$('sellUnitPrice').oninput = updateSellTotal;
 
 ['fModel','fBrand','fQty','fPrice','fNotes'].forEach(id => {
   $(id).addEventListener('keydown', e => {
@@ -1521,26 +3345,32 @@ $('filterSearch').oninput = render;
   });
 });
 
-// Modal backdrop close
-['editModal','imageModal'].forEach(id => {
+['editModal','imageModal','sellModal'].forEach(id => {
   $(id).addEventListener('click', e => {
     if (e.target.id === id) {
-      if (id === 'editModal') closeEdit(); else closeImage();
+      if (id === 'editModal') closeEdit();
+      else if (id === 'imageModal') closeImage();
+      else if (id === 'sellModal') closeSell();
     }
   });
 });
 
-// Expose functions
+// Expose
 window.adjustQty = adjustQty;
 window.deleteItem = deleteItem;
 window.openEdit = openEdit;
 window.closeEdit = closeEdit;
 window.closeImage = closeImage;
+window.closeSell = closeSell;
+window.openSell = openSell;
 window.pickLive = pickLive;
+window.adjustSellQty = adjustSellQty;
+window.deleteSale = deleteSale;
+window.closeSuccess = closeSuccess;
 
 /* ============ Init ============ */
 (async function init() {
-  setSync('', 'কানেক্ট...');
+  setSync('syncing', 'কানেক্ট...');
   await syncData(true);
   startAutoSync();
   setTimeout(() => $('fModel').focus(), 400);
