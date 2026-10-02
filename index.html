@@ -6,1232 +6,396 @@
 <meta name="theme-color" content="#070b14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="description" content="Universal Inventory Management System">
-<title>StockMaster Pro — Universal Inventory</title>
+<title>StockMaster Pro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #070b14;
-  --bg-2: #0f1522;
-  --card: #131b2c;
-  --card-2: #1a2436;
-  --hover: #212e44;
-  --border: #263349;
-  --border-2: #3a4d6b;
-  --text: #f1f5f9;
-  --text-2: #94a3b8;
-  --text-3: #64748b;
-  --accent: #3b82f6;
-  --accent-2: #60a5fa;
-  --accent-glow: rgba(59,130,246,0.4);
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --purple: #8b5cf6;
-  --pink: #ec4899;
-  --cyan: #06b6d4;
-  --grad: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  --grad-green: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
-  --grad-pink: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-  --grad-gold: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-  --shadow: 0 8px 32px rgba(0,0,0,0.5);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
-  --r-sm: 10px;
-  --r: 14px;
-  --r-lg: 20px;
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-}
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-html { -webkit-text-size-adjust: 100%; }
-body {
-  font-family: 'Hind Siliguri', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh; min-height: 100dvh;
-  font-size: 15px; line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  background-image:
-    radial-gradient(circle at 0% 0%, rgba(59,130,246,0.14), transparent 45%),
-    radial-gradient(circle at 100% 100%, rgba(139,92,246,0.12), transparent 45%);
-  background-attachment: fixed;
-  padding-bottom: var(--safe-bottom);
-}
-input, button, select, textarea { font-family: inherit; font-size: 16px; }
-button { cursor: pointer; border: none; background: none; color: inherit; }
-.icon { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.icon-sm { width: 16px; height: 16px; }
-.icon-lg { width: 24px; height: 24px; }
+:root{--bg:#070b14;--bg-2:#0f1522;--card:#131b2c;--card-2:#1a2436;--hover:#212e44;--border:#263349;--border-2:#3a4d6b;--text:#f1f5f9;--text-2:#94a3b8;--text-3:#64748b;--accent:#3b82f6;--accent-2:#60a5fa;--accent-glow:rgba(59,130,246,0.4);--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;--pink:#ec4899;--grad:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 100%);--grad-green:linear-gradient(135deg,#10b981 0%,#06b6d4 100%);--grad-pink:linear-gradient(135deg,#ec4899 0%,#8b5cf6 100%);--grad-gold:linear-gradient(135deg,#f59e0b 0%,#ef4444 100%);--shadow:0 8px 32px rgba(0,0,0,0.5);--shadow-lg:0 20px 60px rgba(0,0,0,0.6);--r-sm:10px;--r:14px;--r-lg:20px;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Hind Siliguri','Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;background-image:radial-gradient(circle at 0% 0%,rgba(59,130,246,0.14),transparent 45%),radial-gradient(circle at 100% 100%,rgba(139,92,246,0.12),transparent 45%);background-attachment:fixed;padding-bottom:var(--safe-bottom)}
+input,button,select,textarea{font-family:inherit;font-size:16px}
+button{cursor:pointer;border:none;background:none;color:inherit}
+.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.icon-sm{width:16px;height:16px}.icon-lg{width:24px;height:24px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes scaleIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes toastIn{from{transform:translateY(-120%) scale(0.9);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+@keyframes toastOut{from{transform:translateY(0) scale(1);opacity:1}to{transform:translateY(-120%) scale(0.9);opacity:0}}
+@keyframes rec{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.6)}50%{box-shadow:0 0 0 16px rgba(239,68,68,0)}}
+@keyframes micPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes successPop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes barGrow{from{width:0}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes waveAnim{0%,100%{transform:scaleY(0.3);opacity:0.4}50%{transform:scaleY(1);opacity:1}}
+@keyframes scanLine{0%{top:0}100%{top:100%}}
 
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@keyframes slideDown { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform: translateY(0); } }
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-@keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-@keyframes toastIn { from { transform: translateY(-120%) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
-@keyframes toastOut { from { transform: translateY(0) scale(1); opacity: 1; } to { transform: translateY(-120%) scale(0.9); opacity: 0; } }
-@keyframes rec { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); } 50% { box-shadow: 0 0 0 16px rgba(239,68,68,0); } }
-@keyframes micPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-@keyframes successPop { 0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
-@keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes countUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes barGrow { from { width: 0; } }
-@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-@keyframes waveAnim { 0%,100% { transform: scaleY(0.3); opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
-@keyframes scanLine { 0% { top: 0; } 100% { top: 100%; } }
+.header{position:sticky;top:0;z-index:100;background:rgba(7,11,20,0.9);backdrop-filter:saturate(180%) blur(24px);-webkit-backdrop-filter:saturate(180%) blur(24px);border-bottom:1px solid var(--border);padding-top:var(--safe-top)}
+.header-inner{max-width:1400px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.brand-logo{width:42px;height:42px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;box-shadow:0 6px 20px var(--accent-glow);color:white}
+.brand-logo::after{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,0.3) 50%,transparent 70%);animation:shimmer 3s infinite;background-size:200% 100%}
+.brand-logo .icon{position:relative;z-index:1}
+.brand-text{min-width:0}
+.brand-text h1{font-size:15px;font-weight:800;letter-spacing:-0.02em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:linear-gradient(135deg,#fff 0%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.brand-text p{font-size:9px;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase;font-weight:600}
+.sync-status{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:20px;background:var(--card);border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--text-2);flex-shrink:0;transition:all 0.3s;cursor:pointer}
+.sync-status:active{transform:scale(0.95)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--warning);box-shadow:0 0 8px currentColor;animation:pulse 2s infinite}
+.sync-status.online .sync-dot{background:var(--success)}
+.sync-status.error .sync-dot{background:var(--danger);animation:none}
+.sync-status.syncing .sync-dot{background:var(--accent)}
+.sync-text-full{display:none}
 
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(7,11,20,0.9);
-  backdrop-filter: saturate(180%) blur(24px);
-  -webkit-backdrop-filter: saturate(180%) blur(24px);
-  border-bottom: 1px solid var(--border);
-  padding-top: var(--safe-top);
-}
-.header-inner { max-width: 1400px; margin: 0 auto; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
-.brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
-.brand-logo {
-  width: 42px; height: 42px; border-radius: 12px;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; position: relative; overflow: hidden;
-  box-shadow: 0 6px 20px var(--accent-glow);
-  color: white;
-}
-.brand-logo::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
-  animation: shimmer 3s infinite; background-size: 200% 100%;
-}
-.brand-logo .icon { position: relative; z-index: 1; }
-.brand-text { min-width: 0; }
-.brand-text h1 {
-  font-size: 15px; font-weight: 800;
-  letter-spacing: -0.02em; line-height: 1.15;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.brand-text p { font-size: 9px; color: var(--text-3); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
-.sync-status {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 10px; border-radius: 20px;
-  background: var(--card); border: 1px solid var(--border);
-  font-size: 11px; font-weight: 600;
-  color: var(--text-2); flex-shrink: 0; transition: all 0.3s;
-  cursor: pointer;
-}
-.sync-status:active { transform: scale(0.95); }
-.sync-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--warning); box-shadow: 0 0 8px currentColor;
-  animation: pulse 2s infinite;
-}
-.sync-status.online .sync-dot { background: var(--success); }
-.sync-status.error .sync-dot { background: var(--danger); animation: none; }
-.sync-status.syncing .sync-dot { background: var(--accent); }
-.sync-text-full { display: none; }
+.container{max-width:1400px;margin:0 auto;padding:14px 12px 110px}
 
-.container { max-width: 1400px; margin: 0 auto; padding: 14px 12px 110px; }
+.quick-bar{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px;scrollbar-width:none}
+.quick-bar::-webkit-scrollbar{display:none}
+.quick-stat{flex-shrink:0;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;min-width:120px;position:relative;overflow:hidden}
+.quick-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad)}
+.quick-stat.g::before{background:var(--grad-green)}
+.quick-stat.o::before{background:var(--grad-gold)}
+.quick-stat.p::before{background:var(--grad-pink)}
+.quick-label{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-bottom:4px}
+.quick-value{font-size:18px;font-weight:900;font-family:'Inter',sans-serif;color:var(--accent-2);line-height:1.1}
+.quick-stat.g .quick-value{color:var(--success)}
+.quick-stat.o .quick-value{color:var(--warning)}
+.quick-stat.p .quick-value{color:var(--pink)}
+.quick-stat.purple .quick-value{color:var(--purple)}
 
-.quick-bar {
-  display: flex; gap: 8px; overflow-x: auto;
-  margin-bottom: 14px; padding-bottom: 4px;
-  scrollbar-width: none;
-}
-.quick-bar::-webkit-scrollbar { display: none; }
-.quick-stat {
-  flex-shrink: 0; background: var(--card);
-  border: 1px solid var(--border); border-radius: var(--r);
-  padding: 10px 14px; min-width: 120px;
-  position: relative; overflow: hidden;
-}
-.quick-stat::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: var(--grad);
-}
-.quick-stat.g::before { background: var(--grad-green); }
-.quick-stat.o::before { background: var(--grad-gold); }
-.quick-stat.p::before { background: var(--grad-pink); }
-.quick-label {
-  font-size: 10px; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: 0.06em;
-  font-weight: 700; display: flex; align-items: center; gap: 4px;
-  margin-bottom: 4px;
-}
-.quick-label .icon { width: 12px; height: 12px; }
-.quick-value {
-  font-size: 18px; font-weight: 900;
-  font-family: 'Inter', sans-serif;
-  color: var(--accent-2); line-height: 1.1;
-}
-.quick-stat.g .quick-value { color: var(--success); }
-.quick-stat.o .quick-value { color: var(--warning); }
-.quick-stat.p .quick-value { color: var(--pink); }
-.quick-stat.purple .quick-value { color: var(--purple); }
+.tabs{display:flex;gap:4px;margin-bottom:14px;background:var(--card);padding:5px;border-radius:var(--r);border:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1;padding:10px 8px;border-radius:9px;font-size:12px;font-weight:700;color:var(--text-3);display:flex;align-items:center;justify-content:center;gap:5px;transition:all 0.25s;min-height:42px;white-space:nowrap;min-width:72px}
+.tab.active{background:var(--grad);color:white;box-shadow:0 4px 14px var(--accent-glow)}
+.tab .icon{width:16px;height:16px}
+.tab-badge{min-width:16px;height:16px;padding:0 4px;background:var(--danger);color:white;border-radius:8px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700}
 
-.tabs {
-  display: flex; gap: 4px; margin-bottom: 14px;
-  background: var(--card); padding: 5px;
-  border-radius: var(--r); border: 1px solid var(--border);
-  overflow-x: auto; scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar { display: none; }
-.tab {
-  flex: 1; padding: 10px 8px;
-  border-radius: 9px; font-size: 12px; font-weight: 700;
-  color: var(--text-3);
-  display: flex; align-items: center; justify-content: center; gap: 5px;
-  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-  min-height: 42px; white-space: nowrap; min-width: 72px;
-}
-.tab.active {
-  background: var(--grad); color: white;
-  box-shadow: 0 4px 14px var(--accent-glow);
-}
-.tab .icon { width: 16px; height: 16px; }
-.tab-badge {
-  min-width: 16px; height: 16px; padding: 0 4px;
-  background: var(--danger); color: white;
-  border-radius: 8px; font-size: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700;
-}
+.search-hero{position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:12px;margin-bottom:14px;box-shadow:var(--shadow);transition:all 0.3s}
+.search-hero:focus-within{border-color:var(--accent);box-shadow:0 8px 32px var(--accent-glow)}
+.search-row{display:flex;gap:8px;align-items:center}
+.search-wrap{flex:1;position:relative;min-width:0}
+.search-wrap input{width:100%;padding:13px 42px 13px 42px;background:var(--bg-2);border:1.5px solid var(--border);border-radius:var(--r);color:var(--text);font-size:15px;outline:none;transition:all 0.25s}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow)}
+.search-wrap input::placeholder{color:var(--text-3)}
+.search-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-3);pointer-events:none}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--hover);color:var(--text-2);display:none;align-items:center;justify-content:center}
+.search-clear.show{display:flex}
+.tool-btn{width:48px;height:48px;flex-shrink:0;border-radius:var(--r);background:var(--bg-2);border:1.5px solid var(--border);color:var(--accent-2);display:flex;align-items:center;justify-content:center;transition:all 0.25s}
+.tool-btn:active{transform:scale(0.94)}
+.tool-btn.listening{background:var(--danger);border-color:var(--danger);color:white;animation:rec 1.2s infinite}
+.cat-scroller{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-top:10px;scrollbar-width:none}
+.cat-scroller::-webkit-scrollbar{display:none}
+.cat-chip{flex-shrink:0;padding:8px 14px;border-radius:20px;background:var(--bg-2);border:1.5px solid var(--border);color:var(--text-2);font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;min-height:36px}
+.cat-chip:active{transform:scale(0.95)}
+.cat-chip.active{background:rgba(59,130,246,0.15);border-color:var(--accent);color:var(--accent-2)}
+.cat-chip .cat-emoji{font-size:15px}
+.cat-chip .cat-count{background:var(--hover);padding:1px 6px;border-radius:8px;font-size:10px;font-weight:700;color:var(--text-3)}
+.cat-chip.active .cat-count{background:var(--accent);color:white}
+.cat-add{background:var(--grad);color:white;border-color:transparent}
+.live-results{position:absolute;left:12px;right:12px;top:calc(100% + 6px);background:var(--card-2);border:1.5px solid var(--accent);border-radius:var(--r);max-height:65vh;overflow-y:auto;z-index:200;display:none;box-shadow:var(--shadow-lg)}
+.live-results.show{display:block;animation:slideDown 0.22s}
+.live-item{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;transition:all 0.15s;cursor:pointer}
+.live-item:hover,.live-item:active{background:var(--hover)}
+.live-item:last-child{border-bottom:none}
+.live-item .info{flex:1;min-width:0}
+.live-item .name{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.live-item .name mark{background:rgba(245,158,11,0.3);color:var(--warning);padding:0 3px;border-radius:3px}
+.live-item .sub{font-size:11px;color:var(--text-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700;flex-shrink:0}
+.pill.g{background:rgba(16,185,129,0.15);color:var(--success)}
+.pill.o{background:rgba(245,158,11,0.15);color:var(--warning)}
+.pill.r{background:rgba(239,68,68,0.15);color:var(--danger)}
 
-.search-hero {
-  position: relative; background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 12px; margin-bottom: 14px;
-  box-shadow: var(--shadow);
-  transition: all 0.3s;
-}
-.search-hero:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 8px 32px var(--accent-glow);
-}
-.search-row { display: flex; gap: 8px; align-items: center; }
-.search-wrap { flex: 1; position: relative; min-width: 0; }
-.search-wrap input {
-  width: 100%;
-  padding: 13px 42px 13px 42px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r);
-  color: var(--text); font-size: 15px;
-  outline: none; transition: all 0.25s;
-}
-.search-wrap input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-glow);
-}
-.search-wrap input::placeholder { color: var(--text-3); }
-.search-ico {
-  position: absolute; left: 14px; top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-3); pointer-events: none;
-}
-.search-clear {
-  position: absolute; right: 10px; top: 50%;
-  transform: translateY(-50%);
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--hover); color: var(--text-2);
-  display: none; align-items: center; justify-content: center;
-}
-.search-clear.show { display: flex; }
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;position:relative;overflow:hidden;transition:all 0.3s}
+.stat::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+.stat.g::before{background:var(--success)}.stat.o::before{background:var(--warning)}.stat.r::before{background:var(--danger)}.stat.p::before{background:var(--purple)}
+.stat-label{font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-bottom:6px}
+.stat-value{font-size:22px;font-weight:900;letter-spacing:-0.03em;font-family:'Inter',sans-serif;color:var(--accent);line-height:1.1}
+.stat.g .stat-value{color:var(--success)}
+.stat.o .stat-value{color:var(--warning)}
+.stat.r .stat-value{color:var(--danger)}
+.stat.p .stat-value{color:var(--purple)}
 
-.tool-btn {
-  width: 48px; height: 48px; flex-shrink: 0;
-  border-radius: var(--r);
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  color: var(--accent-2);
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s;
-}
-.tool-btn:active { transform: scale(0.94); }
-.tool-btn.listening {
-  background: var(--danger); border-color: var(--danger);
-  color: white; animation: rec 1.2s infinite;
-}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:14px;animation:slideInRight 0.3s}
+.card-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow)}
+.card-hint{font-size:11px;color:var(--text-3);background:var(--bg-2);padding:3px 8px;border-radius:8px;border:1px solid var(--border)}
+.card-body{padding:16px}
 
-.cat-scroller {
-  display: flex; gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  margin-top: 10px;
-  scrollbar-width: none;
-}
-.cat-scroller::-webkit-scrollbar { display: none; }
-.cat-chip {
-  flex-shrink: 0;
-  padding: 8px 14px;
-  border-radius: 20px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  color: var(--text-2);
-  font-size: 12px; font-weight: 700;
-  display: inline-flex; align-items: center; gap: 6px;
-  transition: all 0.2s;
-  min-height: 36px;
-}
-.cat-chip:active { transform: scale(0.95); }
-.cat-chip.active {
-  background: rgba(59,130,246,0.15);
-  border-color: var(--accent);
-  color: var(--accent-2);
-}
-.cat-chip .cat-emoji { font-size: 15px; }
-.cat-chip .cat-count {
-  background: var(--hover);
-  padding: 1px 6px; border-radius: 8px;
-  font-size: 10px; font-weight: 700;
-  color: var(--text-3);
-}
-.cat-chip.active .cat-count { background: var(--accent); color: white; }
-.cat-add { background: var(--grad); color: white; border-color: transparent; }
+.form-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;color:var(--text-2);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding-left:2px;display:flex;align-items:center;gap:4px}
+.field label .req{color:var(--danger)}
+.field input,.field select,.field textarea{padding:13px 14px;background:var(--bg-2);border:1.5px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-size:15px;outline:none;transition:all 0.2s;width:100%;min-height:48px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow);background:var(--bg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border-radius:var(--r-sm);font-size:15px;font-weight:700;transition:all 0.22s;min-height:48px}
+.btn:active:not(:disabled){transform:scale(0.97)}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.btn-primary{background:var(--grad);color:white;box-shadow:0 6px 20px var(--accent-glow);width:100%}
+.btn-success{background:var(--grad-green);color:white;box-shadow:0 6px 20px rgba(16,185,129,0.35);width:100%}
+.btn-secondary{background:var(--bg-2);color:var(--text);border:1.5px solid var(--border)}
+.btn-sm{padding:8px 12px;font-size:13px;min-height:38px;border-radius:8px}
+.btn .icon{width:18px;height:18px}
 
-.live-results {
-  position: absolute; left: 12px; right: 12px; top: calc(100% + 6px);
-  background: var(--card-2);
-  border: 1.5px solid var(--accent);
-  border-radius: var(--r);
-  max-height: 65vh; overflow-y: auto;
-  z-index: 200; display: none;
-  box-shadow: var(--shadow-lg);
-}
-.live-results.show { display: block; animation: slideDown 0.22s; }
-.live-item {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: center; gap: 10px;
-  transition: all 0.15s; cursor: pointer;
-}
-.live-item:hover, .live-item:active { background: var(--hover); }
-.live-item:last-child { border-bottom: none; }
-.live-item .info { flex: 1; min-width: 0; }
-.live-item .name {
-  font-weight: 700; font-size: 14px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.live-item .name mark {
-  background: rgba(245,158,11,0.3);
-  color: var(--warning);
-  padding: 0 3px; border-radius: 3px;
-}
-.live-item .sub {
-  font-size: 11px; color: var(--text-3); margin-top: 2px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.pill {
-  padding: 4px 10px; border-radius: 12px;
-  font-size: 11px; font-weight: 700; flex-shrink: 0;
-}
-.pill.g { background: rgba(16,185,129,0.15); color: var(--success); }
-.pill.o { background: rgba(245,158,11,0.15); color: var(--warning); }
-.pill.r { background: rgba(239,68,68,0.15); color: var(--danger); }
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;border-bottom:1px solid var(--border);background:rgba(7,11,20,0.4)}
+.filters select,.filters input{padding:11px 12px;background:var(--bg-2);border:1.5px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-size:14px;outline:none;min-height:44px;width:100%}
+.filters .full{grid-column:1 / -1}
+.filters-actions{display:flex;gap:8px;grid-column:1 / -1}
+.filters-actions .btn{flex:1}
+.sort-row{display:flex;gap:6px;padding:8px 12px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;background:rgba(7,11,20,0.2)}
+.sort-row::-webkit-scrollbar{display:none}
+.sort-btn{padding:6px 12px;border-radius:8px;background:var(--bg-2);border:1px solid var(--border);color:var(--text-3);font-size:12px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;transition:all 0.2s;flex-shrink:0;min-height:32px}
+.sort-btn.active{background:rgba(59,130,246,0.15);border-color:var(--accent);color:var(--accent-2)}
 
-.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-.stat {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 14px;
-  position: relative; overflow: hidden;
-  transition: all 0.3s;
-}
-.stat::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px; background: var(--accent);
-}
-.stat.g::before { background: var(--success); }
-.stat.o::before { background: var(--warning); }
-.stat.r::before { background: var(--danger); }
-.stat.p::before { background: var(--purple); }
-.stat-label {
-  font-size: 10px; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: 0.06em;
-  font-weight: 700; margin-bottom: 6px;
-}
-.stat-value {
-  font-size: 22px; font-weight: 900;
-  letter-spacing: -0.03em;
-  font-family: 'Inter', sans-serif;
-  color: var(--accent); line-height: 1.1;
-}
-.stat.g .stat-value { color: var(--success); }
-.stat.o .stat-value { color: var(--warning); }
-.stat.r .stat-value { color: var(--danger); }
-.stat.p .stat-value { color: var(--purple); }
+.product-list{padding:12px;display:flex;flex-direction:column;gap:10px}
+.product-card{background:var(--card-2);border:1px solid var(--border);border-radius:var(--r);padding:14px;position:relative;transition:all 0.25s;animation:scaleIn 0.3s}
+.product-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:var(--success)}
+.product-card.low::before{background:var(--warning)}
+.product-card.out::before{background:var(--danger)}
+.pc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.pc-title{flex:1;min-width:0}
+.pc-name{font-size:16px;font-weight:800;line-height:1.25;word-break:break-word}
+.pc-brand{font-size:12px;color:var(--text-3);margin-top:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pc-tag{background:var(--hover);color:var(--text-2);padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:3px}
+.pc-qty{text-align:center;background:var(--bg);padding:6px 12px;border-radius:10px;border:1.5px solid var(--border);flex-shrink:0;min-width:64px}
+.pc-qty-num{font-size:20px;font-weight:900;font-family:'Inter',sans-serif;line-height:1}
+.pc-qty.g .pc-qty-num{color:var(--success)}
+.pc-qty.o .pc-qty-num{color:var(--warning)}
+.pc-qty.r .pc-qty-num{color:var(--danger)}
+.pc-qty-label{font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-top:3px}
+.pc-bar{height:4px;background:var(--bg);border-radius:2px;margin-bottom:10px;overflow:hidden}
+.pc-bar-fill{height:100%;border-radius:2px;background:var(--grad-green);animation:barGrow 0.6s;transition:width 0.3s}
+.pc-bar-fill.o{background:var(--grad-gold)}
+.pc-bar-fill.r{background:var(--danger)}
+.pc-info{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;font-size:12px}
+.pc-info-item{display:inline-flex;align-items:center;gap:4px;color:var(--text-2)}
+.pc-info-item strong{color:var(--text);font-weight:700}
+.pc-info-item.profit strong{color:var(--success)}
+.pc-info-item.loss strong{color:var(--danger)}
+.pc-actions{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:6px}
+.pc-btn{padding:9px 6px;border-radius:9px;background:var(--bg-2);border:1.5px solid var(--border);color:var(--text-2);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;min-height:42px}
+.pc-btn:active{transform:scale(0.94)}
+.pc-btn.sell{color:white;background:var(--grad-green);border-color:transparent;box-shadow:0 4px 12px rgba(16,185,129,0.35)}
+.pc-btn.sell:disabled{background:var(--bg-2);color:var(--text-3);box-shadow:none;opacity:0.6}
+.pc-btn.restock{color:var(--accent-2)}
+.pc-btn.edit{color:var(--warning)}
+.pc-btn.del{color:var(--danger)}
+.pc-btn .lbl{display:none}
 
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden; margin-bottom: 14px;
-  animation: slideInRight 0.3s;
-}
-.card-header {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: center; gap: 10px;
-}
-.card-title {
-  font-size: 14px; font-weight: 700;
-  display: flex; align-items: center; gap: 8px;
-}
-.card-title .dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent-glow);
-}
-.card-hint {
-  font-size: 11px; color: var(--text-3);
-  background: var(--bg-2);
-  padding: 3px 8px; border-radius: 8px;
-  border: 1px solid var(--border);
-}
-.card-body { padding: 16px; }
+.sales-list{padding:12px;display:flex;flex-direction:column;gap:10px}
+.sale-card{background:var(--card-2);border:1px solid var(--border);border-radius:var(--r);padding:14px;position:relative;animation:slideInRight 0.35s}
+.sale-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:var(--grad-green)}
+.sale-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.sale-id{font-family:'Inter',monospace;font-size:10px;color:var(--text-3);background:var(--bg);padding:2px 7px;border-radius:5px;font-weight:700;letter-spacing:0.05em}
+.sale-amount{text-align:right}
+.sale-amount-num{font-size:18px;font-weight:900;color:var(--success);font-family:'Inter',sans-serif;line-height:1}
+.sale-amount-label{font-size:9px;color:var(--text-3);text-transform:uppercase;font-weight:700;margin-top:2px}
+.sale-model{font-size:15px;font-weight:800;margin-bottom:6px;word-break:break-word}
+.sale-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--text-3);margin-bottom:10px}
+.sale-meta-item{display:inline-flex;align-items:center;gap:4px}
+.sale-meta-item.profit{color:var(--success);font-weight:700}
 
-.form-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field label {
-  font-size: 11px; color: var(--text-2);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding-left: 2px;
-  display: flex; align-items: center; gap: 4px;
-}
-.field label .req { color: var(--danger); }
-.field input, .field select, .field textarea {
-  padding: 13px 14px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-sm);
-  color: var(--text); font-size: 15px;
-  outline: none; transition: all 0.2s;
-  width: 100%; min-height: 48px;
-}
-.field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
-  background: var(--bg);
-}
+.analytics-grid{display:grid;grid-template-columns:1fr;gap:12px;padding:12px}
+.analytics-card{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r);padding:14px}
+.analytics-title{font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px}
+.bar-chart{display:flex;flex-direction:column;gap:10px}
+.bar-item{display:flex;flex-direction:column;gap:4px}
+.bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);font-weight:600}
+.bar-label strong{color:var(--text)}
+.bar-track{height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;background:var(--grad);animation:barGrow 0.8s;transition:width 0.4s}
+.bar-fill.g{background:var(--grad-green)}
+.bar-fill.o{background:var(--grad-gold)}
+.bar-fill.p{background:var(--grad-pink)}
+.top-list{display:flex;flex-direction:column;gap:8px}
+.top-item{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--card);border-radius:8px;border:1px solid var(--border)}
+.top-rank{width:22px;height:22px;border-radius:6px;background:var(--grad);color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;font-family:'Inter',sans-serif}
+.top-rank.gold{background:var(--grad-gold)}
+.top-rank.silver{background:linear-gradient(135deg,#94a3b8,#64748b)}
+.top-rank.bronze{background:linear-gradient(135deg,#b45309,#92400e)}
+.top-info{flex:1;min-width:0}
+.top-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-sub{font-size:11px;color:var(--text-3)}
+.top-value{font-size:13px;font-weight:800;color:var(--success);font-family:'Inter',sans-serif;flex-shrink:0}
 
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 13px 20px;
-  border-radius: var(--r-sm);
-  font-size: 15px; font-weight: 700;
-  transition: all 0.22s;
-  min-height: 48px;
-}
-.btn:active:not(:disabled) { transform: scale(0.97); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-primary {
-  background: var(--grad); color: white;
-  box-shadow: 0 6px 20px var(--accent-glow);
-  width: 100%;
-}
-.btn-success {
-  background: var(--grad-green); color: white;
-  box-shadow: 0 6px 20px rgba(16,185,129,0.35);
-  width: 100%;
-}
-.btn-secondary {
-  background: var(--bg-2); color: var(--text);
-  border: 1.5px solid var(--border);
-}
-.btn-sm {
-  padding: 8px 12px; font-size: 13px;
-  min-height: 38px; border-radius: 8px;
-}
-.btn .icon { width: 18px; height: 18px; }
+.cat-manage-list{padding:12px;display:flex;flex-direction:column;gap:8px}
+.cat-manage-card{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card-2);border:1px solid var(--border);border-radius:var(--r)}
+.cat-emoji-lg{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:var(--bg);border:1.5px solid var(--border)}
+.cat-manage-info{flex:1;min-width:0}
+.cat-manage-name{font-size:15px;font-weight:800;margin-bottom:2px}
+.cat-manage-sub{font-size:11px;color:var(--text-3)}
+.cat-manage-actions{display:flex;gap:6px;flex-shrink:0}
 
-.filters {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-  padding: 12px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(7,11,20,0.4);
-}
-.filters select, .filters input {
-  padding: 11px 12px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-sm);
-  color: var(--text); font-size: 14px;
-  outline: none; min-height: 44px; width: 100%;
-}
-.filters .full { grid-column: 1 / -1; }
-.filters-actions { display: flex; gap: 8px; grid-column: 1 / -1; }
-.filters-actions .btn { flex: 1; }
+.empty{text-align:center;padding:50px 20px;color:var(--text-3)}
+.empty-icon{width:64px;height:64px;margin:0 auto 14px;opacity:0.3;animation:float 3s ease-in-out infinite}
+.empty-icon .icon{width:100%;height:100%}
+.empty-title{font-size:15px;font-weight:700;color:var(--text-2);margin-bottom:4px}
+.empty-sub{font-size:13px}
+.spinner{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);border-top-color:currentColor;animation:spin 0.7s linear infinite;display:inline-block}
 
-.sort-row {
-  display: flex; gap: 6px; padding: 8px 12px;
-  border-bottom: 1px solid var(--border);
-  overflow-x: auto; scrollbar-width: none;
-  background: rgba(7,11,20,0.2);
-}
-.sort-row::-webkit-scrollbar { display: none; }
-.sort-btn {
-  padding: 6px 12px;
-  border-radius: 8px;
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  color: var(--text-3);
-  font-size: 12px; font-weight: 600;
-  white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 4px;
-  transition: all 0.2s;
-  flex-shrink: 0; min-height: 32px;
-}
-.sort-btn.active {
-  background: rgba(59,130,246,0.15);
-  border-color: var(--accent);
-  color: var(--accent-2);
-}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000;display:none;align-items:flex-end;justify-content:center;animation:fadeIn 0.22s}
+.modal.show{display:flex}
+.modal-content{background:var(--card);border-top-left-radius:26px;border-top-right-radius:26px;border:1px solid var(--border-2);border-bottom:none;padding:18px 16px calc(20px + var(--safe-bottom));width:100%;max-width:560px;max-height:94vh;overflow-y:auto;animation:slideUp 0.35s cubic-bezier(0.22,1,0.36,1)}
+.modal-handle{width:44px;height:4px;border-radius:2px;background:var(--border-2);margin:0 auto 14px}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.modal-title{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:800}
+.modal-title-icon{width:34px;height:34px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 4px 12px var(--accent-glow)}
+.modal-title-icon.green{background:var(--grad-green)}
+.modal-title-icon.gold{background:var(--grad-gold)}
+.modal-title-icon.pink{background:var(--grad-pink)}
+.modal-close{width:34px;height:34px;border-radius:50%;background:var(--bg-2);border:1px solid var(--border);color:var(--text-2);display:flex;align-items:center;justify-content:center}
+.modal-close:active{transform:scale(0.9)}
+.modal-actions{display:flex;gap:8px;margin-top:18px}
+.modal-actions .btn{flex:1}
 
-.product-list { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
-.product-card {
-  background: var(--card-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 14px;
-  position: relative;
-  transition: all 0.25s;
-  animation: scaleIn 0.3s;
-}
-.product-card::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px; border-radius: 3px 0 0 3px;
-  background: var(--success);
-}
-.product-card.low::before { background: var(--warning); }
-.product-card.out::before { background: var(--danger); }
-.pc-top {
-  display: flex; justify-content: space-between;
-  align-items: flex-start; gap: 10px;
-  margin-bottom: 10px;
-}
-.pc-title { flex: 1; min-width: 0; }
-.pc-name {
-  font-size: 16px; font-weight: 800;
-  line-height: 1.25; word-break: break-word;
-}
-.pc-brand {
-  font-size: 12px; color: var(--text-3);
-  margin-top: 4px; display: flex; align-items: center; gap: 6px;
-  flex-wrap: wrap;
-}
-.pc-tag {
-  background: var(--hover); color: var(--text-2);
-  padding: 2px 8px; border-radius: 6px;
-  font-size: 11px; font-weight: 600;
-  display: inline-flex; align-items: center; gap: 3px;
-}
-.pc-qty {
-  text-align: center;
-  background: var(--bg);
-  padding: 6px 12px;
-  border-radius: 10px;
-  border: 1.5px solid var(--border);
-  flex-shrink: 0; min-width: 64px;
-}
-.pc-qty-num {
-  font-size: 20px; font-weight: 900;
-  font-family: 'Inter', sans-serif;
-  line-height: 1;
-}
-.pc-qty.g .pc-qty-num { color: var(--success); }
-.pc-qty.o .pc-qty-num { color: var(--warning); }
-.pc-qty.r .pc-qty-num { color: var(--danger); }
-.pc-qty-label {
-  font-size: 9px; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: 0.08em;
-  font-weight: 700; margin-top: 3px;
-}
-.pc-bar {
-  height: 4px; background: var(--bg);
-  border-radius: 2px; margin-bottom: 10px;
-  overflow: hidden;
-}
-.pc-bar-fill {
-  height: 100%; border-radius: 2px;
-  background: var(--grad-green);
-  animation: barGrow 0.6s;
-  transition: width 0.3s;
-}
-.pc-bar-fill.o { background: var(--grad-gold); }
-.pc-bar-fill.r { background: var(--danger); }
-.pc-info {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  margin-bottom: 12px; font-size: 12px;
-}
-.pc-info-item {
-  display: inline-flex; align-items: center; gap: 4px;
-  color: var(--text-2);
-}
-.pc-info-item strong { color: var(--text); font-weight: 700; }
-.pc-info-item .icon { width: 14px; height: 14px; }
-.pc-info-item.profit strong { color: var(--success); }
-.pc-info-item.loss strong { color: var(--danger); }
-.pc-actions {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr;
-  gap: 6px;
-}
-.pc-btn {
-  padding: 9px 6px;
-  border-radius: 9px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  color: var(--text-2);
-  font-size: 13px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; gap: 4px;
-  transition: all 0.2s;
-  min-height: 42px;
-}
-.pc-btn:active { transform: scale(0.94); }
-.pc-btn.sell {
-  color: white;
-  background: var(--grad-green);
-  border-color: transparent;
-  box-shadow: 0 4px 12px rgba(16,185,129,0.35);
-}
-.pc-btn.sell:disabled {
-  background: var(--bg-2); color: var(--text-3);
-  box-shadow: none; opacity: 0.6;
-}
-.pc-btn.restock { color: var(--accent-2); }
-.pc-btn.edit { color: var(--warning); }
-.pc-btn.del { color: var(--danger); }
-.pc-btn .lbl { display: none; }
+.emoji-picker{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:8px}
+.emoji-btn{aspect-ratio:1;border-radius:10px;background:var(--bg-2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;transition:all 0.15s;min-height:42px}
+.emoji-btn:active{transform:scale(0.9)}
+.emoji-btn.active{background:rgba(59,130,246,0.15);border-color:var(--accent);transform:scale(1.05)}
 
-.sales-list { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
-.sale-card {
-  background: var(--card-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 14px;
-  position: relative;
-  animation: slideInRight 0.35s;
-}
-.sale-card::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px; border-radius: 3px 0 0 3px;
-  background: var(--grad-green);
-}
-.sale-top {
-  display: flex; justify-content: space-between;
-  align-items: flex-start; gap: 10px;
-  margin-bottom: 8px;
-}
-.sale-id {
-  font-family: 'Inter', monospace;
-  font-size: 10px; color: var(--text-3);
-  background: var(--bg); padding: 2px 7px;
-  border-radius: 5px; font-weight: 700;
-  letter-spacing: 0.05em;
-}
-.sale-amount { text-align: right; }
-.sale-amount-num {
-  font-size: 18px; font-weight: 900;
-  color: var(--success);
-  font-family: 'Inter', sans-serif;
-  line-height: 1;
-}
-.sale-amount-label {
-  font-size: 9px; color: var(--text-3);
-  text-transform: uppercase;
-  font-weight: 700; margin-top: 2px;
-}
-.sale-model {
-  font-size: 15px; font-weight: 800;
-  margin-bottom: 6px; word-break: break-word;
-}
-.sale-meta {
-  display: flex; gap: 10px; flex-wrap: wrap;
-  font-size: 12px; color: var(--text-3);
-  margin-bottom: 10px;
-}
-.sale-meta-item {
-  display: inline-flex; align-items: center; gap: 4px;
-}
-.sale-meta-item.profit { color: var(--success); font-weight: 700; }
+.color-picker{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.color-btn{width:36px;height:36px;border-radius:50%;border:3px solid transparent;transition:all 0.15s}
+.color-btn.active{border-color:white;transform:scale(1.15);box-shadow:0 0 20px currentColor}
 
-.analytics-grid { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 12px; }
-.analytics-card {
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 14px;
-}
-.analytics-title {
-  font-size: 12px; font-weight: 700;
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 12px;
-}
-.bar-chart { display: flex; flex-direction: column; gap: 10px; }
-.bar-item { display: flex; flex-direction: column; gap: 4px; }
-.bar-label {
-  display: flex; justify-content: space-between;
-  font-size: 12px; color: var(--text-2); font-weight: 600;
-}
-.bar-label strong { color: var(--text); }
-.bar-track { height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
-.bar-fill {
-  height: 100%; border-radius: 4px;
-  background: var(--grad);
-  animation: barGrow 0.8s;
-  transition: width 0.4s;
-}
-.bar-fill.g { background: var(--grad-green); }
-.bar-fill.o { background: var(--grad-gold); }
-.bar-fill.p { background: var(--grad-pink); }
+.sell-preview{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:16px;position:relative;overflow:hidden}
+.sell-preview::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-green)}
+.sell-preview-model{font-size:17px;font-weight:800;margin-bottom:6px;word-break:break-word}
+.sell-preview-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--text-3);margin-bottom:10px}
+.sell-preview-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sell-stat{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px}
+.sell-stat-num{font-size:17px;font-weight:900;font-family:'Inter',sans-serif;color:var(--accent-2)}
+.sell-stat-num.green{color:var(--success)}
+.sell-stat-num.gold{color:var(--warning)}
+.sell-stat-label{font-size:9px;color:var(--text-3);text-transform:uppercase;font-weight:700;margin-top:2px}
 
-.top-list { display: flex; flex-direction: column; gap: 8px; }
-.top-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 10px;
-  background: var(--card);
-  border-radius: 8px;
-  border: 1px solid var(--border);
-}
-.top-rank {
-  width: 22px; height: 22px; border-radius: 6px;
-  background: var(--grad); color: white;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 800;
-  flex-shrink: 0;
-  font-family: 'Inter', sans-serif;
-}
-.top-rank.gold { background: var(--grad-gold); }
-.top-rank.silver { background: linear-gradient(135deg, #94a3b8, #64748b); }
-.top-rank.bronze { background: linear-gradient(135deg, #b45309, #92400e); }
-.top-info { flex: 1; min-width: 0; }
-.top-name {
-  font-size: 13px; font-weight: 700;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.top-sub { font-size: 11px; color: var(--text-3); }
-.top-value {
-  font-size: 13px; font-weight: 800;
-  color: var(--success);
-  font-family: 'Inter', sans-serif;
-  flex-shrink: 0;
-}
+.qty-control{display:flex;align-items:center;gap:8px}
+.qty-control input{flex:1;text-align:center;font-size:20px;font-weight:800;font-family:'Inter',sans-serif;min-height:52px;padding:8px}
+.qty-btn{width:52px;height:52px;border-radius:12px;background:var(--bg-2);border:1.5px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;transition:all 0.15s;flex-shrink:0}
+.qty-btn:active{transform:scale(0.9)}
 
-.cat-manage-list { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-.cat-manage-card {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px;
-  background: var(--card-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-}
-.cat-emoji-lg {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-}
-.cat-manage-info { flex: 1; min-width: 0; }
-.cat-manage-name { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
-.cat-manage-sub { font-size: 11px; color: var(--text-3); }
-.cat-manage-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.payment-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.pay-opt{padding:8px 4px;border-radius:10px;background:var(--bg-2);border:1.5px solid var(--border);color:var(--text-2);font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:all 0.2s;min-height:56px}
+.pay-opt .icon{width:16px;height:16px}
+.pay-opt.active{background:rgba(59,130,246,0.15);border-color:var(--accent);color:var(--accent-2)}
+.pay-opt:active{transform:scale(0.95)}
 
-.empty { text-align: center; padding: 50px 20px; color: var(--text-3); }
-.empty-icon {
-  width: 64px; height: 64px;
-  margin: 0 auto 14px;
-  opacity: 0.3;
-  animation: float 3s ease-in-out infinite;
-}
-.empty-icon .icon { width: 100%; height: 100%; }
-.empty-title { font-size: 15px; font-weight: 700; color: var(--text-2); margin-bottom: 4px; }
-.empty-sub { font-size: 13px; }
+.sell-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--grad-green);border-radius:var(--r);margin-top:14px;box-shadow:0 6px 24px rgba(16,185,129,0.35)}
+.sell-total-label{font-size:12px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,0.9)}
+.sell-total-value{font-size:22px;font-weight:900;font-family:'Inter',sans-serif;color:white}
 
-.spinner {
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.2);
-  border-top-color: currentColor;
-  animation: spin 0.7s linear infinite;
-  display: inline-block;
-}
+.upload-area{border:2px dashed var(--border-2);border-radius:var(--r);padding:32px 20px;text-align:center;cursor:pointer;transition:all 0.25s;background:var(--bg-2);display:block}
+.upload-area:active{border-color:var(--accent);background:var(--hover);transform:scale(0.98)}
+.upload-area input{display:none}
+.upload-icon{width:56px;height:56px;margin:0 auto 10px;color:var(--accent-2);opacity:0.8}
+.upload-icon .icon{width:100%;height:100%}
+.upload-title{font-size:14px;font-weight:700;margin-bottom:4px}
+.upload-sub{font-size:12px;color:var(--text-3)}
+.image-preview-wrap{position:relative;margin-bottom:12px;border-radius:var(--r-sm);overflow:hidden;background:var(--bg)}
+.image-preview{width:100%;max-height:260px;object-fit:contain;display:block}
+.scan-line{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);box-shadow:0 0 20px var(--accent);animation:scanLine 2s linear infinite;display:none}
+.image-preview-wrap.scanning .scan-line{display:block}
+.ocr-status{padding:12px;border-radius:var(--r-sm);background:var(--bg-2);border:1px solid var(--border);color:var(--text-2);font-size:13px;margin-bottom:12px;word-break:break-word;display:flex;align-items:center;gap:8px}
+.ocr-progress{height:4px;background:var(--bg);border-radius:2px;overflow:hidden;margin-top:8px}
+.ocr-progress-fill{height:100%;background:var(--grad);border-radius:2px;transition:width 0.3s}
 
-.modal {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 1000; display: none;
-  align-items: flex-end; justify-content: center;
-  animation: fadeIn 0.22s;
-}
-.modal.show { display: flex; }
-.modal-content {
-  background: var(--card);
-  border-top-left-radius: 26px;
-  border-top-right-radius: 26px;
-  border: 1px solid var(--border-2);
-  border-bottom: none;
-  padding: 18px 16px calc(20px + var(--safe-bottom));
-  width: 100%; max-width: 560px;
-  max-height: 94vh; overflow-y: auto;
-  animation: slideUp 0.35s cubic-bezier(0.22,1,0.36,1);
-}
-.modal-handle {
-  width: 44px; height: 4px; border-radius: 2px;
-  background: var(--border-2);
-  margin: 0 auto 14px;
-}
-.modal-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 16px; padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-}
-.modal-title {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 16px; font-weight: 800;
-}
-.modal-title-icon {
-  width: 34px; height: 34px; border-radius: 10px;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  color: white;
-  box-shadow: 0 4px 12px var(--accent-glow);
-}
-.modal-title-icon.green { background: var(--grad-green); }
-.modal-title-icon.gold { background: var(--grad-gold); }
-.modal-title-icon.pink { background: var(--grad-pink); }
-.modal-close {
-  width: 34px; height: 34px; border-radius: 50%;
-  background: var(--bg-2); border: 1px solid var(--border);
-  color: var(--text-2); 
-  display: flex; align-items: center; justify-content: center;
-}
-.modal-close:active { transform: scale(0.9); }
-.modal-actions { display: flex; gap: 8px; margin-top: 18px; }
-.modal-actions .btn { flex: 1; }
+.voice-overlay{position:fixed;inset:0;background:rgba(7,11,20,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:1500;display:none;align-items:center;justify-content:center;padding:20px}
+.voice-overlay.show{display:flex;animation:fadeIn 0.22s}
+.voice-box{text-align:center;max-width:320px}
+.voice-mic{width:110px;height:110px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;animation:micPulse 1.5s infinite;color:white}
+.voice-mic .icon{width:48px;height:48px}
+.voice-waves{display:flex;justify-content:center;gap:4px;height:40px;align-items:center;margin-bottom:20px}
+.voice-wave{width:4px;border-radius:2px;background:var(--accent-2);animation:waveAnim 1s ease-in-out infinite}
+.voice-text{font-size:17px;color:var(--text);margin-bottom:8px;font-weight:600;min-height:26px;word-break:break-word}
+.voice-hint{font-size:13px;color:var(--text-3)}
 
-.emoji-picker { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-top: 8px; }
-.emoji-btn {
-  aspect-ratio: 1; border-radius: 10px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; transition: all 0.15s;
-  min-height: 42px;
-}
-.emoji-btn:active { transform: scale(0.9); }
-.emoji-btn.active {
-  background: rgba(59,130,246,0.15);
-  border-color: var(--accent);
-  transform: scale(1.05);
-}
+.success-anim{position:fixed;inset:0;background:rgba(7,11,20,0.94);backdrop-filter:blur(20px);z-index:1800;display:none;align-items:center;justify-content:center;padding:20px}
+.success-anim.show{display:flex;animation:fadeIn 0.22s}
+.success-box{text-align:center;max-width:340px;animation:scaleIn 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+.success-circle{width:100px;height:100px;border-radius:50%;background:var(--grad-green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 12px 40px rgba(16,185,129,0.5);animation:successPop 0.5s cubic-bezier(0.34,1.56,0.64,1);color:white}
+.success-check{width:48px;height:48px}
+.success-title{font-size:22px;font-weight:900;margin-bottom:6px;background:var(--grad-green);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.success-sub{font-size:14px;color:var(--text-2);margin-bottom:6px}
+.success-amount{font-size:30px;font-weight:900;color:var(--success);font-family:'Inter',sans-serif;margin:14px 0 8px}
+.success-profit{font-size:14px;font-weight:700;color:var(--warning);margin-bottom:20px}
+.success-close{padding:12px 32px;border-radius:12px;background:var(--bg-2);border:1.5px solid var(--border);color:var(--text);font-weight:700;font-size:14px}
 
-.color-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-.color-btn {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  transition: all 0.15s;
-}
-.color-btn.active {
-  border-color: white;
-  transform: scale(1.15);
-  box-shadow: 0 0 20px currentColor;
-}
+.toast-wrap{position:fixed;left:12px;right:12px;top:calc(12px + var(--safe-top));display:flex;flex-direction:column;gap:8px;z-index:2000;pointer-events:none}
+.toast{background:var(--card-2);border:1px solid var(--border-2);border-left:4px solid var(--accent);padding:12px 14px;border-radius:var(--r-sm);box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;animation:toastIn 0.35s cubic-bezier(0.34,1.56,0.64,1);pointer-events:auto;word-break:break-word;backdrop-filter:blur(20px)}
+.toast.out{animation:toastOut 0.3s forwards}
+.toast.success{border-left-color:var(--success)}
+.toast.error{border-left-color:var(--danger)}
+.toast.warning{border-left-color:var(--warning)}
+.toast.info{border-left-color:var(--accent)}
+.toast-icon{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.toast.success .toast-icon{color:var(--success)}
+.toast.error .toast-icon{color:var(--danger)}
+.toast.warning .toast-icon{color:var(--warning)}
+.toast.info .toast-icon{color:var(--accent-2)}
 
-.sell-preview {
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r);
-  padding: 14px; margin-bottom: 16px;
-  position: relative; overflow: hidden;
-}
-.sell-preview::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--grad-green);
-}
-.sell-preview-model {
-  font-size: 17px; font-weight: 800;
-  margin-bottom: 6px; word-break: break-word;
-}
-.sell-preview-meta {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  font-size: 12px; color: var(--text-3);
-  margin-bottom: 10px;
-}
-.sell-preview-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.sell-stat {
-  text-align: center;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px;
-}
-.sell-stat-num {
-  font-size: 17px; font-weight: 900;
-  font-family: 'Inter', sans-serif;
-  color: var(--accent-2);
-}
-.sell-stat-num.green { color: var(--success); }
-.sell-stat-num.gold { color: var(--warning); }
-.sell-stat-label {
-  font-size: 9px; color: var(--text-3);
-  text-transform: uppercase;
-  font-weight: 700; margin-top: 2px;
-}
+.fab{position:fixed;right:16px;bottom:calc(16px + var(--safe-bottom));width:58px;height:58px;border-radius:50%;background:var(--grad);color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px var(--accent-glow);z-index:500;transition:all 0.3s}
+.fab .icon{width:26px;height:26px}
+.fab:active{transform:scale(0.9) rotate(90deg)}
+.fab.hide{transform:scale(0) rotate(90deg);opacity:0;pointer-events:none}
 
-.qty-control { display: flex; align-items: center; gap: 8px; }
-.qty-control input {
-  flex: 1; text-align: center;
-  font-size: 20px; font-weight: 800;
-  font-family: 'Inter', sans-serif;
-  min-height: 52px; padding: 8px;
-}
-.qty-btn {
-  width: 52px; height: 52px;
-  border-radius: 12px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  color: var(--text);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; font-weight: 700;
-  transition: all 0.15s;
-  flex-shrink: 0;
-}
-.qty-btn:active { transform: scale(0.9); }
+.loading-overlay{position:fixed;inset:0;background:rgba(7,11,20,0.85);backdrop-filter:blur(8px);z-index:1900;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.loading-overlay.show{display:flex}
+.loading-spinner{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite}
+.loading-text{font-size:14px;color:var(--text-2);font-weight:600}
 
-.payment-opts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.pay-opt {
-  padding: 8px 4px;
-  border-radius: 10px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  color: var(--text-2);
-  font-size: 10px; font-weight: 700;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 3px;
-  transition: all 0.2s;
-  min-height: 56px;
-}
-.pay-opt .icon { width: 16px; height: 16px; }
-.pay-opt.active {
-  background: rgba(59,130,246,0.15);
-  border-color: var(--accent);
-  color: var(--accent-2);
-}
-.pay-opt:active { transform: scale(0.95); }
+.network-banner{position:fixed;left:0;right:0;top:calc(var(--safe-top) + 62px);background:var(--danger);color:white;padding:8px 14px;text-align:center;font-size:13px;font-weight:700;z-index:150;display:none;animation:slideDown 0.3s}
+.network-banner.show{display:block}
 
-.sell-total {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 14px 16px;
-  background: var(--grad-green);
-  border-radius: var(--r);
-  margin-top: 14px;
-  box-shadow: 0 6px 24px rgba(16,185,129,0.35);
+@media (min-width:640px){
+.container{padding:20px 20px 60px}
+.stats{grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{padding:18px}.stat-value{font-size:26px}
+.form-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+.btn-primary,.btn-success{width:auto;min-width:200px}
+.filters{grid-template-columns:1fr 1fr 1fr 1fr auto auto;padding:16px}
+.filters .full{grid-column:auto}
+.filters-actions{grid-column:auto}
+.filters-actions .btn{flex:initial}
+.product-list,.sales-list,.cat-manage-list{padding:16px}
+.pc-btn .lbl{display:inline}
+.toast-wrap{left:auto;right:20px;top:20px;max-width:400px}
+.fab{display:none}
+.modal{align-items:center;padding:20px}
+.modal-content{border-radius:var(--r-lg);border:1px solid var(--border);padding:24px;max-height:88vh}
+.modal-handle{display:none}
+.sync-text-full{display:inline}
+.sync-text-short{display:none}
+.analytics-grid{grid-template-columns:1fr 1fr;padding:16px}
+.emoji-picker{grid-template-columns:repeat(10,1fr)}
 }
-.sell-total-label {
-  font-size: 12px; font-weight: 700;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
+@media (min-width:1024px){
+.stats{grid-template-columns:repeat(5,1fr)}
+.analytics-grid{grid-template-columns:1fr 1fr 1fr}
 }
-.sell-total-value {
-  font-size: 22px; font-weight: 900;
-  font-family: 'Inter', sans-serif;
-  color: white;
+@media (max-width:380px){
+.brand-text p{display:none}
+.stat-value{font-size:20px}
+.pc-name{font-size:15px}
+.tool-btn{width:44px;height:44px}
+.tab{font-size:11px;padding:8px 4px;min-width:60px}
 }
-
-.upload-area {
-  border: 2px dashed var(--border-2);
-  border-radius: var(--r);
-  padding: 32px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.25s;
-  background: var(--bg-2);
-  display: block;
+@media (prefers-reduced-motion:reduce){
+*{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
 }
-.upload-area:active { border-color: var(--accent); background: var(--hover); transform: scale(0.98); }
-.upload-area input { display: none; }
-.upload-icon {
-  width: 56px; height: 56px; margin: 0 auto 10px;
-  color: var(--accent-2);
-  opacity: 0.8;
-}
-.upload-icon .icon { width: 100%; height: 100%; }
-.upload-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-.upload-sub { font-size: 12px; color: var(--text-3); }
-
-.image-preview-wrap {
-  position: relative; margin-bottom: 12px;
-  border-radius: var(--r-sm); overflow: hidden;
-  background: var(--bg);
-}
-.image-preview { width: 100%; max-height: 260px; object-fit: contain; display: block; }
-.scan-line {
-  position: absolute; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  box-shadow: 0 0 20px var(--accent);
-  animation: scanLine 2s linear infinite;
-  display: none;
-}
-.image-preview-wrap.scanning .scan-line { display: block; }
-.ocr-status {
-  padding: 12px; border-radius: var(--r-sm);
-  background: var(--bg-2); border: 1px solid var(--border);
-  color: var(--text-2); font-size: 13px;
-  margin-bottom: 12px; word-break: break-word;
-  display: flex; align-items: center; gap: 8px;
-}
-.ocr-progress {
-  height: 4px; background: var(--bg);
-  border-radius: 2px; overflow: hidden;
-  margin-top: 8px;
-}
-.ocr-progress-fill {
-  height: 100%; background: var(--grad);
-  border-radius: 2px; transition: width 0.3s;
-}
-
-.voice-overlay {
-  position: fixed; inset: 0;
-  background: rgba(7,11,20,0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  z-index: 1500; display: none;
-  align-items: center; justify-content: center;
-  padding: 20px;
-}
-.voice-overlay.show { display: flex; animation: fadeIn 0.22s; }
-.voice-box { text-align: center; max-width: 320px; }
-.voice-mic {
-  width: 110px; height: 110px; border-radius: 50%;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 22px;
-  animation: micPulse 1.5s infinite;
-  color: white;
-}
-.voice-mic .icon { width: 48px; height: 48px; }
-.voice-waves {
-  display: flex; justify-content: center; gap: 4px;
-  height: 40px; align-items: center;
-  margin-bottom: 20px;
-}
-.voice-wave {
-  width: 4px; border-radius: 2px;
-  background: var(--accent-2);
-  animation: waveAnim 1s ease-in-out infinite;
-}
-.voice-text {
-  font-size: 17px; color: var(--text);
-  margin-bottom: 8px; font-weight: 600;
-  min-height: 26px; word-break: break-word;
-}
-.voice-hint { font-size: 13px; color: var(--text-3); }
-
-.success-anim {
-  position: fixed; inset: 0;
-  background: rgba(7,11,20,0.94);
-  backdrop-filter: blur(20px);
-  z-index: 1800; display: none;
-  align-items: center; justify-content: center;
-  padding: 20px;
-}
-.success-anim.show { display: flex; animation: fadeIn 0.22s; }
-.success-box {
-  text-align: center; max-width: 340px;
-  animation: scaleIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
-}
-.success-circle {
-  width: 100px; height: 100px; border-radius: 50%;
-  background: var(--grad-green);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 20px;
-  box-shadow: 0 12px 40px rgba(16,185,129,0.5);
-  animation: successPop 0.5s cubic-bezier(0.34,1.56,0.64,1);
-  color: white;
-}
-.success-check { width: 48px; height: 48px; }
-.success-title {
-  font-size: 22px; font-weight: 900;
-  margin-bottom: 6px;
-  background: var(--grad-green);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.success-sub { font-size: 14px; color: var(--text-2); margin-bottom: 6px; }
-.success-amount {
-  font-size: 30px; font-weight: 900;
-  color: var(--success);
-  font-family: 'Inter', sans-serif;
-  margin: 14px 0 8px;
-}
-.success-profit {
-  font-size: 14px; font-weight: 700;
-  color: var(--warning);
-  margin-bottom: 20px;
-}
-.success-close {
-  padding: 12px 32px;
-  border-radius: 12px;
-  background: var(--bg-2);
-  border: 1.5px solid var(--border);
-  color: var(--text);
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.toast-wrap {
-  position: fixed;
-  left: 12px; right: 12px;
-  top: calc(12px + var(--safe-top));
-  display: flex; flex-direction: column; gap: 8px;
-  z-index: 2000;
-  pointer-events: none;
-}
-.toast {
-  background: var(--card-2);
-  border: 1px solid var(--border-2);
-  border-left: 4px solid var(--accent);
-  padding: 12px 14px;
-  border-radius: var(--r-sm);
-  box-shadow: var(--shadow-lg);
-  display: flex; align-items: center; gap: 10px;
-  font-size: 14px; font-weight: 600;
-  animation: toastIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  pointer-events: auto; word-break: break-word;
-  backdrop-filter: blur(20px);
-}
-.toast.out { animation: toastOut 0.3s forwards; }
-.toast.success { border-left-color: var(--success); }
-.toast.error { border-left-color: var(--danger); }
-.toast.warning { border-left-color: var(--warning); }
-.toast.info { border-left-color: var(--accent); }
-.toast-icon {
-  width: 22px; height: 22px;
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-}
-.toast.success .toast-icon { color: var(--success); }
-.toast.error .toast-icon { color: var(--danger); }
-.toast.warning .toast-icon { color: var(--warning); }
-.toast.info .toast-icon { color: var(--accent-2); }
-
-.fab {
-  position: fixed;
-  right: 16px;
-  bottom: calc(16px + var(--safe-bottom));
-  width: 58px; height: 58px;
-  border-radius: 50%;
-  background: var(--grad);
-  color: white;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 10px 30px var(--accent-glow);
-  z-index: 500;
-  transition: all 0.3s;
-}
-.fab .icon { width: 26px; height: 26px; }
-.fab:active { transform: scale(0.9) rotate(90deg); }
-.fab.hide { transform: scale(0) rotate(90deg); opacity: 0; pointer-events: none; }
-
-.loading-overlay {
-  position: fixed; inset: 0;
-  background: rgba(7,11,20,0.85);
-  backdrop-filter: blur(8px);
-  z-index: 1900; display: none;
-  align-items: center; justify-content: center;
-  flex-direction: column; gap: 16px;
-}
-.loading-overlay.show { display: flex; }
-.loading-spinner {
-  width: 48px; height: 48px;
-  border: 3px solid var(--border);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-.loading-text { font-size: 14px; color: var(--text-2); font-weight: 600; }
-
-.network-banner {
-  position: fixed; left: 0; right: 0;
-  top: calc(var(--safe-top) + 62px);
-  background: var(--danger);
-  color: white;
-  padding: 8px 14px;
-  text-align: center;
-  font-size: 13px; font-weight: 700;
-  z-index: 150;
-  display: none;
-  animation: slideDown 0.3s;
-}
-.network-banner.show { display: block; }
-
-@media (min-width: 640px) {
-  .container { padding: 20px 20px 60px; }
-  .stats { grid-template-columns: repeat(4, 1fr); gap: 14px; }
-  .stat { padding: 18px; }
-  .stat-value { font-size: 26px; }
-  .form-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .btn-primary, .btn-success { width: auto; min-width: 200px; }
-  .filters { grid-template-columns: 1fr 1fr 1fr 1fr auto auto; padding: 16px; }
-  .filters .full { grid-column: auto; }
-  .filters-actions { grid-column: auto; }
-  .filters-actions .btn { flex: initial; }
-  .product-list, .sales-list, .cat-manage-list { padding: 16px; }
-  .pc-btn .lbl { display: inline; }
-  .toast-wrap { left: auto; right: 20px; top: 20px; max-width: 400px; }
-  .fab { display: none; }
-  .modal { align-items: center; padding: 20px; }
-  .modal-content {
-    border-radius: var(--r-lg);
-    border: 1px solid var(--border);
-    padding: 24px; max-height: 88vh;
-  }
-  .modal-handle { display: none; }
-  .sync-text-full { display: inline; }
-  .sync-text-short { display: none; }
-  .analytics-grid { grid-template-columns: 1fr 1fr; padding: 16px; }
-  .emoji-picker { grid-template-columns: repeat(10, 1fr); }
-}
-@media (min-width: 1024px) {
-  .stats { grid-template-columns: repeat(5, 1fr); }
-  .analytics-grid { grid-template-columns: 1fr 1fr 1fr; }
-}
-@media (max-width: 380px) {
-  .brand-text p { display: none; }
-  .stat-value { font-size: 20px; }
-  .pc-name { font-size: 15px; }
-  .tool-btn { width: 44px; height: 44px; }
-  .tab { font-size: 11px; padding: 8px 4px; min-width: 60px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
-::selection { background: var(--accent); color: white; }
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
-@supports (-webkit-touch-callout: none) {
-  input, select, textarea { font-size: 16px !important; }
+::selection{background:var(--accent);color:white}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:4px}
+@supports (-webkit-touch-callout:none){
+input,select,textarea{font-size:16px !important}
 }
 </style>
 </head>
@@ -1252,7 +416,7 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
         <p>Universal Inventory</p>
       </div>
     </div>
-    <div class="sync-status" id="syncStatus" title="ডাটা সিঙ্ক">
+    <div class="sync-status" id="syncStatus" title="সিঙ্ক">
       <span class="sync-dot"></span>
       <span id="syncText">
         <span class="sync-text-full">কানেক্ট হচ্ছে...</span>
@@ -1262,66 +426,38 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
   </div>
 </header>
 
-<div class="network-banner" id="networkBanner">📡 ইন্টারনেট সংযোগ নেই — অফলাইন মোড</div>
+<div class="network-banner" id="networkBanner">📡 ইন্টারনেট নেই — অফলাইন মোড</div>
 
 <main class="container">
 
   <div class="quick-bar">
     <div class="quick-stat">
-      <div class="quick-label">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        মোট পণ্য
-      </div>
+      <div class="quick-label">মোট পণ্য</div>
       <div class="quick-value" id="qsProducts">—</div>
     </div>
     <div class="quick-stat g">
-      <div class="quick-label">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-        মোট স্টক
-      </div>
+      <div class="quick-label">মোট স্টক</div>
       <div class="quick-value" id="qsStock">—</div>
     </div>
     <div class="quick-stat o">
-      <div class="quick-label">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
-        কম স্টক
-      </div>
+      <div class="quick-label">কম স্টক</div>
       <div class="quick-value" id="qsLow">—</div>
     </div>
     <div class="quick-stat purple">
-      <div class="quick-label">
-        <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        স্টক মূল্য
-      </div>
+      <div class="quick-label">স্টক মূল্য</div>
       <div class="quick-value" id="qsValue">—</div>
     </div>
     <div class="quick-stat p">
-      <div class="quick-label">
-        <svg class="icon" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
-        আজকের আয়
-      </div>
+      <div class="quick-label">আজকের আয়</div>
       <div class="quick-value" id="qsToday">—</div>
     </div>
   </div>
 
   <div class="tabs">
-    <button class="tab active" data-tab="products" type="button">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-      পণ্য
-    </button>
-    <button class="tab" data-tab="categories" type="button">
-      <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      ক্যাটাগরি
-    </button>
-    <button class="tab" data-tab="sales" type="button">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
-      বিক্রয়
-      <span class="tab-badge" id="salesBadge" style="display:none">0</span>
-    </button>
-    <button class="tab" data-tab="analytics" type="button">
-      <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      এনালিটিক্স
-    </button>
+    <button class="tab active" data-tab="products" type="button">পণ্য</button>
+    <button class="tab" data-tab="categories" type="button">ক্যাটাগরি</button>
+    <button class="tab" data-tab="sales" type="button">বিক্রয় <span class="tab-badge" id="salesBadge" style="display:none">0</span></button>
+    <button class="tab" data-tab="analytics" type="button">এনালিটিক্স</button>
   </div>
 
   <div id="tabProducts">
@@ -1337,9 +473,9 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
           </button>
         </div>
         <button class="tool-btn" id="voiceBtn" type="button" title="ভয়েস সার্চ">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
         </button>
-        <button class="tool-btn" id="imageBtn" type="button" title="ছবি থেকে খুঁজুন">
+        <button class="tool-btn" id="imageBtn" type="button" title="ছবি">
           <svg class="icon" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         </button>
       </div>
@@ -1349,33 +485,24 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
 
     <div class="card" id="addFormCard">
       <div class="card-header">
-        <div class="card-title"><span class="dot"></span> নতুন পণ্য যোগ করুন</div>
-        <span class="card-hint">একই নাম+মডেল = অটো যোগ</span>
+        <div class="card-title"><span class="dot"></span> নতুন পণ্য</div>
+        <span class="card-hint">একই = অটো যোগ</span>
       </div>
       <div class="card-body">
         <div class="form-grid">
-          <div class="field">
-            <label>পণ্যের নাম <span class="req">*</span></label>
-            <input type="text" id="fName" placeholder="iPhone 13 Tempered Glass" autocomplete="off">
-          </div>
-          <div class="field">
-            <label>ক্যাটাগরি <span class="req">*</span></label>
-            <select id="fCategory"></select>
-          </div>
-          <div class="field"><label>ব্র্যান্ড</label><input type="text" id="fBrand" placeholder="Apple / Samsung" autocomplete="off"></div>
+          <div class="field"><label>পণ্যের নাম <span class="req">*</span></label><input type="text" id="fName" placeholder="iPhone 13 Tempered Glass" autocomplete="off"></div>
+          <div class="field"><label>ক্যাটাগরি <span class="req">*</span></label><select id="fCategory"><option value="">-- ক্যাটাগরি --</option></select></div>
+          <div class="field"><label>ব্র্যান্ড</label><input type="text" id="fBrand" placeholder="Apple" autocomplete="off"></div>
           <div class="field"><label>মডেল</label><input type="text" id="fModel" placeholder="iPhone 13" autocomplete="off"></div>
           <div class="field"><label>পরিমাণ <span class="req">*</span></label><input type="number" id="fQty" min="1" value="1" inputmode="numeric"></div>
-          <div class="field"><label>কেনা দাম (৳)</label><input type="number" id="fBuyPrice" min="0" step="0.01" placeholder="0" inputmode="decimal"></div>
-          <div class="field"><label>বিক্রয় দাম (৳) <span class="req">*</span></label><input type="number" id="fSellPrice" min="0" step="0.01" placeholder="0" inputmode="decimal"></div>
-          <div class="field"><label>সাপ্লায়ার</label><input type="text" id="fSupplier" placeholder="সাপ্লায়ারের নাম" autocomplete="off"></div>
+          <div class="field"><label>কেনা দাম (৳)</label><input type="number" id="fBuyPrice" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="field"><label>বিক্রয় দাম (৳) <span class="req">*</span></label><input type="number" id="fSellPrice" min="0" step="0.01" inputmode="decimal"></div>
+          <div class="field"><label>সাপ্লায়ার</label><input type="text" id="fSupplier" placeholder="সাপ্লায়ার" autocomplete="off"></div>
           <div class="field"><label>কম স্টক এলার্ট</label><input type="number" id="fMinStock" min="0" value="5" inputmode="numeric"></div>
-          <div class="field"><label>নোট</label><input type="text" id="fNotes" placeholder="নোট..." autocomplete="off"></div>
+          <div class="field"><label>নোট</label><input type="text" id="fNotes" placeholder="নোট" autocomplete="off"></div>
         </div>
         <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-          <button class="btn btn-primary" id="addBtn" type="button">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-            সেভ করুন
-          </button>
+          <button class="btn btn-primary" id="addBtn" type="button">💾 সেভ করুন</button>
           <button class="btn btn-secondary" id="clearBtn" type="button">🔄 ক্লিয়ার</button>
         </div>
       </div>
@@ -1414,13 +541,8 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
   <div id="tabCategories" style="display:none">
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="dot"></span> ক্যাটাগরি ব্যবস্থাপনা</div>
+        <div class="card-title"><span class="dot"></span> ক্যাটাগরি</div>
         <button class="btn btn-primary btn-sm" id="addCatBtn" type="button">➕ নতুন</button>
-      </div>
-      <div class="card-body" style="padding:14px;border-bottom:1px solid var(--border)">
-        <div style="font-size:12px;color:var(--text-3);line-height:1.6">
-          💡 <strong>যত খুশি ক্যাটাগরি বানাতে পারবেন</strong> — যেমন: গ্লাস, কভার, চার্জার, ব্লুটুথ, ব্যাটারি, হেডফোন, কেবল, পাওয়ার ব্যাংক, পেনড্রাইভ, মেমোরি কার্ড ইত্যাদি।
-        </div>
       </div>
       <div class="cat-manage-list" id="catManageList"></div>
     </div>
@@ -1429,20 +551,17 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
   <div id="tabSales" style="display:none">
     <div class="stats">
       <div class="stat g"><div class="stat-label">আজকের বিক্রয়</div><div class="stat-value" id="statToday">—</div></div>
-      <div class="stat gold"><div class="stat-label">আজকের আয়</div><div class="stat-value" id="statTodayAmount">—</div></div>
+      <div class="stat o"><div class="stat-label">আজকের আয়</div><div class="stat-value" id="statTodayAmount">—</div></div>
       <div class="stat p"><div class="stat-label">আজকের প্রফিট</div><div class="stat-value" id="statTodayProfit">—</div></div>
       <div class="stat"><div class="stat-label">মোট আয়</div><div class="stat-value" id="statTotalRevenue">—</div></div>
     </div>
     <div class="card">
-      <div class="card-header">
-        <div class="card-title"><span class="dot"></span> বিক্রয়ের ইতিহাস</div>
-        <span class="card-hint" id="salesCount">—</span>
-      </div>
+      <div class="card-header"><div class="card-title"><span class="dot"></span> বিক্রয়</div><span class="card-hint" id="salesCount">—</span></div>
       <div class="filters">
         <input type="date" id="salesFilterDate" class="full">
-        <input type="text" id="salesSearch" class="full" placeholder="পণ্য/কাস্টমার খুঁজুন..." autocomplete="off">
+        <input type="text" id="salesSearch" class="full" placeholder="খুঁজুন..." autocomplete="off">
         <div class="filters-actions">
-          <button class="btn btn-secondary btn-sm" id="salesClearFilter" type="button">✕ ফিল্টার</button>
+          <button class="btn btn-secondary btn-sm" id="salesClearFilter" type="button">✕ ক্লিয়ার</button>
           <button class="btn btn-secondary btn-sm" id="salesExportBtn" type="button">📥 CSV</button>
         </div>
       </div>
@@ -1454,210 +573,154 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
     <div class="stats">
       <div class="stat g"><div class="stat-label">আজকের আয়</div><div class="stat-value" id="anTodayRevenue">—</div></div>
       <div class="stat p"><div class="stat-label">আজকের প্রফিট</div><div class="stat-value" id="anTodayProfit">—</div></div>
-      <div class="stat gold"><div class="stat-label">সাপ্তাহিক আয়</div><div class="stat-value" id="anWeekRevenue">—</div></div>
+      <div class="stat o"><div class="stat-label">সাপ্তাহিক আয়</div><div class="stat-value" id="anWeekRevenue">—</div></div>
       <div class="stat"><div class="stat-label">মাসিক আয়</div><div class="stat-value" id="anMonthRevenue">—</div></div>
       <div class="stat g"><div class="stat-label">মোট প্রফিট</div><div class="stat-value" id="anTotalProfit">—</div></div>
     </div>
     <div class="card">
-      <div class="card-header"><div class="card-title"><span class="dot"></span> এনালিটিক্স ড্যাশবোর্ড</div></div>
+      <div class="card-header"><div class="card-title"><span class="dot"></span> এনালিটিক্স</div></div>
       <div class="analytics-grid">
-        <div class="analytics-card"><div class="analytics-title">📈 শেষ ৭ দিনের আয়</div><div class="bar-chart" id="weeklyChart"></div></div>
-        <div class="analytics-card"><div class="analytics-title">⭐ টপ সেলিং পণ্য</div><div class="top-list" id="topProducts"></div></div>
-        <div class="analytics-card"><div class="analytics-title">📂 ক্যাটাগরি অনুযায়ী আয়</div><div class="bar-chart" id="catChart"></div></div>
-        <div class="analytics-card"><div class="analytics-title">💳 পেমেন্ট মেথড</div><div class="bar-chart" id="paymentChart"></div></div>
-        <div class="analytics-card"><div class="analytics-title">⚠️ কম স্টকের পণ্য</div><div class="top-list" id="lowStockList"></div></div>
+        <div class="analytics-card"><div class="analytics-title">📈 শেষ ৭ দিন</div><div class="bar-chart" id="weeklyChart"></div></div>
+        <div class="analytics-card"><div class="analytics-title">⭐ টপ পণ্য</div><div class="top-list" id="topProducts"></div></div>
+        <div class="analytics-card"><div class="analytics-title">📂 ক্যাটাগরি</div><div class="bar-chart" id="catChart"></div></div>
+        <div class="analytics-card"><div class="analytics-title">💳 পেমেন্ট</div><div class="bar-chart" id="paymentChart"></div></div>
+        <div class="analytics-card"><div class="analytics-title">⚠️ কম স্টক</div><div class="top-list" id="lowStockList"></div></div>
       </div>
     </div>
   </div>
-
 </main>
 
 <button class="fab" id="fabBtn" type="button">
   <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
 </button>
 
-<div class="modal" id="sellModal">
-  <div class="modal-content">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <div class="modal-title">
-        <div class="modal-title-icon green">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
-        </div>
-        বিক্রয় নিশ্চিত করুন
-      </div>
-      <button class="modal-close" onclick="closeSell()" type="button">
-        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <input type="hidden" id="sellProductId">
-    <div class="sell-preview" id="sellPreview"></div>
-    <div class="form-grid" style="grid-template-columns:1fr">
-      <div class="field">
-        <label>পরিমাণ <span class="req">*</span></label>
-        <div class="qty-control">
-          <button class="qty-btn" type="button" onclick="adjustSellQty(-1)">−</button>
-          <input type="number" id="sellQty" value="1" min="1" inputmode="numeric">
-          <button class="qty-btn" type="button" onclick="adjustSellQty(1)">+</button>
-        </div>
-      </div>
-      <div class="field"><label>একক বিক্রয় দাম (৳)</label><input type="number" id="sellUnitPrice" min="0" step="0.01" inputmode="decimal"></div>
-      <div class="field">
-        <label>পেমেন্ট মেথড</label>
-        <div class="payment-opts" id="paymentOpts">
-          <button class="pay-opt active" data-pay="Cash" type="button"><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg>Cash</button>
-          <button class="pay-opt" data-pay="bKash" type="button"><svg class="icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>bKash</button>
-          <button class="pay-opt" data-pay="Nagad" type="button"><svg class="icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>Nagad</button>
-          <button class="pay-opt" data-pay="Rocket" type="button"><svg class="icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>Rocket</button>
-        </div>
-      </div>
-      <div class="field"><label>কাস্টমারের নাম</label><input type="text" id="sellCustomer" placeholder="নাম" autocomplete="off"></div>
-      <div class="field"><label>মোবাইল</label><input type="tel" id="sellPhone" placeholder="01XXXXXXXXX" inputmode="tel"></div>
-      <div class="field"><label>নোট</label><input type="text" id="sellNotes" placeholder="নোট" autocomplete="off"></div>
-    </div>
-    <div class="sell-total">
-      <div class="sell-total-label">মোট</div>
-      <div class="sell-total-value" id="sellTotal">৳0</div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeSell()" type="button">বাতিল</button>
-      <button class="btn btn-success" id="confirmSellBtn" type="button">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-        বিক্রয় সম্পন্ন
-      </button>
-    </div>
+<div class="modal" id="sellModal"><div class="modal-content">
+  <div class="modal-handle"></div>
+  <div class="modal-header">
+    <div class="modal-title"><div class="modal-title-icon green">🛒</div>বিক্রয়</div>
+    <button class="modal-close" onclick="closeSell()" type="button">×</button>
   </div>
-</div>
+  <input type="hidden" id="sellProductId">
+  <div class="sell-preview" id="sellPreview"></div>
+  <div class="form-grid" style="grid-template-columns:1fr">
+    <div class="field"><label>পরিমাণ <span class="req">*</span></label>
+      <div class="qty-control">
+        <button class="qty-btn" type="button" onclick="adjustSellQty(-1)">−</button>
+        <input type="number" id="sellQty" value="1" min="1" inputmode="numeric">
+        <button class="qty-btn" type="button" onclick="adjustSellQty(1)">+</button>
+      </div>
+    </div>
+    <div class="field"><label>একক দাম (৳)</label><input type="number" id="sellUnitPrice" min="0" step="0.01" inputmode="decimal"></div>
+    <div class="field"><label>পেমেন্ট</label>
+      <div class="payment-opts" id="paymentOpts">
+        <button class="pay-opt active" data-pay="Cash" type="button">💵 Cash</button>
+        <button class="pay-opt" data-pay="bKash" type="button">📱 bKash</button>
+        <button class="pay-opt" data-pay="Nagad" type="button">📱 Nagad</button>
+        <button class="pay-opt" data-pay="Rocket" type="button">📱 Rocket</button>
+      </div>
+    </div>
+    <div class="field"><label>কাস্টমার</label><input type="text" id="sellCustomer" placeholder="নাম" autocomplete="off"></div>
+    <div class="field"><label>মোবাইল</label><input type="tel" id="sellPhone" placeholder="01XXX" inputmode="tel"></div>
+    <div class="field"><label>নোট</label><input type="text" id="sellNotes" placeholder="নোট" autocomplete="off"></div>
+  </div>
+  <div class="sell-total"><div class="sell-total-label">মোট</div><div class="sell-total-value" id="sellTotal">৳0</div></div>
+  <div class="modal-actions">
+    <button class="btn btn-secondary" onclick="closeSell()" type="button">বাতিল</button>
+    <button class="btn btn-success" id="confirmSellBtn" type="button">✅ বিক্রয়</button>
+  </div>
+</div></div>
 
-<div class="modal" id="restockModal">
-  <div class="modal-content">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <div class="modal-title">
-        <div class="modal-title-icon">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-        </div>
-        নতুন মাল যোগ করুন
-      </div>
-      <button class="modal-close" onclick="closeRestock()" type="button">
-        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <input type="hidden" id="restockProductId">
-    <div class="sell-preview" id="restockPreview"></div>
-    <div class="form-grid" style="grid-template-columns:1fr">
-      <div class="field"><label>পরিমাণ <span class="req">*</span></label><input type="number" id="restockQty" min="1" value="1" inputmode="numeric"></div>
-      <div class="field"><label>একক ক্রয় মূল্য (৳)</label><input type="number" id="restockCost" min="0" step="0.01" inputmode="decimal"></div>
-      <div class="field"><label>সাপ্লায়ার</label><input type="text" id="restockSupplier" placeholder="সাপ্লায়ার" autocomplete="off"></div>
-      <div class="field"><label>নোট</label><input type="text" id="restockNotes" placeholder="নোট" autocomplete="off"></div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeRestock()" type="button">বাতিল</button>
-      <button class="btn btn-primary" id="confirmRestockBtn" type="button">✅ যোগ করুন</button>
-    </div>
+<div class="modal" id="restockModal"><div class="modal-content">
+  <div class="modal-handle"></div>
+  <div class="modal-header">
+    <div class="modal-title"><div class="modal-title-icon">➕</div>নতুন মাল</div>
+    <button class="modal-close" onclick="closeRestock()" type="button">×</button>
   </div>
-</div>
+  <input type="hidden" id="restockProductId">
+  <div class="sell-preview" id="restockPreview"></div>
+  <div class="form-grid" style="grid-template-columns:1fr">
+    <div class="field"><label>পরিমাণ <span class="req">*</span></label><input type="number" id="restockQty" min="1" value="1" inputmode="numeric"></div>
+    <div class="field"><label>একক ক্রয় মূল্য (৳)</label><input type="number" id="restockCost" min="0" step="0.01" inputmode="decimal"></div>
+    <div class="field"><label>সাপ্লায়ার</label><input type="text" id="restockSupplier" autocomplete="off"></div>
+    <div class="field"><label>নোট</label><input type="text" id="restockNotes" autocomplete="off"></div>
+  </div>
+  <div class="modal-actions">
+    <button class="btn btn-secondary" onclick="closeRestock()" type="button">বাতিল</button>
+    <button class="btn btn-primary" id="confirmRestockBtn" type="button">✅ যোগ</button>
+  </div>
+</div></div>
 
-<div class="modal" id="editModal">
-  <div class="modal-content">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <div class="modal-title">
-        <div class="modal-title-icon">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </div>
-        পণ্য এডিট
-      </div>
-      <button class="modal-close" onclick="closeEdit()" type="button">
-        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <input type="hidden" id="eId">
-    <div class="form-grid" style="grid-template-columns:1fr">
-      <div class="field"><label>নাম</label><input type="text" id="eName"></div>
-      <div class="field"><label>ক্যাটাগরি</label><select id="eCategory"></select></div>
-      <div class="field"><label>ব্র্যান্ড</label><input type="text" id="eBrand"></div>
-      <div class="field"><label>মডেল</label><input type="text" id="eModel"></div>
-      <div class="field"><label>পরিমাণ</label><input type="number" id="eQty" min="0" inputmode="numeric"></div>
-      <div class="field"><label>কেনা দাম</label><input type="number" id="eBuyPrice" step="0.01" inputmode="decimal"></div>
-      <div class="field"><label>বিক্রয় দাম</label><input type="number" id="eSellPrice" step="0.01" inputmode="decimal"></div>
-      <div class="field"><label>সাপ্লায়ার</label><input type="text" id="eSupplier"></div>
-      <div class="field"><label>কম স্টক এলার্ট</label><input type="number" id="eMinStock" min="0" inputmode="numeric"></div>
-      <div class="field"><label>নোট</label><input type="text" id="eNotes"></div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeEdit()" type="button">বাতিল</button>
-      <button class="btn btn-primary" id="saveEditBtn" type="button">আপডেট</button>
-    </div>
+<div class="modal" id="editModal"><div class="modal-content">
+  <div class="modal-handle"></div>
+  <div class="modal-header">
+    <div class="modal-title"><div class="modal-title-icon">✏️</div>এডিট</div>
+    <button class="modal-close" onclick="closeEdit()" type="button">×</button>
   </div>
-</div>
+  <input type="hidden" id="eId">
+  <div class="form-grid" style="grid-template-columns:1fr">
+    <div class="field"><label>নাম</label><input type="text" id="eName"></div>
+    <div class="field"><label>ক্যাটাগরি</label><select id="eCategory"></select></div>
+    <div class="field"><label>ব্র্যান্ড</label><input type="text" id="eBrand"></div>
+    <div class="field"><label>মডেল</label><input type="text" id="eModel"></div>
+    <div class="field"><label>পরিমাণ</label><input type="number" id="eQty" min="0" inputmode="numeric"></div>
+    <div class="field"><label>কেনা</label><input type="number" id="eBuyPrice" step="0.01" inputmode="decimal"></div>
+    <div class="field"><label>বিক্রয়</label><input type="number" id="eSellPrice" step="0.01" inputmode="decimal"></div>
+    <div class="field"><label>সাপ্লায়ার</label><input type="text" id="eSupplier"></div>
+    <div class="field"><label>MinStock</label><input type="number" id="eMinStock" min="0" inputmode="numeric"></div>
+    <div class="field"><label>নোট</label><input type="text" id="eNotes"></div>
+  </div>
+  <div class="modal-actions">
+    <button class="btn btn-secondary" onclick="closeEdit()" type="button">বাতিল</button>
+    <button class="btn btn-primary" id="saveEditBtn" type="button">আপডেট</button>
+  </div>
+</div></div>
 
-<div class="modal" id="catModal">
-  <div class="modal-content">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <div class="modal-title">
-        <div class="modal-title-icon pink">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        </div>
-        <span id="catModalTitle">নতুন ক্যাটাগরি</span>
-      </div>
-      <button class="modal-close" onclick="closeCat()" type="button">
-        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <input type="hidden" id="catId">
-    <div class="form-grid" style="grid-template-columns:1fr">
-      <div class="field"><label>ক্যাটাগরি নাম (English) <span class="req">*</span></label><input type="text" id="catName" placeholder="Glass, Cover, Charger..." autocomplete="off"></div>
-      <div class="field"><label>বাংলা নাম</label><input type="text" id="catNameBn" placeholder="গ্লাস, কভার, চার্জার..." autocomplete="off"></div>
-      <div class="field"><label>আইকন (Emoji)</label><div class="emoji-picker" id="emojiPicker"></div></div>
-      <div class="field"><label>রঙ</label><div class="color-picker" id="colorPicker"></div></div>
-      <div class="field"><label>বিবরণ</label><input type="text" id="catDesc" placeholder="বিবরণ" autocomplete="off"></div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeCat()" type="button">বাতিল</button>
-      <button class="btn btn-primary" id="saveCatBtn" type="button">সেভ করুন</button>
-    </div>
+<div class="modal" id="catModal"><div class="modal-content">
+  <div class="modal-handle"></div>
+  <div class="modal-header">
+    <div class="modal-title"><div class="modal-title-icon pink">📂</div><span id="catModalTitle">নতুন ক্যাটাগরি</span></div>
+    <button class="modal-close" onclick="closeCat()" type="button">×</button>
   </div>
-</div>
+  <input type="hidden" id="catId">
+  <div class="form-grid" style="grid-template-columns:1fr">
+    <div class="field"><label>English নাম <span class="req">*</span></label><input type="text" id="catName" placeholder="Glass" autocomplete="off"></div>
+    <div class="field"><label>বাংলা নাম</label><input type="text" id="catNameBn" placeholder="গ্লাস" autocomplete="off"></div>
+    <div class="field"><label>আইকন</label><div class="emoji-picker" id="emojiPicker"></div></div>
+    <div class="field"><label>রঙ</label><div class="color-picker" id="colorPicker"></div></div>
+    <div class="field"><label>বিবরণ</label><input type="text" id="catDesc" autocomplete="off"></div>
+  </div>
+  <div class="modal-actions">
+    <button class="btn btn-secondary" onclick="closeCat()" type="button">বাতিল</button>
+    <button class="btn btn-primary" id="saveCatBtn" type="button">সেভ</button>
+  </div>
+</div></div>
 
-<div class="modal" id="imageModal">
-  <div class="modal-content">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <div class="modal-title">
-        <div class="modal-title-icon">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        </div>
-        ছবি থেকে খুঁজুন
-      </div>
-      <button class="modal-close" onclick="closeImage()" type="button">
-        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <label class="upload-area" for="imageInput" id="uploadArea">
-      <div class="upload-icon">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      </div>
-      <div class="upload-title">ছবি আপলোড করুন</div>
-      <div class="upload-sub">পণ্যের ছবি থেকে নাম পড়ে খুঁজে বের করবে</div>
-      <input type="file" id="imageInput" accept="image/*" capture="environment">
-    </label>
-    <div class="image-preview-wrap" id="imageWrap" style="display:none">
-      <img id="imagePreview" class="image-preview" alt="preview">
-      <div class="scan-line"></div>
-    </div>
-    <div class="ocr-status" id="ocrStatus" style="display:none"></div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeImage()" type="button">বন্ধ করুন</button>
-    </div>
+<div class="modal" id="imageModal"><div class="modal-content">
+  <div class="modal-handle"></div>
+  <div class="modal-header">
+    <div class="modal-title"><div class="modal-title-icon">📷</div>ছবি থেকে</div>
+    <button class="modal-close" onclick="closeImage()" type="button">×</button>
   </div>
-</div>
+  <label class="upload-area" for="imageInput" id="uploadArea">
+    <div class="upload-icon">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+    </div>
+    <div class="upload-title">ছবি আপলোড</div>
+    <div class="upload-sub">পণ্যের নাম পড়ে খুঁজবে</div>
+    <input type="file" id="imageInput" accept="image/*" capture="environment">
+  </label>
+  <div class="image-preview-wrap" id="imageWrap" style="display:none">
+    <img id="imagePreview" class="image-preview" alt="preview">
+    <div class="scan-line"></div>
+  </div>
+  <div class="ocr-status" id="ocrStatus" style="display:none"></div>
+  <div class="modal-actions"><button class="btn btn-secondary" onclick="closeImage()" type="button">বন্ধ</button></div>
+</div></div>
 
 <div class="voice-overlay" id="voiceOverlay">
   <div class="voice-box">
     <div class="voice-mic">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
     </div>
     <div class="voice-waves">
       <div class="voice-wave"></div><div class="voice-wave"></div><div class="voice-wave"></div>
@@ -1680,8 +743,8 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
     <div class="success-sub" id="successModel">—</div>
     <div class="success-amount" id="successAmount">৳0</div>
     <div class="success-profit" id="successProfit">প্রফিট: ৳0</div>
-    <div class="success-sub" style="margin-bottom:20px" id="successStock">নতুন স্টক: —</div>
-    <button class="success-close" onclick="closeSuccess()" type="button">বন্ধ করুন</button>
+    <div class="success-sub" style="margin-bottom:20px" id="successStock">—</div>
+    <button class="success-close" onclick="closeSuccess()" type="button">ঠিক আছে</button>
   </div>
 </div>
 
@@ -1696,52 +759,50 @@ button { cursor: pointer; border: none; background: none; color: inherit; }
 'use strict';
 
 /* ==========================================================
-   API URL
+   CONFIG
    ========================================================== */
 const API_URL = 'https://script.google.com/macros/s/AKfycbzNNaE2P9r4Xtsrd5Q3eDpSgnjYRJCEi4IV2Kmw49lEs0uEBpnhlAJAVmpXCoy25qaE/exec';
 
-const CACHE_KEY = 'stockmaster_cache_v1';
-const QUEUE_KEY = 'stockmaster_queue_v1';
-const RETRY_DELAY = 2000;
-const MAX_RETRIES = 3;
-const SYNC_INTERVAL = 6000;
+const CONFIG = {
+  CACHE_KEY: 'stockmaster_v3_cache',
+  QUEUE_KEY: 'stockmaster_v3_queue',
+  RETRY_DELAY: 1500,
+  MAX_RETRIES: 3,
+  REQUEST_TIMEOUT: 20000,
+  SYNC_INTERVAL: 10000  // 10s auto sync
+};
 
-/* ============ State ============ */
-let productsData = [];
-let categoriesData = [];
-let salesData = [];
-let filteredProducts = [];
-let filteredSales = [];
-let isSyncing = false;
-let syncTimer = null;
-let currentSearch = '';
-let currentTab = 'products';
-let currentPayment = 'Cash';
-let currentCategoryFilter = 'all';
-let currentSort = 'recent';
-let editingCatId = null;
-let selectedEmoji = '📦';
-let selectedColor = '#3b82f6';
-let isOnline = navigator.onLine;
+/* ==========================================================
+   STATE
+   ========================================================== */
+const state = {
+  products: [],
+  categories: [],
+  sales: [],
+  filteredProducts: [],
+  filteredSales: [],
+  isSyncing: false,
+  isOnline: navigator.onLine,
+  currentSearch: '',
+  currentTab: 'products',
+  currentPayment: 'Cash',
+  currentCategoryFilter: 'all',
+  currentSort: 'recent',
+  editingCatId: null,
+  selectedEmoji: '📦',
+  selectedColor: '#3b82f6',
+  // Form state preservation
+  formSnapshot: null,
+  syncTimer: null
+};
 
-/* Defaults */
-const DEFAULT_CATEGORIES = [
-  { name: 'Glass', nameBn: 'গ্লাস', icon: '📱', color: '#3b82f6' },
-  { name: 'Cover', nameBn: 'কভার', icon: '🛡️', color: '#8b5cf6' },
-  { name: 'Charger', nameBn: 'চার্জার', icon: '🔌', color: '#f59e0b' },
-  { name: 'Bluetooth', nameBn: 'ব্লুটুথ', icon: '🎧', color: '#06b6d4' },
-  { name: 'Headphone', nameBn: 'হেডফোন', icon: '🎵', color: '#ec4899' },
-  { name: 'Cable', nameBn: 'কেবল', icon: '🔗', color: '#10b981' },
-  { name: 'PowerBank', nameBn: 'পাওয়ার ব্যাংক', icon: '🔋', color: '#ef4444' },
-  { name: 'MemoryCard', nameBn: 'মেমোরি কার্ড', icon: '💾', color: '#a855f7' },
-  { name: 'Pendrive', nameBn: 'পেনড্রাইভ', icon: '🔑', color: '#14b8a6' },
-  { name: 'Battery', nameBn: 'ব্যাটারি', icon: '⚡', color: '#eab308' }
-];
-
+/* Constants */
 const EMOJIS = ['📦','📱','🛡️','🔌','🎧','🎵','🔗','🔋','💾','🔑','⚡','🎮','🖥️','⌚','📷','🎤','🔊','📻','🖱️','⌨️','🖨️','💡','🔦','🧲','📺','🎬','☎️','📞','📟','📠','🧴','🕶️','👓','💎','👜','👝','🎒','🧳','🪥','🧼'];
 const COLORS = ['#3b82f6','#8b5cf6','#ec4899','#ef4444','#f59e0b','#eab308','#10b981','#06b6d4','#14b8a6','#a855f7','#f97316','#84cc16'];
 
-/* ============ Utils ============ */
+/* ==========================================================
+   UTILS
+   ========================================================== */
 const $ = id => document.getElementById(id);
 const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({
   '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
@@ -1753,11 +814,13 @@ function highlight(text, query) {
   if (!query) return escapeHtml(text);
   const safe = escapeHtml(text);
   const q = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return safe.replace(new RegExp('(' + q + ')', 'gi'), '<mark>$1</mark>');
+  try {
+    return safe.replace(new RegExp('(' + q + ')', 'gi'), '<mark>$1</mark>');
+  } catch(e) { return safe; }
 }
 
 function fuzzyScore(text, query) {
-  if (!text) return 0;
+  if (!text || !query) return 0;
   text = text.toLowerCase();
   query = query.toLowerCase();
   if (text === query) return 1000;
@@ -1769,15 +832,21 @@ function fuzzyScore(text, query) {
     if (w.startsWith(query)) best = Math.max(best, 700);
     else if (w.includes(query)) best = Math.max(best, 600);
   });
-  if (best) return best;
-  let i = 0;
-  for (const ch of text) { if (ch === query[i]) i++; if (i === query.length) break; }
-  if (i === query.length) return 400 + (i / text.length) * 100;
-  return 0;
+  return best;
 }
 
-/* ============ Toast ============ */
-function showToast(msg, type = 'success') {
+function debounce(fn, ms) {
+  let t;
+  return function(...args) {
+    clearTimeout(t);
+    t = setTimeout(() => fn.apply(this, args), ms);
+  };
+}
+
+/* ==========================================================
+   TOAST
+   ========================================================== */
+function showToast(msg, type = 'success', duration = 3200) {
   const icons = {
     success: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>',
     error: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
@@ -1791,12 +860,15 @@ function showToast(msg, type = 'success') {
   setTimeout(() => {
     el.classList.add('out');
     setTimeout(() => el.remove(), 400);
-  }, 3200);
+  }, duration);
 }
 
-/* ============ Sync Status ============ */
+/* ==========================================================
+   SYNC STATUS
+   ========================================================== */
 function setSync(status, text) {
   const el = $('syncStatus');
+  if (!el) return;
   el.className = 'sync-status ' + status;
   const full = el.querySelector('.sync-text-full');
   const short = el.querySelector('.sync-text-short');
@@ -1804,62 +876,64 @@ function setSync(status, text) {
   if (short) short.textContent = text.length > 10 ? '•••' : text;
 }
 
-function showLoading(txt = 'লোড হচ্ছে...') {
-  $('loadingOverlay').querySelector('.loading-text').textContent = txt;
-  $('loadingOverlay').classList.add('show');
-}
-function hideLoading() { $('loadingOverlay').classList.remove('show'); }
-
-/* ============ Network Monitor ============ */
+/* ==========================================================
+   NETWORK MONITOR
+   ========================================================== */
 function updateNetworkBanner() {
   const banner = $('networkBanner');
-  if (isOnline) banner.classList.remove('show');
+  if (state.isOnline) banner.classList.remove('show');
   else banner.classList.add('show');
 }
+
 window.addEventListener('online', () => {
-  isOnline = true;
+  state.isOnline = true;
   updateNetworkBanner();
-  showToast('✅ ইন্টারনেট ফিরে এসেছে', 'success');
+  showToast('✅ ইন্টারনেট ফিরেছে', 'success');
   flushQueue();
   syncData(false);
 });
+
 window.addEventListener('offline', () => {
-  isOnline = false;
+  state.isOnline = false;
   updateNetworkBanner();
-  showToast('📡 ইন্টারনেট নেই — অফলাইন মোড', 'warning');
+  showToast('📡 অফলাইন মোড', 'warning');
 });
 
-/* ============ Local Cache ============ */
+/* ==========================================================
+   CACHE
+   ========================================================== */
 function saveCache() {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({
-      products: productsData,
-      categories: categoriesData,
-      sales: salesData,
+    localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify({
+      products: state.products,
+      categories: state.categories,
+      sales: state.sales,
       ts: Date.now()
     }));
-  } catch(e) { /* silent */ }
+  } catch(e) {}
 }
 
 function loadCache() {
   try {
-    const raw = localStorage.getItem(CACHE_KEY);
+    const raw = localStorage.getItem(CONFIG.CACHE_KEY);
     if (!raw) return false;
     const c = JSON.parse(raw);
-    productsData = c.products || [];
-    categoriesData = c.categories || [];
-    salesData = c.sales || [];
-    return true;
+    state.products = c.products || [];
+    state.categories = c.categories || [];
+    state.sales = c.sales || [];
+    return state.products.length > 0 || state.categories.length > 0;
   } catch(e) { return false; }
 }
 
-/* ============ Offline Queue ============ */
+/* ==========================================================
+   OFFLINE QUEUE
+   ========================================================== */
 function getQueue() {
-  try { return JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]'); }
+  try { return JSON.parse(localStorage.getItem(CONFIG.QUEUE_KEY) || '[]'); }
   catch(e) { return []; }
 }
 function setQueue(q) {
-  try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch(e) {}
+  try { localStorage.setItem(CONFIG.QUEUE_KEY, JSON.stringify(q)); } catch(e) {}
 }
 function enqueue(payload) {
   const q = getQueue();
@@ -1869,135 +943,228 @@ function enqueue(payload) {
 
 async function flushQueue() {
   const q = getQueue();
-  if (q.length === 0 || !isOnline) return;
+  if (q.length === 0 || !state.isOnline) return;
   const remaining = [];
+  let successCount = 0;
   for (const item of q) {
     try {
-      await apiPostRaw(item);
+      const { _queuedAt, ...payload } = item;
+      await apiPostRaw(payload, 1);
+      successCount++;
     } catch(e) {
       remaining.push(item);
     }
   }
   setQueue(remaining);
-  if (q.length !== remaining.length) {
-    showToast(`✅ ${q.length - remaining.length} টি সিঙ্ক হয়েছে`, 'success');
+  if (successCount > 0) {
+    showToast(`✅ ${successCount} টি সিঙ্ক হয়েছে`, 'success');
     syncData(false);
   }
 }
 
-/* ============ API with Retry ============ */
-async function apiGet(action = 'getAllData', retries = MAX_RETRIES) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 15000);
-      const r = await fetch(API_URL + '?action=' + action + '&_=' + Date.now(), {
-        cache: 'no-store',
-        signal: ctrl.signal
-      });
-      clearTimeout(timer);
-      const j = await r.json();
-      if (!j.success) throw new Error(j.error || 'Fetch failed');
-      return j.data;
-    } catch(err) {
-      if (i === retries - 1) throw err;
-      await new Promise(r => setTimeout(r, RETRY_DELAY * (i + 1)));
-    }
-  }
+/* ==========================================================
+   API — with timeout + retry
+   ========================================================== */
+function fetchWithTimeout(url, options = {}, timeout = CONFIG.REQUEST_TIMEOUT) {
+  return new Promise((resolve, reject) => {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeout);
+    fetch(url, { ...options, signal: ctrl.signal })
+      .then(r => { clearTimeout(timer); resolve(r); })
+      .catch(e => { clearTimeout(timer); reject(e); });
+  });
 }
 
-async function apiPostRaw(payload, retries = MAX_RETRIES) {
+async function apiGet(action = 'getAllData', retries = CONFIG.MAX_RETRIES) {
+  let lastErr;
   for (let i = 0; i < retries; i++) {
     try {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 20000);
-      const r = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload),
-        redirect: 'follow',
-        signal: ctrl.signal
-      });
-      clearTimeout(timer);
+      const url = API_URL + '?action=' + encodeURIComponent(action) + '&_t=' + Date.now();
+      const r = await fetchWithTimeout(url, { cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
       const j = await r.json();
+      if (!j || typeof j !== 'object') throw new Error('Invalid response');
       if (!j.success) throw new Error(j.error || 'Request failed');
       return j.data;
     } catch(err) {
-      if (i === retries - 1) throw err;
-      await new Promise(r => setTimeout(r, RETRY_DELAY * (i + 1)));
+      lastErr = err;
+      if (i < retries - 1) {
+        await new Promise(res => setTimeout(res, CONFIG.RETRY_DELAY * (i + 1)));
+      }
     }
   }
+  throw lastErr;
+}
+
+async function apiPostRaw(payload, retries = CONFIG.MAX_RETRIES) {
+  let lastErr;
+  for (let i = 0; i < retries; i++) {
+    try {
+      const r = await fetchWithTimeout(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+        redirect: 'follow'
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      if (!j || typeof j !== 'object') throw new Error('Invalid response');
+      if (!j.success) throw new Error(j.error || 'Request failed');
+      return j.data;
+    } catch(err) {
+      lastErr = err;
+      if (i < retries - 1) {
+        await new Promise(res => setTimeout(res, CONFIG.RETRY_DELAY * (i + 1)));
+      }
+    }
+  }
+  throw lastErr;
 }
 
 async function apiPost(payload) {
-  if (!isOnline) {
+  if (!state.isOnline) {
     enqueue(payload);
     return { _offline: true, queued: true };
   }
   try {
     return await apiPostRaw(payload);
   } catch(err) {
-    // Queue for retry
-    enqueue(payload);
+    // If network-like error, queue it
+    if (err.name === 'AbortError' || err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+      enqueue(payload);
+      return { _offline: true, queued: true };
+    }
     throw err;
   }
 }
 
-/* ============ Sync Data ============ */
+/* ==========================================================
+   SYNC DATA — the key fix
+   ========================================================== */
 async function syncData(showLoad = false) {
-  if (isSyncing) return;
-  if (!isOnline) {
+  if (state.isSyncing) return;
+  
+  if (!state.isOnline) {
     setSync('error', 'অফলাইন');
     if (showLoad && loadCache()) renderAll();
     return;
   }
-  isSyncing = true;
+  
+  state.isSyncing = true;
   if (showLoad) setSync('syncing', 'লোড...');
+  
+  // Snapshot form values before sync to restore after render
+  const snapshot = captureFormSnapshot();
+  
   try {
     const all = await apiGet('getAllData');
-    productsData = (all.products || []).sort((a,b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
-    categoriesData = all.categories || [];
-    salesData = all.sales || [];
+    state.products = (all.products || []).sort((a,b) => 
+      (b.updatedAt || '').localeCompare(a.updatedAt || ''));
+    state.categories = all.categories || [];
+    state.sales = all.sales || [];
     setSync('online', 'লাইভ ✅');
     saveCache();
     renderAll();
+    // Restore form after render
+    restoreFormSnapshot(snapshot);
   } catch (err) {
     console.error('Sync error:', err);
     setSync('error', 'সমস্যা');
-    if (loadCache()) renderAll();
+    if (loadCache()) {
+      renderAll();
+      restoreFormSnapshot(snapshot);
+    }
     if (showLoad) showToast('লোড ব্যর্থ: ' + err.message, 'error');
   } finally {
-    isSyncing = false;
+    state.isSyncing = false;
   }
 }
 
-function startAutoSync() {
-  if (syncTimer) clearInterval(syncTimer);
-  syncTimer = setInterval(() => {
-    if (!document.hidden && isOnline) syncData(false);
-  }, SYNC_INTERVAL);
+/* ==========================================================
+   FORM SNAPSHOT — Preserve user input during sync
+   ========================================================== */
+function captureFormSnapshot() {
+  return {
+    name: $('fName')?.value || '',
+    category: $('fCategory')?.value || '',
+    brand: $('fBrand')?.value || '',
+    model: $('fModel')?.value || '',
+    qty: $('fQty')?.value || '1',
+    buyPrice: $('fBuyPrice')?.value || '',
+    sellPrice: $('fSellPrice')?.value || '',
+    supplier: $('fSupplier')?.value || '',
+    minStock: $('fMinStock')?.value || '5',
+    notes: $('fNotes')?.value || '',
+    activeEl: document.activeElement ? document.activeElement.id : ''
+  };
 }
 
-/* ============ Render All ============ */
+function restoreFormSnapshot(snap) {
+  if (!snap) return;
+  // Don't restore if user already typing in these
+  const fields = {
+    fName: 'name', fBrand: 'brand', fModel: 'model',
+    fQty: 'qty', fBuyPrice: 'buyPrice', fSellPrice: 'sellPrice',
+    fSupplier: 'supplier', fMinStock: 'minStock', fNotes: 'notes'
+  };
+  Object.keys(fields).forEach(id => {
+    const el = $(id);
+    if (el && el.value === '' && snap[fields[id]]) {
+      el.value = snap[fields[id]];
+    }
+  });
+  // Category — the key fix
+  const catEl = $('fCategory');
+  if (catEl && !catEl.value && snap.category) {
+    // Verify option exists
+    const opt = Array.from(catEl.options).find(o => o.value === snap.category);
+    if (opt) catEl.value = snap.category;
+  }
+  // Don't auto-focus to avoid jump
+}
+
+/* ==========================================================
+   RENDER ALL
+   ========================================================== */
 function renderAll() {
-  renderCategories();
+  renderCategoryScroller();
   renderProductList();
   renderSales();
   renderAnalytics();
-  renderCategoryScroller();
   renderCategoryManage();
-  renderCategorySelects();
+  updateCategorySelectsPreservingValues();
   updateQuickStats();
 }
 
+function updateCategorySelectsPreservingValues() {
+  const opts = state.categories.map(c => 
+    `<option value="${escapeHtml(c.name)}">${escapeHtml(c.icon || '📦')} ${escapeHtml(c.nameBn || c.name)}</option>`
+  ).join('');
+  
+  // Preserve selected value
+  const fCat = $('fCategory');
+  const fVal = fCat.value;
+  fCat.innerHTML = '<option value="">-- ক্যাটাগরি নির্বাচন --</option>' + opts;
+  if (fVal && Array.from(fCat.options).some(o => o.value === fVal)) {
+    fCat.value = fVal;
+  }
+  
+  const eCat = $('eCategory');
+  const eVal = eCat.value;
+  eCat.innerHTML = opts;
+  if (eVal && Array.from(eCat.options).some(o => o.value === eVal)) {
+    eCat.value = eVal;
+  }
+}
+
 function updateQuickStats() {
-  const total = productsData.length;
-  const stock = productsData.reduce((s,p) => s + (p.quantity || 0), 0);
-  const low = productsData.filter(p => p.quantity > 0 && p.quantity <= (p.minStock || 5)).length;
-  const value = productsData.reduce((s,p) => s + (p.quantity || 0) * (p.buyPrice || 0), 0);
+  const total = state.products.length;
+  const stock = state.products.reduce((s,p) => s + (p.quantity || 0), 0);
+  const low = state.products.filter(p => p.quantity > 0 && p.quantity <= (p.minStock || 5)).length;
+  const value = state.products.reduce((s,p) => s + (p.quantity || 0) * (p.buyPrice || 0), 0);
   const today = new Date().toDateString();
-  const todaySales = salesData.filter(s => new Date(s.soldAt).toDateString() === today);
-  const todayRevenue = todaySales.reduce((s,sale) => s + (sale.totalPrice || 0), 0);
+  const todaySales = state.sales.filter(s => new Date(s.soldAt).toDateString() === today);
+  const todayRevenue = todaySales.reduce((s,x) => s + (x.totalPrice || 0), 0);
 
   $('qsProducts').textContent = fmtNum(total);
   $('qsStock').textContent = fmtNum(stock);
@@ -2006,53 +1173,62 @@ function updateQuickStats() {
   $('qsToday').textContent = fmtCurrency(todayRevenue);
 }
 
-function renderCategories() {
-  // placeholder for future
-}
-
+/* ==========================================================
+   RENDER CATEGORY SCROLLER
+   ========================================================== */
 function renderCategoryScroller() {
   const scroller = $('catScroller');
-  const allCount = productsData.length;
-  let html = `<button class="cat-chip ${currentCategoryFilter === 'all' ? 'active' : ''}" data-cat="all" type="button">
-    <span class="cat-emoji">🗂️</span>
-    <span>সব</span>
+  const allCount = state.products.length;
+  
+  let html = `<button class="cat-chip ${state.currentCategoryFilter === 'all' ? 'active' : ''}" data-cat="all" type="button">
+    <span class="cat-emoji">🗂️</span><span>সব</span>
     <span class="cat-count">${allCount}</span>
   </button>`;
-  categoriesData.forEach(cat => {
-    const count = productsData.filter(p => p.category === cat.name).length;
-    const active = currentCategoryFilter === cat.name;
+  
+  state.categories.forEach(cat => {
+    const count = state.products.filter(p => p.category === cat.name).length;
+    const active = state.currentCategoryFilter === cat.name;
     html += `<button class="cat-chip ${active ? 'active' : ''}" data-cat="${escapeHtml(cat.name)}" type="button" style="${active ? 'border-color:' + cat.color + ';background:' + cat.color + '20;color:' + cat.color : ''}">
       <span class="cat-emoji">${cat.icon || '📦'}</span>
       <span>${escapeHtml(cat.nameBn || cat.name)}</span>
       <span class="cat-count">${count}</span>
     </button>`;
   });
+  
   html += `<button class="cat-chip cat-add" id="catAddChip" type="button">
-    <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    নতুন
+    <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>নতুন
   </button>`;
+  
   scroller.innerHTML = html;
+  
   scroller.querySelectorAll('.cat-chip[data-cat]').forEach(chip => {
     chip.onclick = () => {
-      currentCategoryFilter = chip.dataset.cat;
+      state.currentCategoryFilter = chip.dataset.cat;
       renderCategoryScroller();
       renderProductList();
     };
   });
+  
   const addChip = scroller.querySelector('#catAddChip');
   if (addChip) addChip.onclick = openNewCat;
 }
 
+/* ==========================================================
+   RENDER CATEGORY MANAGEMENT
+   ========================================================== */
 function renderCategoryManage() {
   const list = $('catManageList');
-  if (categoriesData.length === 0) {
-    list.innerHTML = `<div class="empty"><div class="empty-icon">📂</div>
+  if (state.categories.length === 0) {
+    list.innerHTML = `<div class="empty">
+      <div class="empty-icon">📂</div>
       <div class="empty-title">কোনো ক্যাটাগরি নেই</div>
-      <div class="empty-sub">"নতুন" বাটনে চাপ দিয়ে তৈরি করুন</div></div>`;
+      <div class="empty-sub">"নতুন" বাটনে চাপ দিন</div>
+    </div>`;
     return;
   }
-  list.innerHTML = categoriesData.map(cat => {
-    const count = productsData.filter(p => p.category === cat.name).length;
+  
+  list.innerHTML = state.categories.map(cat => {
+    const count = state.products.filter(p => p.category === cat.name).length;
     return `<div class="cat-manage-card">
       <div class="cat-emoji-lg" style="color:${cat.color};border-color:${cat.color}40">${cat.icon || '📦'}</div>
       <div class="cat-manage-info">
@@ -2060,37 +1236,28 @@ function renderCategoryManage() {
         <div class="cat-manage-sub">${escapeHtml(cat.name)} · ${count} টি পণ্য</div>
       </div>
       <div class="cat-manage-actions">
-        <button class="pc-btn edit" onclick="openEditCat('${cat.id}')" type="button" style="min-width:38px;padding:8px">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
-        <button class="pc-btn del" onclick="deleteCat('${cat.id}')" type="button" style="min-width:38px;padding:8px">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-        </button>
+        <button class="pc-btn edit" onclick="openEditCat('${cat.id}')" type="button" style="min-width:38px;padding:8px">✏️</button>
+        <button class="pc-btn del" onclick="deleteCat('${cat.id}')" type="button" style="min-width:38px;padding:8px">🗑️</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function renderCategorySelects() {
-  const opts = categoriesData.map(c => 
-    `<option value="${escapeHtml(c.name)}">${escapeHtml(c.icon || '📦')} ${escapeHtml(c.nameBn || c.name)}</option>`
-  ).join('');
-  $('fCategory').innerHTML = '<option value="">-- ক্যাটাগরি নির্বাচন করুন --</option>' + opts;
-  $('eCategory').innerHTML = opts;
-}
-
+/* ==========================================================
+   RENDER PRODUCT LIST
+   ========================================================== */
 function renderProductList() {
-  const q = currentSearch;
-  const f = $('filterSearch').value.toLowerCase().trim();
-  const brand = $('filterBrand').value;
-  const stockFilter = $('filterStock').value;
+  const q = state.currentSearch;
+  const f = ($('filterSearch')?.value || '').toLowerCase().trim();
+  const brand = $('filterBrand')?.value || '';
+  const stockFilter = $('filterStock')?.value || '';
 
-  let data = productsData.filter(p => {
+  let data = state.products.filter(p => {
     const hay = (p.name + ' ' + p.brand + ' ' + p.model + ' ' + p.category).toLowerCase();
     if (q && !hay.includes(q)) return false;
     if (f && !hay.includes(f)) return false;
     if (brand && p.brand !== brand) return false;
-    if (currentCategoryFilter !== 'all' && p.category !== currentCategoryFilter) return false;
+    if (state.currentCategoryFilter !== 'all' && p.category !== state.currentCategoryFilter) return false;
     const minStock = p.minStock || 5;
     if (stockFilter === 'instock' && p.quantity <= minStock) return false;
     if (stockFilter === 'low' && (p.quantity === 0 || p.quantity > minStock)) return false;
@@ -2098,36 +1265,40 @@ function renderProductList() {
     return true;
   });
 
-  filteredProducts = sortProducts(data);
-  $('resultCount').textContent = `${filteredProducts.length}/${productsData.length}`;
+  state.filteredProducts = sortProducts(data);
+  $('resultCount').textContent = `${state.filteredProducts.length}/${state.products.length}`;
 
-  const brands = [...new Set(productsData.map(p => p.brand).filter(Boolean))].sort();
-  const bSel = $('filterBrand'), curB = bSel.value;
+  // Update brand filter
+  const brands = [...new Set(state.products.map(p => p.brand).filter(Boolean))].sort();
+  const bSel = $('filterBrand');
+  const curB = bSel.value;
   bSel.innerHTML = '<option value="">সব ব্র্যান্ড</option>' +
     brands.map(b => `<option value="${escapeHtml(b)}"${b===curB?' selected':''}>${escapeHtml(b)}</option>`).join('');
 
   const list = $('productList');
-  if (filteredProducts.length === 0) {
+  if (state.filteredProducts.length === 0) {
     list.innerHTML = `<div class="empty">
       <div class="empty-icon">
         <svg class="icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
       </div>
       <div class="empty-title">কোনো পণ্য নেই</div>
-      <div class="empty-sub">উপরের ফর্ম থেকে পণ্য যোগ করুন</div>
+      <div class="empty-sub">উপরের ফর্ম থেকে যোগ করুন</div>
     </div>`;
     return;
   }
 
-  const maxQty = Math.max(...productsData.map(p => p.quantity || 1), 1);
+  const maxQty = Math.max(...state.products.map(p => p.quantity || 1), 1);
 
-  list.innerHTML = filteredProducts.map(p => {
-    const cat = categoriesData.find(c => c.name === p.category);
+  list.innerHTML = state.filteredProducts.map(p => {
+    const cat = state.categories.find(c => c.name === p.category);
     const catColor = cat ? cat.color : '#3b82f6';
     const catIcon = cat ? cat.icon : '📦';
     const minStock = p.minStock || 5;
+    
     let cls = 'g', cardCls = '';
     if (p.quantity === 0) { cls = 'r'; cardCls = 'out'; }
     else if (p.quantity <= minStock) { cls = 'o'; cardCls = 'low'; }
+    
     const profit = (p.sellPrice || 0) - (p.buyPrice || 0);
     const profitCls = profit > 0 ? 'profit' : (profit < 0 ? 'loss' : '');
     const barPercent = Math.min(100, (p.quantity / maxQty) * 100);
@@ -2137,10 +1308,10 @@ function renderProductList() {
     return `<div class="product-card ${cardCls}">
       <div class="pc-top">
         <div class="pc-title">
-          <div class="pc-name">${highlight(p.name, currentSearch)}</div>
+          <div class="pc-name">${highlight(p.name, state.currentSearch)}</div>
           <div class="pc-brand">
             <span class="pc-tag" style="background:${catColor}20;color:${catColor}">${catIcon} ${escapeHtml(cat ? (cat.nameBn || cat.name) : p.category)}</span>
-            ${p.brand ? `<span class="pc-tag">${highlight(p.brand, currentSearch)}</span>` : ''}
+            ${p.brand ? `<span class="pc-tag">${highlight(p.brand, state.currentSearch)}</span>` : ''}
             ${p.model ? `<span class="pc-tag">${escapeHtml(p.model)}</span>` : ''}
           </div>
         </div>
@@ -2156,20 +1327,10 @@ function renderProductList() {
         ${profit !== 0 ? `<span class="pc-info-item ${profitCls}">প্রফিট <strong>৳${fmtNum(Math.abs(profit))}</strong></span>` : ''}
       </div>
       <div class="pc-actions">
-        <button class="pc-btn sell" ${!canSell ? 'disabled' : ''} onclick="openSell('${p.id}')" type="button">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
-          <span class="lbl">${canSell ? 'বিক্রি' : 'স্টক নেই'}</span>
-        </button>
-        <button class="pc-btn restock" onclick="openRestock('${p.id}')" type="button">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-          <span class="lbl">মাল</span>
-        </button>
-        <button class="pc-btn edit" onclick="openEdit('${p.id}')" type="button">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
-        <button class="pc-btn del" onclick="deleteProduct('${p.id}')" type="button">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-        </button>
+        <button class="pc-btn sell" ${!canSell ? 'disabled' : ''} onclick="openSell('${p.id}')" type="button">🛒<span class="lbl">${canSell ? 'বিক্রি' : 'স্টক নেই'}</span></button>
+        <button class="pc-btn restock" onclick="openRestock('${p.id}')" type="button">➕<span class="lbl">মাল</span></button>
+        <button class="pc-btn edit" onclick="openEdit('${p.id}')" type="button">✏️</button>
+        <button class="pc-btn del" onclick="deleteProduct('${p.id}')" type="button">🗑️</button>
       </div>
     </div>`;
   }).join('');
@@ -2177,7 +1338,7 @@ function renderProductList() {
 
 function sortProducts(arr) {
   const s = [...arr];
-  switch (currentSort) {
+  switch (state.currentSort) {
     case 'name': return s.sort((a,b) => a.name.localeCompare(b.name));
     case 'qty-asc': return s.sort((a,b) => a.quantity - b.quantity);
     case 'qty-desc': return s.sort((a,b) => b.quantity - a.quantity);
@@ -2187,7 +1348,9 @@ function sortProducts(arr) {
   }
 }
 
-/* ============ CRUD: Product ============ */
+/* ==========================================================
+   PRODUCT CRUD
+   ========================================================== */
 async function addProduct() {
   const name = $('fName').value.trim();
   const category = $('fCategory').value;
@@ -2208,19 +1371,27 @@ async function addProduct() {
   const btn = $('addBtn');
   btn.disabled = true;
   const orig = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span> সেভ হচ্ছে...';
+  btn.innerHTML = '<span class="spinner"></span> সেভ...';
+  
   try {
-    await apiPost({
+    const result = await apiPost({
       action: 'addProduct',
       data: { name, category, brand, model, quantity: qty, buyPrice, sellPrice, supplier, minStock, notes }
     });
-    showToast('সেভ হয়েছে ✅', 'success');
+    
+    if (result && result._offline) {
+      showToast('📡 অফলাইনে সেভ — পরে সিঙ্ক হবে', 'warning');
+    } else {
+      showToast(result && result.merged ? '✅ স্টকে যোগ হয়েছে' : '✅ সেভ হয়েছে', 'success');
+    }
     clearProductForm();
-    if (isOnline) await syncData(false);
+    
+    // Force full sync (not preserve form since we cleared it)
+    if (state.isOnline && !result._offline) {
+      await syncData(false);
+    }
   } catch (err) {
-    showToast('সেভ হয়েছে (পরে সিঙ্ক হবে)', 'warning');
-    clearProductForm();
-    if (isOnline) syncData(false);
+    showToast('❌ ' + err.message, 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = orig;
@@ -2228,16 +1399,96 @@ async function addProduct() {
 }
 
 function clearProductForm() {
-  ['fName','fBrand','fModel','fBuyPrice','fSellPrice','fSupplier','fNotes'].forEach(id => $(id).value = '');
+  ['fName','fBrand','fModel','fBuyPrice','fSellPrice','fSupplier','fNotes'].forEach(id => {
+    const el = $(id);
+    if (el) el.value = '';
+  });
   $('fQty').value = 1;
   $('fMinStock').value = 5;
   $('fCategory').value = '';
   $('fName').focus();
 }
 
-/* ============ Restock ============ */
+/* ==========================================================
+   EDIT PRODUCT
+   ========================================================== */
+function openEdit(id) {
+  const item = state.products.find(p => p.id === id);
+  if (!item) return;
+  $('eId').value = id;
+  $('eName').value = item.name;
+  $('eCategory').value = item.category;
+  $('eBrand').value = item.brand;
+  $('eModel').value = item.model;
+  $('eQty').value = item.quantity;
+  $('eBuyPrice').value = item.buyPrice;
+  $('eSellPrice').value = item.sellPrice;
+  $('eSupplier').value = item.supplier || '';
+  $('eMinStock').value = item.minStock || 5;
+  $('eNotes').value = item.notes || '';
+  $('editModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEdit() {
+  $('editModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function saveEdit() {
+  const data = {
+    id: $('eId').value,
+    name: $('eName').value.trim(),
+    category: $('eCategory').value,
+    brand: $('eBrand').value.trim(),
+    model: $('eModel').value.trim(),
+    quantity: Number($('eQty').value) || 0,
+    buyPrice: Number($('eBuyPrice').value) || 0,
+    sellPrice: Number($('eSellPrice').value) || 0,
+    supplier: $('eSupplier').value.trim(),
+    minStock: Number($('eMinStock').value) || 5,
+    notes: $('eNotes').value.trim()
+  };
+  if (!data.name) { showToast('নাম দিন', 'error'); return; }
+  const btn = $('saveEditBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> আপডেট...';
+  try {
+    const r = await apiPost({ action: 'updateProduct', data });
+    closeEdit();
+    if (r._offline) showToast('📡 পরে সিঙ্ক হবে', 'warning');
+    else showToast('✅ আপডেট', 'success');
+    if (state.isOnline && !r._offline) await syncData(false);
+  } catch (err) {
+    showToast('❌ ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'আপডেট';
+  }
+}
+
+async function deleteProduct(id) {
+  const item = state.products.find(p => p.id === id);
+  if (!item) return;
+  if (!confirm(`"${item.name}" ডিলিট করবেন?`)) return;
+  state.products = state.products.filter(p => p.id !== id);
+  renderProductList();
+  try {
+    const r = await apiPost({ action: 'deleteProduct', data: { id } });
+    if (r._offline) showToast('📡 পরে ডিলিট হবে', 'warning');
+    else showToast('🗑️ ডিলিট', 'success');
+    if (state.isOnline && !r._offline) await syncData(false);
+  } catch (err) {
+    showToast('❌ ' + err.message, 'error');
+    if (state.isOnline) syncData(false);
+  }
+}
+
+/* ==========================================================
+   RESTOCK
+   ========================================================== */
 function openRestock(id) {
-  const item = productsData.find(p => p.id === id);
+  const item = state.products.find(p => p.id === id);
   if (!item) return;
   $('restockProductId').value = id;
   $('restockQty').value = 1;
@@ -2246,23 +1497,11 @@ function openRestock(id) {
   $('restockNotes').value = '';
   $('restockPreview').innerHTML = `
     <div class="sell-preview-model">${escapeHtml(item.name)}</div>
-    <div class="sell-preview-meta">
-      <span>${escapeHtml(item.brand || '')}</span>
-      <span>· ${escapeHtml(item.category)}</span>
-    </div>
+    <div class="sell-preview-meta">${escapeHtml(item.brand || '')} · ${escapeHtml(item.category)}</div>
     <div class="sell-preview-stats">
-      <div class="sell-stat">
-        <div class="sell-stat-num green">${fmtNum(item.quantity)}</div>
-        <div class="sell-stat-label">বর্তমান স্টক</div>
-      </div>
-      <div class="sell-stat">
-        <div class="sell-stat-num">${fmtCurrency(item.buyPrice)}</div>
-        <div class="sell-stat-label">ক্রয় মূল্য</div>
-      </div>
-      <div class="sell-stat">
-        <div class="sell-stat-num gold">${fmtCurrency(item.sellPrice)}</div>
-        <div class="sell-stat-label">বিক্রয় মূল্য</div>
-      </div>
+      <div class="sell-stat"><div class="sell-stat-num green">${fmtNum(item.quantity)}</div><div class="sell-stat-label">স্টক</div></div>
+      <div class="sell-stat"><div class="sell-stat-num">${fmtCurrency(item.buyPrice)}</div><div class="sell-stat-label">ক্রয়</div></div>
+      <div class="sell-stat"><div class="sell-stat-num gold">${fmtCurrency(item.sellPrice)}</div><div class="sell-stat-label">বিক্রয়</div></div>
     </div>`;
   $('restockModal').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -2277,31 +1516,33 @@ async function confirmRestock() {
   const unitCost = Number($('restockCost').value) || 0;
   const supplier = $('restockSupplier').value.trim();
   const notes = $('restockNotes').value.trim();
-  if (quantity <= 0) { showToast('পরিমাণ ০ এর বেশি হতে হবে', 'error'); return; }
-
+  if (quantity <= 0) { showToast('পরিমাণ দিন', 'error'); return; }
   const btn = $('confirmRestockBtn');
   btn.disabled = true;
   const orig = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span> যোগ হচ্ছে...';
+  btn.innerHTML = '<span class="spinner"></span> যোগ...';
   try {
-    await apiPost({ action: 'restock', data: { productId, quantity, unitCost, supplier, notes } });
+    const r = await apiPost({ action: 'restock', data: { productId, quantity, unitCost, supplier, notes } });
     closeRestock();
-    showToast(`✅ ${quantity} পিস যোগ হয়েছে`, 'success');
-    if (isOnline) await syncData(false);
+    if (r._offline) showToast('📡 পরে সিঙ্ক', 'warning');
+    else showToast(`✅ ${quantity} পিস যোগ`, 'success');
+    if (state.isOnline && !r._offline) await syncData(false);
   } catch (err) {
-    showToast('সিঙ্ক হবে — অফলাইনে সেভ হয়েছে', 'warning');
-    closeRestock();
+    showToast('❌ ' + err.message, 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = orig;
   }
 }
 
-/* ============ Sell ============ */
+/* ==========================================================
+   SELL
+   ========================================================== */
 function openSell(id) {
-  const item = productsData.find(p => p.id === id);
+  const item = state.products.find(p => p.id === id);
   if (!item) return;
-  if (item.quantity === 0) { showToast('❌ স্টকে মাল নেই! আগে মাল যোগ করুন', 'error'); return; }
+  if (item.quantity === 0) { showToast('❌ স্টকে মাল নেই!', 'error'); return; }
+  
   $('sellProductId').value = id;
   $('sellQty').value = 1;
   $('sellQty').max = item.quantity;
@@ -2309,11 +1550,12 @@ function openSell(id) {
   $('sellCustomer').value = '';
   $('sellPhone').value = '';
   $('sellNotes').value = '';
-  currentPayment = 'Cash';
+  state.currentPayment = 'Cash';
   document.querySelectorAll('.pay-opt').forEach(p => {
     p.classList.toggle('active', p.dataset.pay === 'Cash');
   });
-  const cat = categoriesData.find(c => c.name === item.category);
+  
+  const cat = state.categories.find(c => c.name === item.category);
   $('sellPreview').innerHTML = `
     <div class="sell-preview-model">${escapeHtml(item.name)}</div>
     <div class="sell-preview-meta">
@@ -2321,18 +1563,9 @@ function openSell(id) {
       <span>· ${escapeHtml(item.brand || '')}</span>
     </div>
     <div class="sell-preview-stats">
-      <div class="sell-stat">
-        <div class="sell-stat-num green">${fmtNum(item.quantity)}</div>
-        <div class="sell-stat-label">স্টকে আছে</div>
-      </div>
-      <div class="sell-stat">
-        <div class="sell-stat-num">${fmtCurrency(item.buyPrice)}</div>
-        <div class="sell-stat-label">ক্রয় মূল্য</div>
-      </div>
-      <div class="sell-stat">
-        <div class="sell-stat-num gold" id="previewTotal">${fmtCurrency(item.sellPrice)}</div>
-        <div class="sell-stat-label">মোট</div>
-      </div>
+      <div class="sell-stat"><div class="sell-stat-num green">${fmtNum(item.quantity)}</div><div class="sell-stat-label">স্টক</div></div>
+      <div class="sell-stat"><div class="sell-stat-num">${fmtCurrency(item.buyPrice)}</div><div class="sell-stat-label">ক্রয়</div></div>
+      <div class="sell-stat"><div class="sell-stat-num gold" id="previewTotal">${fmtCurrency(item.sellPrice)}</div><div class="sell-stat-label">মোট</div></div>
     </div>`;
   updateSellTotal();
   $('sellModal').classList.add('show');
@@ -2370,31 +1603,33 @@ async function confirmSell() {
   const phone = $('sellPhone').value.trim();
   const notes = $('sellNotes').value.trim();
 
-  const item = productsData.find(p => p.id === productId);
+  const item = state.products.find(p => p.id === productId);
   if (!item) { showToast('পণ্য পাওয়া যায়নি', 'error'); return; }
-  if (quantity <= 0) { showToast('পরিমাণ ০ এর বেশি হতে হবে', 'error'); return; }
-  if (quantity > item.quantity) { showToast(`❌ স্টকে মাত্র ${item.quantity} পিস আছে`, 'error'); return; }
+  if (quantity <= 0) { showToast('পরিমাণ দিন', 'error'); return; }
+  if (quantity > item.quantity) {
+    showToast(`❌ স্টকে মাত্র ${item.quantity} পিস আছে`, 'error');
+    return;
+  }
 
   const btn = $('confirmSellBtn');
   btn.disabled = true;
   const orig = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span> প্রসেসিং...';
-
+  btn.innerHTML = '<span class="spinner"></span>...';
   try {
-    const result = await apiPost({
+    const r = await apiPost({
       action: 'sell',
-      data: { productId, quantity, unitPrice, customer, phone, notes, paymentMethod: currentPayment }
+      data: { productId, quantity, unitPrice, customer, phone, notes, paymentMethod: state.currentPayment }
     });
     closeSell();
     // Optimistic local update
     item.quantity = Math.max(0, item.quantity - quantity);
     $('successModel').textContent = item.name;
-    $('successAmount').textContent = fmtCurrency(result.totalPrice || (quantity * unitPrice));
-    $('successProfit').textContent = 'প্রফিট: ' + fmtCurrency(result.profit || 0);
+    $('successAmount').textContent = fmtCurrency(r.totalPrice || (quantity * unitPrice));
+    $('successProfit').textContent = 'প্রফিট: ' + fmtCurrency(r.profit || 0);
     $('successStock').textContent = `নতুন স্টক: ${item.quantity} পিস`;
     $('successAnim').classList.add('show');
     document.body.style.overflow = 'hidden';
-    if (isOnline) await syncData(false);
+    if (state.isOnline && !r._offline) await syncData(false);
   } catch (err) {
     showToast('❌ ' + err.message, 'error');
   } finally {
@@ -2408,86 +1643,18 @@ function closeSuccess() {
   document.body.style.overflow = '';
 }
 
-/* ============ Edit Product ============ */
-function openEdit(id) {
-  const item = productsData.find(p => p.id === id);
-  if (!item) return;
-  $('eId').value = id;
-  $('eName').value = item.name;
-  $('eCategory').value = item.category;
-  $('eBrand').value = item.brand;
-  $('eModel').value = item.model;
-  $('eQty').value = item.quantity;
-  $('eBuyPrice').value = item.buyPrice;
-  $('eSellPrice').value = item.sellPrice;
-  $('eSupplier').value = item.supplier || '';
-  $('eMinStock').value = item.minStock || 5;
-  $('eNotes').value = item.notes || '';
-  $('editModal').classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-function closeEdit() {
-  $('editModal').classList.remove('show');
-  document.body.style.overflow = '';
-}
-async function saveEdit() {
-  const data = {
-    id: $('eId').value,
-    name: $('eName').value.trim(),
-    category: $('eCategory').value,
-    brand: $('eBrand').value.trim(),
-    model: $('eModel').value.trim(),
-    quantity: Number($('eQty').value) || 0,
-    buyPrice: Number($('eBuyPrice').value) || 0,
-    sellPrice: Number($('eSellPrice').value) || 0,
-    supplier: $('eSupplier').value.trim(),
-    minStock: Number($('eMinStock').value) || 5,
-    notes: $('eNotes').value.trim()
-  };
-  if (!data.name) { showToast('পণ্যের নাম দিন', 'error'); return; }
-  const btn = $('saveEditBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> আপডেট...';
-  try {
-    await apiPost({ action: 'updateProduct', data });
-    closeEdit();
-    showToast('আপডেট সম্পন্ন', 'success');
-    if (isOnline) await syncData(false);
-  } catch (err) {
-    showToast('সিঙ্ক হবে — অফলাইনে সেভ', 'warning');
-    closeEdit();
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = 'আপডেট';
-  }
-}
-
-async function deleteProduct(id) {
-  const item = productsData.find(p => p.id === id);
-  if (!item) return;
-  if (!confirm(`"${item.name}" ডিলিট করবেন?`)) return;
-  productsData = productsData.filter(p => p.id !== id);
-  renderProductList();
-  try {
-    await apiPost({ action: 'deleteProduct', data: { id } });
-    showToast('ডিলিট সম্পন্ন', 'success');
-    if (isOnline) await syncData(false);
-  } catch (err) {
-    showToast('ডিলিট ব্যর্থ: ' + err.message, 'error');
-    if (isOnline) syncData(false);
-  }
-}
-
-/* ============ Category CRUD ============ */
+/* ==========================================================
+   CATEGORY CRUD
+   ========================================================== */
 function openNewCat() {
-  editingCatId = null;
+  state.editingCatId = null;
   $('catModalTitle').textContent = 'নতুন ক্যাটাগরি';
   $('catId').value = '';
   $('catName').value = '';
   $('catNameBn').value = '';
   $('catDesc').value = '';
-  selectedEmoji = '📦';
-  selectedColor = '#3b82f6';
+  state.selectedEmoji = '📦';
+  state.selectedColor = '#3b82f6';
   renderEmojiPicker();
   renderColorPicker();
   $('catModal').classList.add('show');
@@ -2495,16 +1662,16 @@ function openNewCat() {
 }
 
 function openEditCat(id) {
-  const cat = categoriesData.find(c => c.id === id);
+  const cat = state.categories.find(c => c.id === id);
   if (!cat) return;
-  editingCatId = id;
+  state.editingCatId = id;
   $('catModalTitle').textContent = 'ক্যাটাগরি এডিট';
   $('catId').value = id;
   $('catName').value = cat.name;
   $('catNameBn').value = cat.nameBn || '';
   $('catDesc').value = cat.description || '';
-  selectedEmoji = cat.icon || '📦';
-  selectedColor = cat.color || '#3b82f6';
+  state.selectedEmoji = cat.icon || '📦';
+  state.selectedColor = cat.color || '#3b82f6';
   renderEmojiPicker();
   renderColorPicker();
   $('catModal').classList.add('show');
@@ -2513,11 +1680,11 @@ function openEditCat(id) {
 
 function renderEmojiPicker() {
   $('emojiPicker').innerHTML = EMOJIS.map(e => 
-    `<button class="emoji-btn ${e === selectedEmoji ? 'active' : ''}" data-emoji="${e}" type="button">${e}</button>`
+    `<button class="emoji-btn ${e === state.selectedEmoji ? 'active' : ''}" data-emoji="${e}" type="button">${e}</button>`
   ).join('');
   $('emojiPicker').querySelectorAll('.emoji-btn').forEach(btn => {
     btn.onclick = () => {
-      selectedEmoji = btn.dataset.emoji;
+      state.selectedEmoji = btn.dataset.emoji;
       renderEmojiPicker();
     };
   });
@@ -2525,11 +1692,11 @@ function renderEmojiPicker() {
 
 function renderColorPicker() {
   $('colorPicker').innerHTML = COLORS.map(c =>
-    `<button class="color-btn ${c === selectedColor ? 'active' : ''}" data-color="${c}" type="button" style="background:${c};color:${c}"></button>`
+    `<button class="color-btn ${c === state.selectedColor ? 'active' : ''}" data-color="${c}" type="button" style="background:${c};color:${c}"></button>`
   ).join('');
   $('colorPicker').querySelectorAll('.color-btn').forEach(btn => {
     btn.onclick = () => {
-      selectedColor = btn.dataset.color;
+      state.selectedColor = btn.dataset.color;
       renderColorPicker();
     };
   });
@@ -2545,24 +1712,34 @@ async function saveCat() {
   const nameBn = $('catNameBn').value.trim();
   const description = $('catDesc').value.trim();
   if (!name) { showToast('ক্যাটাগরি নাম দিন', 'error'); $('catName').focus(); return; }
-  const data = { name, nameBn: nameBn || name, icon: selectedEmoji, color: selectedColor, description };
+  
+  const data = {
+    name,
+    nameBn: nameBn || name,
+    icon: state.selectedEmoji,
+    color: state.selectedColor,
+    description
+  };
+  
   const btn = $('saveCatBtn');
   btn.disabled = true;
   const orig = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span> সেভ...';
+  btn.innerHTML = '<span class="spinner"></span>';
   try {
-    if (editingCatId) {
-      data.id = editingCatId;
-      await apiPost({ action: 'updateCategory', data });
-      showToast('ক্যাটাগরি আপডেট হয়েছে', 'success');
+    if (state.editingCatId) {
+      data.id = state.editingCatId;
+      const r = await apiPost({ action: 'updateCategory', data });
+      if (r._offline) showToast('📡 পরে সিঙ্ক', 'warning');
+      else showToast('✅ আপডেট', 'success');
     } else {
-      await apiPost({ action: 'addCategory', data });
-      showToast('নতুন ক্যাটাগরি তৈরি ✅', 'success');
+      const r = await apiPost({ action: 'addCategory', data });
+      if (r._offline) showToast('📡 পরে সিঙ্ক', 'warning');
+      else showToast('✅ তৈরি', 'success');
     }
     closeCat();
-    if (isOnline) await syncData(false);
+    if (state.isOnline) await syncData(false);
   } catch (err) {
-    showToast('ব্যর্থ: ' + err.message, 'error');
+    showToast('❌ ' + err.message, 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = orig;
@@ -2570,29 +1747,31 @@ async function saveCat() {
 }
 
 async function deleteCat(id) {
-  const cat = categoriesData.find(c => c.id === id);
+  const cat = state.categories.find(c => c.id === id);
   if (!cat) return;
-  const productCount = productsData.filter(p => p.category === cat.name).length;
-  if (productCount > 0) {
-    if (!confirm(`এই ক্যাটাগরিতে ${productCount} টি পণ্য আছে। তবুও ডিলিট করবেন?`)) return;
-  } else {
-    if (!confirm(`"${cat.nameBn || cat.name}" ডিলিট করবেন?`)) return;
-  }
+  const count = state.products.filter(p => p.category === cat.name).length;
+  const msg = count > 0 
+    ? `এই ক্যাটাগরিতে ${count} টি পণ্য আছে। ডিলিট করবেন?` 
+    : `"${cat.nameBn || cat.name}" ডিলিট করবেন?`;
+  if (!confirm(msg)) return;
   try {
-    await apiPost({ action: 'deleteCategory', data: { id } });
-    showToast('ডিলিট হয়েছে', 'success');
-    if (isOnline) await syncData(false);
+    const r = await apiPost({ action: 'deleteCategory', data: { id } });
+    if (r._offline) showToast('📡 পরে সিঙ্ক', 'warning');
+    else showToast('🗑️ ডিলিট', 'success');
+    if (state.isOnline && !r._offline) await syncData(false);
   } catch (err) {
-    showToast('ব্যর্থ: ' + err.message, 'error');
+    showToast('❌ ' + err.message, 'error');
   }
 }
 
-/* ============ Sales List ============ */
+/* ==========================================================
+   SALES RENDER
+   ========================================================== */
 function renderSales() {
-  const dateFilter = $('salesFilterDate').value;
-  const searchFilter = $('salesSearch').value.toLowerCase().trim();
+  const dateFilter = $('salesFilterDate')?.value || '';
+  const searchFilter = ($('salesSearch')?.value || '').toLowerCase().trim();
 
-  filteredSales = salesData.filter(s => {
+  state.filteredSales = state.sales.filter(s => {
     if (dateFilter) {
       const d = new Date(s.soldAt);
       const fd = new Date(dateFilter);
@@ -2606,11 +1785,12 @@ function renderSales() {
   });
 
   const today = new Date().toDateString();
-  const todaySales = salesData.filter(s => new Date(s.soldAt).toDateString() === today);
+  const todaySales = state.sales.filter(s => new Date(s.soldAt).toDateString() === today);
+  
   $('statToday').textContent = fmtNum(todaySales.length);
   $('statTodayAmount').textContent = fmtCurrency(todaySales.reduce((s,x) => s + (x.totalPrice||0), 0));
   $('statTodayProfit').textContent = fmtCurrency(todaySales.reduce((s,x) => s + (x.profit||0), 0));
-  $('statTotalRevenue').textContent = fmtCurrency(salesData.reduce((s,x) => s + (x.totalPrice||0), 0));
+  $('statTotalRevenue').textContent = fmtCurrency(state.sales.reduce((s,x) => s + (x.totalPrice||0), 0));
 
   if (todaySales.length > 0) {
     $('salesBadge').textContent = todaySales.length;
@@ -2619,15 +1799,17 @@ function renderSales() {
     $('salesBadge').style.display = 'none';
   }
 
-  $('salesCount').textContent = `${filteredSales.length}/${salesData.length}`;
+  $('salesCount').textContent = `${state.filteredSales.length}/${state.sales.length}`;
+
   const list = $('salesList');
-  if (filteredSales.length === 0) {
+  if (state.filteredSales.length === 0) {
     list.innerHTML = `<div class="empty"><div class="empty-icon">🛒</div>
-      <div class="empty-title">এখনো কোনো বিক্রয় হয়নি</div>
-      <div class="empty-sub">পণ্য ট্যাব থেকে বিক্রি করুন</div></div>`;
+      <div class="empty-title">কোনো বিক্রয় নেই</div>
+      <div class="empty-sub">পণ্য থেকে বিক্রি করুন</div></div>`;
     return;
   }
-  list.innerHTML = filteredSales.map(s => {
+
+  list.innerHTML = state.filteredSales.map(s => {
     const d = new Date(s.soldAt);
     const dateStr = d.toLocaleString('bn-BD', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
     return `<div class="sale-card">
@@ -2645,9 +1827,7 @@ function renderSales() {
         <span class="sale-meta-item profit">💰 ${fmtCurrency(s.profit)}</span>
         <span class="sale-meta-item">🕐 ${dateStr}</span>
       </div>
-      ${s.customer ? `<div style="padding:8px 10px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--text-2);margin-bottom:8px">
-        👤 <strong style="color:var(--text)">${escapeHtml(s.customer)}</strong>${s.phone ? ' · ' + escapeHtml(s.phone) : ''}
-      </div>` : ''}
+      ${s.customer ? `<div style="padding:8px 10px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--text-2);margin-bottom:8px">👤 <strong style="color:var(--text)">${escapeHtml(s.customer)}</strong>${s.phone ? ' · ' + escapeHtml(s.phone) : ''}</div>` : ''}
       <div style="display:flex;justify-content:flex-end">
         <button class="btn btn-secondary btn-sm" onclick="deleteSale('${s.id}')" type="button">🗑️ বাতিল</button>
       </div>
@@ -2656,32 +1836,35 @@ function renderSales() {
 }
 
 async function deleteSale(id) {
-  if (!confirm('এই বিক্রয় বাতিল করবেন? স্টক ফিরে যাবে।')) return;
+  if (!confirm('বিক্রয় বাতিল করবেন? স্টক ফিরে যাবে।')) return;
   try {
-    await apiPost({ action: 'deleteSale', data: { id } });
-    showToast('বিক্রয় বাতিল', 'success');
-    if (isOnline) await syncData(false);
+    const r = await apiPost({ action: 'deleteSale', data: { id } });
+    if (r._offline) showToast('📡 পরে সিঙ্ক', 'warning');
+    else showToast('✅ বাতিল', 'success');
+    if (state.isOnline && !r._offline) await syncData(false);
   } catch (err) {
-    showToast('ব্যর্থ: ' + err.message, 'error');
+    showToast('❌ ' + err.message, 'error');
   }
 }
 
-/* ============ Analytics ============ */
+/* ==========================================================
+   ANALYTICS
+   ========================================================== */
 function renderAnalytics() {
   const now = new Date();
   const today = now.toDateString();
   const weekAgo = new Date(now.getTime() - 7 * 86400000);
   const monthAgo = new Date(now.getTime() - 30 * 86400000);
 
-  const todaySales = salesData.filter(s => new Date(s.soldAt).toDateString() === today);
-  const weekSales = salesData.filter(s => new Date(s.soldAt) >= weekAgo);
-  const monthSales = salesData.filter(s => new Date(s.soldAt) >= monthAgo);
+  const todaySales = state.sales.filter(s => new Date(s.soldAt).toDateString() === today);
+  const weekSales = state.sales.filter(s => new Date(s.soldAt) >= weekAgo);
+  const monthSales = state.sales.filter(s => new Date(s.soldAt) >= monthAgo);
 
   $('anTodayRevenue').textContent = fmtCurrency(todaySales.reduce((s,x) => s + (x.totalPrice||0), 0));
   $('anTodayProfit').textContent = fmtCurrency(todaySales.reduce((s,x) => s + (x.profit||0), 0));
   $('anWeekRevenue').textContent = fmtCurrency(weekSales.reduce((s,x) => s + (x.totalPrice||0), 0));
   $('anMonthRevenue').textContent = fmtCurrency(monthSales.reduce((s,x) => s + (x.totalPrice||0), 0));
-  $('anTotalProfit').textContent = fmtCurrency(salesData.reduce((s,x) => s + (x.profit||0), 0));
+  $('anTotalProfit').textContent = fmtCurrency(state.sales.reduce((s,x) => s + (x.profit||0), 0));
 
   // Weekly
   const dailyMap = {};
@@ -2689,7 +1872,7 @@ function renderAnalytics() {
     const d = new Date(now.getTime() - i * 86400000);
     dailyMap[d.toDateString()] = 0;
   }
-  salesData.forEach(s => {
+  state.sales.forEach(s => {
     const k = new Date(s.soldAt).toDateString();
     if (dailyMap.hasOwnProperty(k)) dailyMap[k] += (s.totalPrice || 0);
   });
@@ -2705,14 +1888,14 @@ function renderAnalytics() {
 
   // Top products
   const prodMap = {};
-  salesData.forEach(s => {
+  state.sales.forEach(s => {
     if (!prodMap[s.productName]) prodMap[s.productName] = { qty: 0, revenue: 0 };
     prodMap[s.productName].qty += s.quantity || 0;
     prodMap[s.productName].revenue += s.totalPrice || 0;
   });
   const topProducts = Object.entries(prodMap).sort((a,b) => b[1].revenue - a[1].revenue).slice(0, 5);
   if (topProducts.length === 0) {
-    $('topProducts').innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px">এখনো ডাটা নেই</div>';
+    $('topProducts').innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px">ডাটা নেই</div>';
   } else {
     $('topProducts').innerHTML = topProducts.map(([name, data], i) => {
       const rankCls = i === 0 ? 'gold' : (i === 1 ? 'silver' : (i === 2 ? 'bronze' : ''));
@@ -2729,17 +1912,17 @@ function renderAnalytics() {
 
   // Categories
   const catMap = {};
-  salesData.forEach(s => {
+  state.sales.forEach(s => {
     const k = s.category || 'Other';
     catMap[k] = (catMap[k] || 0) + (s.totalPrice || 0);
   });
   const maxCat = Math.max(...Object.values(catMap), 1);
   if (Object.keys(catMap).length === 0) {
-    $('catChart').innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px">এখনো ডাটা নেই</div>';
+    $('catChart').innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px">ডাটা নেই</div>';
   } else {
     $('catChart').innerHTML = Object.entries(catMap).sort((a,b) => b[1] - a[1]).map(([cat, amount]) => {
       const percent = (amount / maxCat) * 100;
-      const catInfo = categoriesData.find(c => c.name === cat);
+      const catInfo = state.categories.find(c => c.name === cat);
       const icon = catInfo ? catInfo.icon : '📦';
       const color = catInfo ? catInfo.color : '#3b82f6';
       return `<div class="bar-item">
@@ -2751,14 +1934,14 @@ function renderAnalytics() {
 
   // Payment
   const payMap = {};
-  salesData.forEach(s => {
+  state.sales.forEach(s => {
     const k = s.paymentMethod || 'Cash';
     payMap[k] = (payMap[k] || 0) + (s.totalPrice || 0);
   });
   const maxPay = Math.max(...Object.values(payMap), 1);
   const payColors = { 'Cash': 'g', 'bKash': 'p', 'Nagad': 'o', 'Rocket': '' };
   if (Object.keys(payMap).length === 0) {
-    $('paymentChart').innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px">এখনো ডাটা নেই</div>';
+    $('paymentChart').innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px">ডাটা নেই</div>';
   } else {
     $('paymentChart').innerHTML = Object.entries(payMap).map(([method, amount]) => {
       const percent = (amount / maxPay) * 100;
@@ -2771,12 +1954,12 @@ function renderAnalytics() {
   }
 
   // Low stock
-  const lowItems = productsData
+  const lowItems = state.products
     .filter(p => p.quantity <= (p.minStock || 5))
     .sort((a,b) => a.quantity - b.quantity)
     .slice(0, 6);
   if (lowItems.length === 0) {
-    $('lowStockList').innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px">সব স্টক ঠিক আছে ✅</div>';
+    $('lowStockList').innerHTML = '<div style="color:var(--text-3);font-size:13px;padding:10px">সব ঠিক আছে ✅</div>';
   } else {
     $('lowStockList').innerHTML = lowItems.map(p => {
       const isOut = p.quantity === 0;
@@ -2786,58 +1969,62 @@ function renderAnalytics() {
           <div class="top-name">${escapeHtml(p.name)}</div>
           <div class="top-sub">${escapeHtml(p.category)}</div>
         </div>
-        <div class="top-value" style="color:${isOut ? 'var(--danger)' : 'var(--warning)'}">${fmtNum(p.quantity)} পিস</div>
+        <div class="top-value" style="color:${isOut ? 'var(--danger)' : 'var(--warning)'}">${fmtNum(p.quantity)}</div>
       </div>`;
     }).join('');
   }
 }
 
-/* ============ Search ============ */
+/* ==========================================================
+   SEARCH
+   ========================================================== */
 const searchInput = $('liveSearch');
 const liveResults = $('liveResults');
 const searchClear = $('searchClear');
-let searchTimer = null;
+
+const doLiveSearch = debounce(() => {
+  const q = state.currentSearch;
+  renderProductList();
+  if (!q) { liveResults.classList.remove('show'); return; }
+  
+  const scored = state.products.map(p => {
+    const scores = [
+      fuzzyScore(p.name, q),
+      fuzzyScore(p.brand || '', q) * 0.7,
+      fuzzyScore(p.model || '', q) * 0.8,
+      fuzzyScore(p.category, q) * 0.6
+    ];
+    return { item: p, score: Math.max(...scores) };
+  }).filter(s => s.score > 0)
+    .sort((a,b) => b.score - a.score)
+    .slice(0, 8);
+  
+  if (scored.length === 0) {
+    liveResults.innerHTML = `<div class="live-item" style="cursor:default;padding:20px 14px">
+      <div class="info"><div class="name" style="color:var(--text-3)">কিছু পাওয়া যায়নি</div></div>
+    </div>`;
+  } else {
+    liveResults.innerHTML = scored.map(({item: p}) => {
+      let cls = 'g';
+      if (p.quantity === 0) cls = 'r';
+      else if (p.quantity <= (p.minStock || 5)) cls = 'o';
+      const cat = state.categories.find(c => c.name === p.category);
+      return `<div class="live-item" onclick="pickLive('${p.id}')">
+        <div class="info">
+          <div class="name">${highlight(p.name, state.currentSearch)}</div>
+          <div class="sub">${cat ? cat.icon + ' ' + escapeHtml(cat.nameBn || cat.name) : ''} · ${escapeHtml(p.brand || '')}</div>
+        </div>
+        <span class="pill ${cls}">${fmtNum(p.quantity)}</span>
+      </div>`;
+    }).join('');
+  }
+  liveResults.classList.add('show');
+}, 120);
 
 searchInput.addEventListener('input', () => {
-  clearTimeout(searchTimer);
-  const q = searchInput.value.toLowerCase().trim();
-  currentSearch = q;
-  searchClear.classList.toggle('show', !!q);
-  searchTimer = setTimeout(() => {
-    renderProductList();
-    if (!q) { liveResults.classList.remove('show'); return; }
-    const scored = productsData.map(p => {
-      const scores = [
-        fuzzyScore(p.name, q),
-        fuzzyScore(p.brand || '', q) * 0.7,
-        fuzzyScore(p.model || '', q) * 0.8,
-        fuzzyScore(p.category, q) * 0.6
-      ];
-      return { item: p, score: Math.max(...scores) };
-    }).filter(s => s.score > 0)
-      .sort((a,b) => b.score - a.score)
-      .slice(0, 8);
-    if (scored.length === 0) {
-      liveResults.innerHTML = `<div class="live-item" style="cursor:default;padding:20px 14px">
-        <div class="info"><div class="name" style="color:var(--text-3)">কিছু পাওয়া যায়নি</div></div>
-      </div>`;
-    } else {
-      liveResults.innerHTML = scored.map(({item: p}) => {
-        let cls = 'g';
-        if (p.quantity === 0) cls = 'r';
-        else if (p.quantity <= (p.minStock || 5)) cls = 'o';
-        const cat = categoriesData.find(c => c.name === p.category);
-        return `<div class="live-item" onclick="pickLive('${p.id}')">
-          <div class="info">
-            <div class="name">${highlight(p.name, currentSearch)}</div>
-            <div class="sub">${cat ? cat.icon + ' ' + escapeHtml(cat.nameBn || cat.name) : ''} · ${escapeHtml(p.brand || '')}</div>
-          </div>
-          <span class="pill ${cls}">${fmtNum(p.quantity)}</span>
-        </div>`;
-      }).join('');
-    }
-    liveResults.classList.add('show');
-  }, 100);
+  state.currentSearch = searchInput.value.toLowerCase().trim();
+  searchClear.classList.toggle('show', !!state.currentSearch);
+  doLiveSearch();
 });
 
 searchInput.addEventListener('keydown', e => {
@@ -2850,7 +2037,7 @@ searchInput.addEventListener('keydown', e => {
 
 searchClear.onclick = () => {
   searchInput.value = '';
-  currentSearch = '';
+  state.currentSearch = '';
   searchClear.classList.remove('show');
   liveResults.classList.remove('show');
   renderProductList();
@@ -2858,7 +2045,7 @@ searchClear.onclick = () => {
 };
 
 function pickLive(id) {
-  const item = productsData.find(p => p.id === id);
+  const item = state.products.find(p => p.id === id);
   if (!item) return;
   liveResults.classList.remove('show');
   searchInput.blur();
@@ -2870,7 +2057,9 @@ document.addEventListener('click', e => {
   if (!e.target.closest('.search-hero')) liveResults.classList.remove('show');
 });
 
-/* ============ Voice ============ */
+/* ==========================================================
+   VOICE
+   ========================================================== */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 const voiceBtn = $('voiceBtn');
 const voiceOverlay = $('voiceOverlay');
@@ -2895,7 +2084,7 @@ function normalizeVoice(text) {
   };
   let result = text;
   Object.keys(map).sort((a,b) => b.length - a.length).forEach(k => {
-    result = result.replace(new RegExp(k, 'gi'), map[k]);
+    try { result = result.replace(new RegExp(k, 'gi'), map[k]); } catch(e) {}
   });
   return result;
 }
@@ -2924,7 +2113,7 @@ function startVoice() {
     if (e.results[0].isFinal) { finalText = txt.trim(); voiceHint.textContent = 'প্রসেস হচ্ছে...'; }
   };
   rec.onerror = e => {
-    if (e.error !== 'no-speech' && e.error !== 'aborted') showToast('ভয়েস সমস্যা: ' + e.error, 'error');
+    if (e.error !== 'no-speech' && e.error !== 'aborted') showToast('ভয়েস সমস্যা', 'error');
   };
   rec.onend = () => {
     voiceBtn.classList.remove('listening');
@@ -2934,7 +2123,7 @@ function startVoice() {
     if (finalText) {
       const normalized = normalizeVoice(finalText);
       let best = null, bestScore = 0;
-      productsData.forEach(p => {
+      state.products.forEach(p => {
         const sc = Math.max(
           fuzzyScore(p.name, normalized),
           fuzzyScore(p.name, finalText),
@@ -2945,15 +2134,15 @@ function startVoice() {
       });
       if (best && bestScore > 200) {
         searchInput.value = best.name;
-        currentSearch = best.name.toLowerCase();
+        state.currentSearch = best.name.toLowerCase();
         searchClear.classList.add('show');
         renderProductList();
-        showToast(`পাওয়া গেছে: ${best.name}`, 'success');
+        showToast(`পাওয়া: ${best.name}`, 'success');
         if (best.quantity > 0) setTimeout(() => openSell(best.id), 400);
         else setTimeout(() => showToast('❌ স্টকে নেই', 'error'), 500);
       } else {
         searchInput.value = normalized;
-        currentSearch = normalized.toLowerCase();
+        state.currentSearch = normalized.toLowerCase();
         searchClear.classList.add('show');
         renderProductList();
       }
@@ -2963,7 +2152,9 @@ function startVoice() {
 }
 voiceBtn.onclick = startVoice;
 
-/* ============ Image OCR ============ */
+/* ==========================================================
+   IMAGE OCR
+   ========================================================== */
 function closeImage() {
   $('imageModal').classList.remove('show');
   $('imageWrap').style.display = 'none';
@@ -2991,7 +2182,7 @@ $('imageInput').onchange = async e => {
   };
   reader.readAsDataURL(file);
   $('ocrStatus').style.display = 'flex';
-  $('ocrStatus').innerHTML = '<div class="spinner"></div><div>OCR ইঞ্জিন লোড হচ্ছে...</div>';
+  $('ocrStatus').innerHTML = '<div class="spinner"></div><div>OCR লোড হচ্ছে...</div>';
   try {
     if (!window.Tesseract) {
       await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js');
@@ -3008,7 +2199,7 @@ $('imageInput').onchange = async e => {
     $('imageWrap').classList.remove('scanning');
     const clean = text.toUpperCase().replace(/[^A-Z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
     let best = null, bestScore = 0;
-    productsData.forEach(p => {
+    state.products.forEach(p => {
       const nameUpper = p.name.toUpperCase();
       if (clean.includes(nameUpper)) { best = p; bestScore = 1000; return; }
       const words = nameUpper.split(/\s+/).filter(w => w.length > 1);
@@ -3020,10 +2211,10 @@ $('imageInput').onchange = async e => {
     if (best && bestScore > 100) {
       $('ocrStatus').innerHTML = `<div style="color:var(--success);font-weight:700">✅ পাওয়া গেছে (${conf}%)</div>`;
       searchInput.value = best.name;
-      currentSearch = best.name.toLowerCase();
+      state.currentSearch = best.name.toLowerCase();
       searchClear.classList.add('show');
       renderProductList();
-      showToast(`পাওয়া গেছে: ${best.name}`, 'success');
+      showToast(`পাওয়া: ${best.name}`, 'success');
       setTimeout(() => {
         closeImage();
         if (best.quantity > 0) openSell(best.id);
@@ -3031,15 +2222,15 @@ $('imageInput').onchange = async e => {
       }, 1200);
     } else {
       const preview = text.trim().split('\n')[0].slice(0, 40);
-      $('ocrStatus').innerHTML = `<div style="color:var(--warning)">⚠️ মডেল পড়া যায়নি</div>`;
+      $('ocrStatus').innerHTML = `<div style="color:var(--warning)">⚠️ পড়া যায়নি</div>`;
       searchInput.value = preview;
-      currentSearch = preview.toLowerCase();
+      state.currentSearch = preview.toLowerCase();
       searchClear.classList.add('show');
       renderProductList();
     }
   } catch (err) {
     $('imageWrap').classList.remove('scanning');
-    $('ocrStatus').innerHTML = `<div style="color:var(--danger)">❌ ব্যর্থ: ${escapeHtml(err.message)}</div>`;
+    $('ocrStatus').innerHTML = `<div style="color:var(--danger)">❌ ${escapeHtml(err.message)}</div>`;
   }
 };
 
@@ -3051,27 +2242,29 @@ function loadScript(src) {
   });
 }
 
-/* ============ CSV ============ */
+/* ==========================================================
+   CSV
+   ========================================================== */
 $('exportBtn').onclick = () => {
-  if (filteredProducts.length === 0) { showToast('ডাটা নেই', 'warning'); return; }
+  if (state.filteredProducts.length === 0) { showToast('ডাটা নেই', 'warning'); return; }
   const headers = ['Name','Category','Brand','Model','Quantity','BuyPrice','SellPrice','Profit','MinStock','Supplier'];
-  const rows = filteredProducts.map(p => [
+  const rows = state.filteredProducts.map(p => [
     p.name, p.category, p.brand, p.model, p.quantity, p.buyPrice, p.sellPrice,
     (p.sellPrice||0) - (p.buyPrice||0), p.minStock || 5, p.supplier || ''
   ]);
   downloadCSV([headers, ...rows], `products-${new Date().toISOString().slice(0,10)}.csv`);
-  showToast('CSV ডাউনলোড হয়েছে', 'success');
+  showToast('✅ CSV ডাউনলোড', 'success');
 };
 
 $('salesExportBtn').onclick = () => {
-  if (filteredSales.length === 0) { showToast('ডাটা নেই', 'warning'); return; }
+  if (state.filteredSales.length === 0) { showToast('ডাটা নেই', 'warning'); return; }
   const headers = ['SaleID','Product','Category','Quantity','UnitPrice','Total','Profit','Customer','Phone','Payment','SoldAt'];
-  const rows = filteredSales.map(s => [
+  const rows = state.filteredSales.map(s => [
     s.id, s.productName, s.category, s.quantity, s.unitPrice, s.totalPrice,
     s.profit, s.customer || '', s.phone || '', s.paymentMethod || '', s.soldAt || ''
   ]);
   downloadCSV([headers, ...rows], `sales-${new Date().toISOString().slice(0,10)}.csv`);
-  showToast('CSV ডাউনলোড হয়েছে', 'success');
+  showToast('✅ CSV ডাউনলোড', 'success');
 };
 
 function downloadCSV(rows, filename) {
@@ -3085,13 +2278,15 @@ function downloadCSV(rows, filename) {
   URL.revokeObjectURL(url);
 }
 
-/* ============ Tabs ============ */
+/* ==========================================================
+   TABS
+   ========================================================== */
 document.querySelectorAll('.tab').forEach(tab => {
   tab.onclick = () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     const name = tab.dataset.tab;
-    currentTab = name;
+    state.currentTab = name;
     $('tabProducts').style.display = name === 'products' ? 'block' : 'none';
     $('tabCategories').style.display = name === 'categories' ? 'block' : 'none';
     $('tabSales').style.display = name === 'sales' ? 'block' : 'none';
@@ -3106,7 +2301,7 @@ document.querySelectorAll('.sort-btn').forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    currentSort = btn.dataset.sort;
+    state.currentSort = btn.dataset.sort;
     renderProductList();
   };
 });
@@ -3115,13 +2310,15 @@ document.querySelectorAll('.pay-opt').forEach(opt => {
   opt.onclick = () => {
     document.querySelectorAll('.pay-opt').forEach(p => p.classList.remove('active'));
     opt.classList.add('active');
-    currentPayment = opt.dataset.pay;
+    state.currentPayment = opt.dataset.pay;
   };
 });
 
-/* ============ FAB ============ */
+/* ==========================================================
+   FAB
+   ========================================================== */
 $('fabBtn').onclick = () => {
-  if (currentTab !== 'products') document.querySelector('[data-tab="products"]').click();
+  if (state.currentTab !== 'products') document.querySelector('[data-tab="products"]').click();
   setTimeout(() => {
     $('fName').focus();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3137,7 +2334,9 @@ window.addEventListener('scroll', () => {
   lastY = y;
 }, { passive: true });
 
-/* ============ Keyboard ============ */
+/* ==========================================================
+   KEYBOARD
+   ========================================================== */
 document.addEventListener('keydown', e => {
   if (e.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) {
     e.preventDefault();
@@ -3149,7 +2348,9 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* ============ Bindings ============ */
+/* ==========================================================
+   BINDINGS
+   ========================================================== */
 $('addBtn').onclick = addProduct;
 $('clearBtn').onclick = clearProductForm;
 $('refreshBtn').onclick = () => syncData(true);
@@ -3161,9 +2362,9 @@ $('addCatBtn').onclick = openNewCat;
 $('syncStatus').onclick = () => syncData(true);
 $('filterBrand').onchange = renderProductList;
 $('filterStock').onchange = renderProductList;
-$('filterSearch').oninput = renderProductList;
+$('filterSearch').oninput = debounce(renderProductList, 150);
 $('salesFilterDate').onchange = renderSales;
-$('salesSearch').oninput = renderSales;
+$('salesSearch').oninput = debounce(renderSales, 150);
 $('salesClearFilter').onclick = () => {
   $('salesFilterDate').value = '';
   $('salesSearch').value = '';
@@ -3206,21 +2407,49 @@ window.deleteSale = deleteSale;
 window.openEditCat = openEditCat;
 window.deleteCat = deleteCat;
 
-/* ============ Init ============ */
+/* ==========================================================
+   AUTO SYNC
+   ========================================================== */
+function startAutoSync() {
+  if (state.syncTimer) clearInterval(state.syncTimer);
+  state.syncTimer = setInterval(() => {
+    if (!document.hidden && state.isOnline) syncData(false);
+  }, CONFIG.SYNC_INTERVAL);
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && state.isOnline) {
+    syncData(false);
+  }
+});
+
+/* ==========================================================
+   INIT
+   ========================================================== */
 (async function init() {
   updateNetworkBanner();
   setSync('syncing', 'কানেক্ট...');
-  // Load from cache first for instant UI
-  if (loadCache()) renderAll();
-  // Then fetch fresh
+  
+  // Instant UI from cache
+  if (loadCache()) {
+    renderAll();
+  }
+  
+  // Fresh data
   await syncData(true);
+  
   startAutoSync();
-  setInterval(() => { if (!document.hidden && isOnline) syncData(false); }, SYNC_INTERVAL);
-  // Try flushing offline queue
-  if (isOnline) flushQueue();
-  setTimeout(() => $('fName').focus(), 400);
+  
+  // Flush offline queue if online
+  if (state.isOnline) flushQueue();
+  
+  setTimeout(() => {
+    const f = $('fName');
+    if (f && !f.value) f.focus();
+  }, 400);
 })();
 </script>
 
 </body>
 </html>
+  
